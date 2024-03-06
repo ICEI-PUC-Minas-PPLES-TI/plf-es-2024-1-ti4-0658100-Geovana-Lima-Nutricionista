@@ -1,4 +1,4 @@
-# Geovana Lima-Nutricionista
+# Geovana Lima - Nutricionista
 
 No contexto da saúde e bem-estar, a gestão eficiente de pacientes e consultas é uma necessidade primordial para profissionais da área da nutrição. Com o crescente número de pacientes e a demanda por atendimento personalizado, surge a necessidade de sistemas que possam otimizar e simplificar esse processo. 
 
