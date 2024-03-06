@@ -1,18 +1,22 @@
-# [Nome do projeto]
+# [Geovana Lima-Nutricionista]
 
-[Escreva um ou dois  parágrafo resumindo o objetivo do seu projeto.]
+[No contexto da saúde e bem-estar, a gestão eficiente de pacientes e consultas é uma necessidade primordial para profissionais da área da nutrição. Com o crescente número de pacientes e a demanda por atendimento personalizado, surge a necessidade de sistemas que possam otimizar e simplificar esse processo. 
+Nosso objetivo é criar um sistema com mecanismos de gestão de pacientes, com o intuito de possibilitar à nutricionista uma forma otimizada e automatizada em gerenciar informações, realizar agendamentos, definir data de retorno do paciente, além de poder visualizar o progresso nutricional do mesmo.]
 
 ## Alunos integrantes da equipe
 
-* [Nome completo do aluno 1]
-* [Nome completo do aluno 2]
-* [Nome completo do aluno 3]
-* [Nome completo do aluno 4]
+* [Ana Luiza Santos Gomes]
+* [Bernardo Cavanellas Biondini]
+* [Bruna Barbosa Portilho Bernardes]
+* [Pablo Guilherme Amancio Pereira Magela Benevenuto]
+* [Tiago Vitor Pereira Saraiva]
+* [Walter Roberto Rodrigues Louback]
 
 ## Professores responsáveis
 
-* [Nome completo do professor 1]
-* [Nome completo do professor 2]
+* [Joana Gabriela Ribeiro de Souza]
+* [Joyce Christina de Paiva Carvalho]
+* [Soraia Lúcia da Silva]
 
 ## Instruções de utilização
 
