@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Lexend:wght@100..900&family=Philosopher:wght@700&family=Poppins:wght@500;600&display=swap');
+
 .sideBar {
     color: #fff;
 }
@@ -38,4 +40,16 @@
 }
 .toggle{
     margin-left: 15px;
+}
+*{
+    font-family: Lexend;
+}
+
+.header-icon{
+    background-color: '#CB6CE';
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 15px;
+    color: '#CB6CE';
+    cursor: pointer;
 }
