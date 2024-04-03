@@ -10,22 +10,23 @@ import '../index.css';
 import { IconBaseProps } from 'react-icons';
 
 export const PatientsList = () => {
-    interface Patient {
-        name: string;
-        email: string;
-        birthDate: string;
-        occupation: string;
-        goal: string;
-        zip: string;
-        state: string;
-        city: string;
-        district: string;
-        street: string;
-        country: string;
-        icon: React.FunctionComponentElement<IconBaseProps>;
-    }
+    const items: Patient[] = [];
 
-    const items: Patient[] = PatientData;
+    useEffect(() => {
+        const loadPatients = async () => {
+            const { data, error } = await getPatients();
+
+            if (data) {
+                items.push(...data);
+            }
+
+            if (error) {
+                console.log(error);
+            }
+        }
+
+        loadPatients();
+    } )
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editedPatient, setEditedPatient] = useState<Patient | null>(null);
@@ -93,6 +94,7 @@ export const PatientsList = () => {
                     onSubmit={handleEditSubmit}
                 />
             </div>
-        </SiderComponent>
+        </SiderComponent>      
+
     )
 }
