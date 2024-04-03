@@ -12,7 +12,7 @@ export const CreatePatient = () => {
       birthDate: values.birthDate,
       occupation: values.occupation,
       goal: values.goal,
-      adress: {
+      address: {
         zip: values.zip,
         state: values.state,
         city: values.city,

@@ -1,14 +1,33 @@
 import '../index.css'
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 import iconeNutri from '../assets/nutricionista-maria-fernanda_heroshot-receitas_01.png';
+import { login } from '../services/auth.service';
+import { useNavigate } from 'react-router';
 
 const Login = () => {
+    const navigate = useNavigate();
 
-    const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
+    const onFinish = async (values: {username: string; password: string}) => {
+        const userData = {
+            email: values.username,
+            password: values.password,
+        }
+
+        const {data, error} = await login(userData);
+
+        if (data) {
+            notification.success({
+                message: "Login efetuado com sucesso!",
+            })
+            navigate("/check-patient");
+        }
+
+        if (error) {
+            notification.error({
+                message: "Usuário ou senha inválidos!",
+            });
+        }
     };
     return (
         <div className="login-Container">

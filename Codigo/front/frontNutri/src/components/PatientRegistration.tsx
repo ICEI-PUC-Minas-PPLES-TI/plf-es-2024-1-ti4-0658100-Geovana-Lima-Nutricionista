@@ -41,7 +41,7 @@ interface PatientRegistrationProps {
     birthDate: string;
     occupation: string;
     goal: string;
-    adress: {
+    address: {
       zip: string;
       state: string;
       city: string;
@@ -141,7 +141,7 @@ const PatientRegistration: React.FC<PatientRegistrationProps> = ({
                 birthDate: "",
                 occupation: "",
                 goal: "",
-                adress: {
+                address: {
                   zip: "",
                   state: "",
                   city: "",

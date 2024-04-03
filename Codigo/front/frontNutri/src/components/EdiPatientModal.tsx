@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, message } from 'antd';
 import { PatientFormModal } from './PatientFormModal';
+import { Patient } from '../interfaces/patient';
 
 interface EditPatientModalProps {
   visible: boolean;
   onCancel: () => void;
   onSubmit: (values: any) => void;
-  editedPatient: any; // Certifique-se de que esta prop esteja sendo passada corretamente
+  editedPatient: Patient; // Certifique-se de que esta prop esteja sendo passada corretamente
 }
 
 const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, onCancel, onSubmit, editedPatient }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [currentEditedPatient, setCurrentEditedPatient] = useState<any>(null);
+  const [currentEditedPatient, setCurrentEditedPatient] = useState<Patient>(editedPatient);
   const [messageApi] = message.useMessage();
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, onCancel, 
       ]}
     >
       <PatientFormModal
-        initialValues={currentEditedPatient} 
+        initialValues={editedPatient} 
         onSubmit={onSubmit}
         onCancel={onCancel}
         isInModal={true}
