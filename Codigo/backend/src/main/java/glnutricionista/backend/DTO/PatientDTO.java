@@ -26,6 +26,7 @@ public class PatientDTO {
   private String goal;
 
   @Valid
+  @NotBlank(message = "The address is required.")
   @NotNull(message = "The address is required.")
   private AddressDTO address;
 
