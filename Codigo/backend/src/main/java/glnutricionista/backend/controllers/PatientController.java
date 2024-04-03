@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 import glnutricionista.backend.services.PatientService;
 
 @RestController
-@RequestMapping(value = "/api/patient")
+@RequestMapping(value = "/patient")
 public class PatientController {
 
   @Autowired

@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, List, Popover, Button} from 'antd';
 import { EditOutlined } from '@ant-design/icons'; // Importar o ícone de edição
 import { IconBaseProps } from '@ant-design/icons/lib/components/Icon';
 import Meta from 'antd/es/card/Meta';
 import PatientData from './Mock';
+import UserOutlined from '@ant-design/icons/UserOutlined';
 import EditPatientModal from './EdiPatientModal';
+import { Patient } from '../interfaces/patient';
+import { getPatients } from '../services/patient.service';
 
 export const PatientsList = () => {
-    interface Patient {
-        name: string;
-        email: string;
-        birthDate: string;
-        occupation: string;
-        goal: string;
-        zip: string;
-        state: string;
-        city: string;
-        district: string;
-        street: string;
-        country: string;
-        icon: React.FunctionComponentElement<IconBaseProps>;
-    }
+    const items: Patient[] = [];
 
-    const items: Patient[] = PatientData;
+    useEffect(() => {
+        const loadPatients = async () => {
+            const { data, error } = await getPatients();
+
+            if (data) {
+                items.push(...data);
+            }
+
+            if (error) {
+                console.log(error);
+            }
+        }
+
+        loadPatients();
+    } )
 
     // Estado para controlar se o modal de edição está visível ou não
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -79,7 +83,7 @@ export const PatientsList = () => {
                             ]}
                         >
                             <Meta
-                                avatar={patient.icon}
+                                avatar={<UserOutlined />}
                                 title={patient.name}
                                 description={patient.goal}
                             />
