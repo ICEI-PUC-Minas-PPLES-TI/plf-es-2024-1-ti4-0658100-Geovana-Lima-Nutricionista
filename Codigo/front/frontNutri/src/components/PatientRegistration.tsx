@@ -13,6 +13,7 @@ import { PatientFormRegister } from "./PatientFormRegister";
 import PatientData from "./Mock";
 import SiderComponent from "./SiderComponent";
 
+
 const { Option } = Select;
 
 interface Estado {
@@ -88,11 +89,9 @@ const PatientRegistration: React.FC<PatientRegistrationProps> = ({
       },
     };
     const { data, error } = await createPatient(patientData);
-
     if (data) {
       console.log(data);
     }
-
     if (error) {
       console.log(error);
     }
