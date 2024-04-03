@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Layout, Button } from 'antd';
 import { Logo } from './Logo';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-const { Header, Sider } = Layout;
 import '../index.css';
 import { MenuList } from './MenuList';
 
+const { Header, Sider, Content } = Layout;
+interface SiderComponentProps {
+  children: ReactNode;
+}
 
-
-function SiderComponent() {
+function SiderComponent({ children }: SiderComponentProps) {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
@@ -33,6 +35,9 @@ function SiderComponent() {
               } 
             />
           </Header>
+          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+          {children}
+        </Content>
         </Layout>
       </Layout>
   )

@@ -8,6 +8,7 @@
     align-items: center;
     justify-content: center;
     color: #fff;
+    background-color: #cb6cec;
     padding: 10px;
 }
 .logo-icon {
@@ -66,6 +67,7 @@
 }
 .itemCard{
     margin: 8px;
+    
 }
 
 .button{
@@ -76,5 +78,15 @@
     background-color: #F4EFEC;
 }
 .layout{
-    background-color: #cb6cec;
+    position: fixed;
+}
+.patientList{
+    background-color: #F4EFEC;
+}
+body {
+    background-color: #F4EFEC;
+    font-family: 'Lexend', sans-serif; /* Definindo a fonte para todo o corpo do site */
+}
+.meta {
+    background-color: #F4EFEC;
 }
