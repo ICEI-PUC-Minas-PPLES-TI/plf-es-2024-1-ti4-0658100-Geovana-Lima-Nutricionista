@@ -1,19 +1,31 @@
 import { useState } from 'react';
 import  SiderComponent from './components/SiderComponent';
-import { RoutesApplication } from './Routes';
+import { RoutesComponent } from './Routes';
 import PatientRegistration from './components/PatientRegistration';
-import Login from '../src/components/Login/Login';
-
+import { PatientsList } from './components/PatientsList';
 function App() {
   return (
-    <div>
-      <div>
-        <PatientRegistration />
-      </div>
-      <div>
-        <Login />
-      </div>
-    </div>
+    
+      <PatientRegistration initialValues={{
+      name: '',
+      email: '',
+      birthDate: '',
+      occupation: '',
+      goal: '',
+      adress: {
+        zip: '',
+        state: '',
+        city: '',
+        district: '',
+        street: '',
+        country: ''
+      }
+    }} onSubmit={function (values: any): void {
+      throw new Error('Function not implemented.');
+    } } onCancel={function (): void {
+      throw new Error('Function not implemented.');
+    } } />
+  
   );
 }
 

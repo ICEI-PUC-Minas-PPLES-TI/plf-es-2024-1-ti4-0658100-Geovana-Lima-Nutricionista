@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Lexend:wght@100..900&family=Philosopher:wght@700&family=Poppins:wght@500;600&display=swap');
 
 .sideBar {
-    color: #fff;
+    background-color: #cb6cec;
 }
 .logo {
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
+    background-color: #cb6cec;
     padding: 10px;
 }
 .logo-icon {
@@ -28,6 +29,7 @@
     gap: 15px;
     font-size: 1rem;
     position: relative;
+    background-color: #cb6cec;
 }
 .toggle-theme-btn{
     position: absolute;
@@ -40,16 +42,51 @@
 }
 .toggle{
     margin-left: 15px;
+    background-color: #F4EFEC;
 }
 *{
     font-family: Lexend;
 }
 
 .header-icon{
-    background-color: '#CB6CE';
+    background-color: #cb6cec;
     padding: 8px;
     border-radius: 4px;
     font-size: 15px;
-    color: '#CB6CE';
+    color: #cb6cec;
     cursor: pointer;
+}
+
+.title{
+    color: '#807A7A';
+}
+
+.itemCardImage{
+    height: 150px !important;
+    object-fit: scale-down;
+}
+.itemCard{
+    margin: 8px;
+    
+}
+
+.button{
+    background-color: #cb6cec;
+}
+
+.header{
+    background-color: #F4EFEC;
+}
+.layout{
+    position: fixed;
+}
+.patientList{
+    background-color: #F4EFEC;
+}
+body {
+    background-color: #F4EFEC;
+    font-family: 'Lexend', sans-serif; /* Definindo a fonte para todo o corpo do site */
+}
+.meta {
+    background-color: #F4EFEC;
 }

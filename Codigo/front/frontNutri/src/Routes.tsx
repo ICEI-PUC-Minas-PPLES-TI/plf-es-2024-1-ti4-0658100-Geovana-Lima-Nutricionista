@@ -1,19 +1,31 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import  PatientRegistration  from './components/PatientRegistration';
-import  Login  from './components/Login/Login';
+import {  Route, Routes } from 'react-router-dom';
+import PatientRegistration from './components/PatientRegistration'; 
+import { PatientsList } from './components/PatientsList';
 
-export const RoutesApplication = () => {
-    return (
-        <Routes>
+export const RoutesComponent = () => (
+    <Routes>
+        <Route path="/add-new-patient" element={<PatientRegistration initialValues={{
+                name: '',
+                email: '',
+                birthDate: '',
+                occupation: '',
+                goal: '',
+                adress: {
+                    zip: '',
+                    state: '',
+                    city: '',
+                    district: '',
+                    street: '',
+                    country: ''
+                }
+               
+            }} onSubmit={function (_values: any): void {
+                throw new Error('Function not implemented.');
+            } } onCancel={function (): void {
+                throw new Error('Function not implemented.');
+            } } />} />
+         <Route path="/check-patient" element={<PatientsList />} />
+    </Routes>
+  );
 
-                <Route path="/login" element={<Login />} />
-                <Route path="/add-new-patient" element={<PatientRegistration />} />
-                <Route path="/check-patient" element={<div>"teste"</div>} />
-                <Route path="/profile" element={<div>"profile"</div>} />
-                <Route path="/add-new-event" element={<div>"add-new-event"</div>} />
-                <Route path="/check-schedule" element={<div>"check-schedule"</div>} />
-                <Route path="/home" element={<div>"home"</div>} />
-        </Routes>
-    );
-};
+
