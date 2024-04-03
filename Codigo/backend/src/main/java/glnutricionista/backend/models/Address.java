@@ -1,4 +1,4 @@
-package glnutricionista.backend.Models;
+package glnutricionista.backend.models;
 
 import java.io.Serializable;
 

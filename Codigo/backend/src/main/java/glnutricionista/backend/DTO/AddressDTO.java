@@ -1,6 +1,6 @@
 package glnutricionista.backend.DTO;
 
-import glnutricionista.backend.Models.Address;
+import glnutricionista.backend.models.Address;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Pattern.Flag;
