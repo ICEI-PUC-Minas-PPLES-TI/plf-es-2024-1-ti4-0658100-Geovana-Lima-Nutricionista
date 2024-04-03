@@ -90,3 +90,11 @@ body {
 .meta {
     background-color: #F4EFEC;
 }
+
+
+#components-form-demo-normal-login .login-form {
+    max-width: 300px;
+  }
+  #components-form-demo-normal-login .login-form-button {
+    width: 100%;
+  }

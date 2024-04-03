@@ -1,6 +1,7 @@
 import {  Route, Routes } from 'react-router-dom';
 import PatientRegistration from './components/PatientRegistration'; 
 import { PatientsList } from './components/PatientsList';
+import Login from './components/Login';
 
 export const RoutesComponent = () => (
     <Routes>
@@ -25,6 +26,7 @@ export const RoutesComponent = () => (
                 throw new Error('Function not implemented.');
             } } />} />
          <Route path="/check-patient" element={<PatientsList />} />
+         <Route path="/login" element={<Login />} />
     </Routes>
   );
 
