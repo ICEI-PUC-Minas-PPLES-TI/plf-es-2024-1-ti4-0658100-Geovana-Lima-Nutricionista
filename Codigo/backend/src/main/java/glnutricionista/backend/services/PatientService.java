@@ -1,13 +1,13 @@
-package glnutricionista.backend.Services;
+package glnutricionista.backend.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import glnutricionista.backend.Models.Address;
-import glnutricionista.backend.Models.Patient;
-import glnutricionista.backend.Repositories.AddressRepository;
-import glnutricionista.backend.Repositories.PatientRepository;
+import glnutricionista.backend.models.Address;
+import glnutricionista.backend.models.Patient;
+import glnutricionista.backend.repositories.AddressRepository;
+import glnutricionista.backend.repositories.PatientRepository;
 
 @Service
 public class PatientService {
@@ -19,6 +19,7 @@ public class PatientService {
   private AddressRepository addressRepository;
 
   public Patient createPatient(Patient patient) {
+
     Address address = patient.getAddress();
     patient.setAddress(addressRepository.save(address));
     
@@ -34,6 +35,7 @@ public class PatientService {
   }
 
   public Patient updatePatient(Long id, Patient patient) {
+
     Address oldAddress = this.getPatient(id).getAddress();
     Address newAddress = patient.getAddress();
     newAddress.setId(oldAddress.getId());

@@ -1,4 +1,4 @@
-package glnutricionista.backend.Controllers;
+package glnutricionista.backend.controllers;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import glnutricionista.backend.DTO.PatientDTO;
-import glnutricionista.backend.Models.Patient;
+import glnutricionista.backend.models.Patient;
 import jakarta.validation.Valid;
-import glnutricionista.backend.Services.PatientService;
+import glnutricionista.backend.services.PatientService;
 
 @RestController
 @RequestMapping(value = "/patient")

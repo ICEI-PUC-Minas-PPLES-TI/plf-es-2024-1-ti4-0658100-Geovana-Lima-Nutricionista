@@ -1,4 +1,4 @@
-package glnutricionista.backend.Models;
+package glnutricionista.backend.models;
 
 import java.io.Serializable;
 
@@ -11,9 +11,11 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.experimental.Accessors;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@Accessors(chain = true)
 @Table(name = "patient")
 public class Patient implements Serializable {
 
