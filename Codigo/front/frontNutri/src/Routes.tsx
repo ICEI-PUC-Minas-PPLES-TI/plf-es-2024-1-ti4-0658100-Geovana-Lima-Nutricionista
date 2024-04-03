@@ -10,12 +10,14 @@ export const RoutesComponent = () => (
                 birthDate: '',
                 occupation: '',
                 goal: '',
-                zip: '',
-                state: '',
-                city: '',
-                district: '',
-                street: '',
-                country: ''
+                adress: {
+                    zip: '',
+                    state: '',
+                    city: '',
+                    district: '',
+                    street: '',
+                    country: ''
+                }
                
             }} onSubmit={function (_values: any): void {
                 throw new Error('Function not implemented.');
