@@ -1,30 +1,11 @@
 import {  Route, Routes } from 'react-router-dom';
-import PatientRegistration from './components/PatientRegistration'; 
 import { PatientsList } from './components/PatientsList';
+import { CreatePatient } from './pages/create-patient-page';
 import Login from './components/Login';
 
 export const RoutesComponent = () => (
     <Routes>
-        <Route path="/add-new-patient" element={<PatientRegistration initialValues={{
-                name: '',
-                email: '',
-                birthDate: '',
-                occupation: '',
-                goal: '',
-                adress: {
-                    zip: '',
-                    state: '',
-                    city: '',
-                    district: '',
-                    street: '',
-                    country: ''
-                }
-               
-            }} onSubmit={function (_values: any): void {
-                throw new Error('Function not implemented.');
-            } } onCancel={function (): void {
-                throw new Error('Function not implemented.');
-            } } />} />
+        <Route path="/add-new-patient" element={<CreatePatient />} />
          <Route path="/check-patient" element={<PatientsList />} />
          <Route path="/login" element={<Login />} />
     </Routes>

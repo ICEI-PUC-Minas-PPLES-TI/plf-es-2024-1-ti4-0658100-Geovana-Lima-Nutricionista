@@ -29,7 +29,7 @@ public class Patient implements Serializable {
   @Column(length = 250, nullable = false)
   private String email;
 
-  @Column(length = 10, nullable = false)
+  @Column(length = 50, nullable = false)
   private String birthDate;
 
   @Column(length = 50, nullable = false)

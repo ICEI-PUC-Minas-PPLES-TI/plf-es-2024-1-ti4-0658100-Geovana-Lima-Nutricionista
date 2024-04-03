@@ -158,6 +158,27 @@ export const PatientFormModal:React.FC<PatientRegistrationProps> = ({
                 </Form.Item>
               </Col>
             </Row>
+
+            <Row gutter={24}>
+              <Col span={24}>
+                <Form.Item
+                  name="goal"
+                  label="Objetivo"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Por favor digite o objetivo do paciente",
+                    },
+                  ]}
+                  initialValue={initialValues?.goal}
+                >
+                  <Input
+                    placeholder="Escreva o objetivo do paciente"
+                    disabled={!isEditing}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
             <Row gutter={24}>
               <Col span={24}>
                 <Form.Item

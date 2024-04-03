@@ -1,14 +1,6 @@
-import { useState } from 'react';
-import  SiderComponent from './components/SiderComponent';
-import { RoutesComponent } from './Routes';
-import PatientRegistration from './components/PatientRegistration';
-import { PatientsList } from './components/PatientsList';
+import { RoutesComponent } from "./Routes";
 function App() {
-  return (
-    
-      <RoutesComponent/>
-  
-  );
+  return <RoutesComponent />;
 }
 
 export default App;

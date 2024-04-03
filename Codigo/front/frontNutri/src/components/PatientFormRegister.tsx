@@ -108,6 +108,22 @@ export const PatientFormRegister = () => {
                   <Input placeholder="Escreva a ocupação do paciente" />
                 </Form.Item>
               </Col>
+              <Col span={24}>
+                <Form.Item
+                  name="goal"
+                  label="Objetivo"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Por favor digite o objetivo do paciente",
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder="Escreva o objetivo do paciente"
+                  />
+                </Form.Item>
+              </Col>
             </Row>
             <Divider>Endereço</Divider>
             <Row gutter={24}>
