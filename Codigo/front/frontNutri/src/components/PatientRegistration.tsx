@@ -3,6 +3,7 @@ import { Form, Input, Button, DatePicker, Select, Row, Col, Divider } from 'antd
 import Title from 'antd/es/typography/Title';
 import moment from 'moment';
 import '../index.css';
+import axios from 'axios';
 
 const { Option } = Select;
 
@@ -34,12 +35,14 @@ interface PatientRegistrationProps {
       birthDate: string;
       occupation: string;
       goal: string;
-      zip: string;
-      state: string;
-      city: string;
-      district: string;
-      street: string;
-      country: string;
+      adress: {
+        zip: string;
+        state: string;
+        city: string;
+        district: string;
+        street: string;
+        country: string
+      };
     };
     isInModal?: boolean;
     onSubmit: (values: any) => void; 
@@ -54,6 +57,31 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
   const [cidades, setCidades] = useState<Cidade[]>([]);
   const [estadoSelecionado, setEstadoSelecionado] = useState<string>('');
   const [cidadeSelecionada, setCidadeSelecionada] = useState<string>('');
+
+  const sendData = async (e) => {
+    console.log(e)
+    const data = {
+        name: e.name,
+        email: e.email,
+        birthDate: e.birthDate,
+        occupation: e.occupation,
+        goal: e.goal,
+        adress: {
+        zip: e.zip,
+        state: e.state,
+        city: e.city,
+        district: e.district,
+        street: e.street,
+        country: e.country
+        }
+    }
+    try {
+        console.log(data)
+        const result = await axios.post('localhost:8080/api/patient', data);
+    } catch (error) {
+        
+    }
+  }
 
 
   useEffect(() => {
@@ -85,7 +113,12 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: isInModal ? 'auto' : '100vh',  }}>
-    <Form autoComplete='off' labelWrap {...formItemLayout} style={{ maxWidth: isInModal ? '100%' : 600 }}>
+    <Form 
+    autoComplete='off' 
+    labelWrap {...formItemLayout} 
+    style={{ maxWidth: isInModal ? '100%' : 600 }}
+    onFinish={sendData}
+    >
       {isInModal && (
         <>
           <Row gutter={24}>
@@ -185,7 +218,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                 required: true,
                 message: "Por favor digite o CEP do paciente"
             }]}
-            initialValue={initialValues.zip}
+            initialValue={initialValues.adress.zip}
             >
             <Input placeholder='Escreva o cep do paciente' disabled={!isEditing} />
             </Form.Item>
@@ -200,7 +233,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                 required: true,
                 message: "Por favor selecione o estado do paciente"
             }]}
-            initialValue={initialValues.state}
+            initialValue={initialValues.adress.state}
             >
             <Select placeholder="Selecione o estado" onChange={handleChangeEstado} disabled={!isEditing} >
                 {estados.map((estado) => (
@@ -220,7 +253,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                 required: true,
                 message: "Por favor selecione a cidade do paciente"
             }]}
-            initialValue={initialValues.city}
+            initialValue={initialValues.adress.city}
             >
             <Select placeholder="Selecione a cidade" disabled={!estadoSelecionado || !isEditing} >
                 {cidades.map((cidade) => (
@@ -239,7 +272,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                 required: true,
                 message: "Por favor digite o bairro do paciente"
             }]}
-            initialValue={initialValues.district}
+            initialValue={initialValues.adress.district}
             >
             <Input placeholder='Escreva o bairro do paciente' disabled={!isEditing}  />
             </Form.Item>
@@ -255,7 +288,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                 required: true,
                 message: "Por favor digite a rua do paciente"
             }]}
-            initialValue={initialValues.name}
+            initialValue={initialValues.adress.street}
             >
             <Input placeholder='Escreva o endereço do paciente' disabled={!isEditing}  />
             </Form.Item>
@@ -276,7 +309,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     required: true, 
                     message: "Por favor escreva o nome do paciente" 
                     }]}
-                  
+                    initialValue={initialValues.name}  
                 >
                 <Input placeholder='Escreva o nome do paciente' />
               </Form.Item>
@@ -290,6 +323,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     type: 'email', 
                     message: "Por favor digite um e-mail válido"
                     }]}  
+                    initialValue={initialValues.email}
                 >
                 <Input placeholder='Escreva o e-mail do paciente' />
               </Form.Item>
@@ -305,14 +339,13 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     required: true,
                     message: "Por favor digite a data de nascimento do paciente" 
                 }]}
-                initialValue={moment(initialValues.birthDate, "DD-MM-YYYY")}     
+                initialValue={initialValues.birthDate}  
                 >
                 <DatePicker  
                     style={{ width: "100% " }} 
                     picker='date' 
                     placeholder='Escreva a data de nascimento do paciente' 
                     format="DD-MM-YYYY"
-                    disabled={!isEditing} 
                 />
                 </Form.Item>
             </Col>
@@ -324,6 +357,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     required: true,
                     message: "Por favor digite a ocupação do paciente"
                     }]}
+                    initialValue={initialValues.occupation}
                 >
                 <Input placeholder='Escreva a ocupação do paciente' />
               </Form.Item>
@@ -339,6 +373,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     required: true,
                     message: "Por favor digite o CEP do paciente"
                 }]}
+                initialValue={initialValues.adress.zip}
                 >
                 <Input placeholder='Escreva o cep do paciente' />
                 </Form.Item>
@@ -351,6 +386,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     required: true,
                     message: "Por favor selecione o estado do paciente"
                 }]}
+                initialValue={initialValues.adress.state}
                 >
                 <Select placeholder="Selecione o estado" onChange={handleChangeEstado}>
                     {estados.map((estado) => (
@@ -370,6 +406,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     required: true,
                     message: "Por favor selecione a cidade do paciente"
                 }]}
+                initialValue={initialValues.adress.city}
                 >
                 <Select placeholder="Selecione a cidade" disabled={!estadoSelecionado}>
                     {cidades.map((cidade) => (
@@ -386,6 +423,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     required: true,
                     message: "Por favor digite o bairro do paciente"
                 }]}
+                initialValue={initialValues.adress.district}
                 >
                 <Input placeholder='Escreva o bairro do paciente' />
                 </Form.Item>
@@ -401,13 +439,13 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
                     required: true,
                     message: "Por favor digite a rua do paciente"
                 }]}
-
+                initialValue={initialValues.adress.street}
                 >
                 <Input placeholder='Escreva o endereço do paciente' />
                 </Form.Item>
             </Col>
             <Col span={12}>
-                <Form.Item name="country" label="País" initialValue="Brasil">
+                <Form.Item name="country" label="País" initialValue={initialValues.adress+"Brasil"}>
                 <Input disabled={true} />
                 </Form.Item>
             </Col>
