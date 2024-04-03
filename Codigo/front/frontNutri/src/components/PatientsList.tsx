@@ -4,29 +4,29 @@ import { Card, List, Button } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import Meta from 'antd/es/card/Meta';
 import PatientData from './Mock';
-import EditPatientModal from '../components/EdiPatientModal'; 
+import EditPatientModal from './EdiPatientModal'; 
 import SiderComponent from './SiderComponent';
 import '../index.css';
 import { IconBaseProps } from 'react-icons';
+import Title from 'antd/es/typography/Title';
 
 export const PatientsList = () => {
-    const items: Patient[] = [];
+    interface Patient {
+        name: string;
+        email: string;
+        birthDate: string;
+        occupation: string;
+        goal: string;
+        zip: string;
+        state: string;
+        city: string;
+        district: string;
+        street: string;
+        country: string;
+        icon: React.FunctionComponentElement<IconBaseProps>;
+    }
 
-    useEffect(() => {
-        const loadPatients = async () => {
-            const { data, error } = await getPatients();
-
-            if (data) {
-                items.push(...data);
-            }
-
-            if (error) {
-                console.log(error);
-            }
-        }
-
-        loadPatients();
-    } )
+    const items: Patient[] = PatientData;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editedPatient, setEditedPatient] = useState<Patient | null>(null);
@@ -35,7 +35,7 @@ export const PatientsList = () => {
     const showEditModal = (patient: Patient) => {
         setEditedPatient(patient);
         setIsModalVisible(true);
-        setIsEditing(false);
+        setIsEditing(true); 
     };
 
     const handleEditSubmit = (values: any) => {
@@ -59,6 +59,7 @@ export const PatientsList = () => {
     return (
         <SiderComponent>
             <div className='patientList'>
+                <Title className='title'>Pacientes Cadastrados</Title>
                 <List
                     grid={{ column: 3 }}
                     renderItem={(patient: Patient, index) => {
@@ -94,7 +95,6 @@ export const PatientsList = () => {
                     onSubmit={handleEditSubmit}
                 />
             </div>
-        </SiderComponent>      
-
+        </SiderComponent>
     )
 }

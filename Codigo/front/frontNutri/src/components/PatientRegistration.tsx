@@ -174,7 +174,7 @@ const PatientRegistration: React.FC<PatientRegistrationProps> = ({
                   {!isInModal && (
 
                       <div>
-                          <Title style={{ textAlign: "center" }}>Cadastro do Paciente</Title>
+                          <Title className="title">Cadastro do Paciente</Title>
                           <PatientFormRegister />
                       </div>
                   )}

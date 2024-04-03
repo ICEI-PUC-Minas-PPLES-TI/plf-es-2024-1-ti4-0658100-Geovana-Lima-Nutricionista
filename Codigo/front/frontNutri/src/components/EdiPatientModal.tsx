@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, message } from 'antd';
 import { PatientFormModal } from './PatientFormModal';
-
+import '../index.css'
 interface EditPatientModalProps {
   visible: boolean;
   onCancel: () => void;
   onSubmit: (values: any) => void;
-  editedPatient: any; // Certifique-se de que esta prop esteja sendo passada corretamente
+  editedPatient: any; 
 }
 
 const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, onCancel, onSubmit, editedPatient }) => {
@@ -15,7 +15,7 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, onCancel, 
   const [messageApi] = message.useMessage();
 
   useEffect(() => {
-    setCurrentEditedPatient(editedPatient); // Atualiza os dados do paciente atual quando a prop editedPatient muda
+    setCurrentEditedPatient(editedPatient); 
   }, [visible, editedPatient]);
 
   const handleEditButtonClick = () => {
@@ -38,6 +38,7 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, onCancel, 
   return (
     <Modal
       title="Detalhes do Paciente"
+      className='modal'
       open={visible} 
       onCancel={onCancel}
       footer={[
