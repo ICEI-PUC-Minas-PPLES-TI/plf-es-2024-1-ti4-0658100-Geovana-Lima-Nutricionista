@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Lexend:wght@100..900&family=Philosopher:wght@700&family=Poppins:wght@500;600&display=swap');
 
-.sideBar {
+.sidebar {
     background-color: #cb6cec;
 }
 .logo {
@@ -19,7 +19,7 @@
     justify-content: center;
     font-size: 1.5rem;
     border-radius: 50%;
-    background: rgba(28, 17, 41. 0.88);
+    background: #cb6cec;
 }
 .menu-bar {
     height: 88vh;
@@ -58,7 +58,7 @@
 }
 
 .title{
-    color: '#807A7A';
+    color: #807A7A;
 }
 
 .itemCardImage{
@@ -67,6 +67,7 @@
 }
 .itemCard{
     margin: 8px;
+    background-color: #F4EFEC
     
 }
 
