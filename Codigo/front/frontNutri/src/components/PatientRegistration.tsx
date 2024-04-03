@@ -3,6 +3,7 @@ import { Form, Input, Button, DatePicker, Select, Row, Col, Divider } from 'antd
 import Title from 'antd/es/typography/Title';
 import moment from 'moment';
 import '../index.css';
+import SiderComponent from './SiderComponent';
 
 const { Option } = Select;
 
@@ -84,6 +85,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
   };
 
   return (
+    <SiderComponent>
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: isInModal ? 'auto' : '100vh',  }}>
     <Form autoComplete='off' labelWrap {...formItemLayout} style={{ maxWidth: isInModal ? '100%' : 600 }}>
       {isInModal && (
@@ -422,6 +424,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
       )}
     </Form>
   </div>
+  </SiderComponent>
   );
 }
 

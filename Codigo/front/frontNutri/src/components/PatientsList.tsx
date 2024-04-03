@@ -5,6 +5,7 @@ import { IconBaseProps } from '@ant-design/icons/lib/components/Icon';
 import Meta from 'antd/es/card/Meta';
 import PatientData from './Mock';
 import EditPatientModal from './EdiPatientModal';
+import SiderComponent from './SiderComponent';
 
 export const PatientsList = () => {
     interface Patient {
@@ -61,6 +62,7 @@ export const PatientsList = () => {
 
 
     return (
+    <SiderComponent>
         <div>
             <List
                 grid={{ column: 3 }}
@@ -98,6 +100,7 @@ export const PatientsList = () => {
             />
             
         </div>
+        </SiderComponent>
     )
 }
 
