@@ -8,6 +8,7 @@
     align-items: center;
     justify-content: center;
     color: #fff;
+    background-color: #cb6cec;
     padding: 10px;
 }
 .logo-icon {
@@ -76,5 +77,5 @@
     background-color: #F4EFEC;
 }
 .layout{
-    background-color: #cb6cec;
+    position: fixed;
 }

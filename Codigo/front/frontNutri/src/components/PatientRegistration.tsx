@@ -85,7 +85,7 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
   };
 
   return (
-    <SiderComponent>
+    
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: isInModal ? 'auto' : '100vh',  }}>
     <Form autoComplete='off' labelWrap {...formItemLayout} style={{ maxWidth: isInModal ? '100%' : 600 }}>
       {isInModal && (
@@ -266,7 +266,9 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
         </>
       )}
 
+
       {!isInModal && (
+        <SiderComponent>
         <>
           <Title style={{ textAlign: 'center' }}>Cadastro do Paciente</Title>
           <Row gutter={24}>
@@ -421,10 +423,10 @@ const PatientRegistration : React.FC<PatientRegistrationProps> = ({ initialValue
           </Button>
           </Form.Item>
         </>
+        </SiderComponent>
       )}
     </Form>
   </div>
-  </SiderComponent>
   );
 }
 
