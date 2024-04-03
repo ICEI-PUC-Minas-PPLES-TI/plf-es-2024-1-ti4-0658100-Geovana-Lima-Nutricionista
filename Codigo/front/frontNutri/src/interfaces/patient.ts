@@ -5,7 +5,7 @@ export interface Patient {
   birthDate: string;
   occupation: string;
   goal: string;
-  adress: {
+  address: {
     zip: string;
     state: string;
     city: string;

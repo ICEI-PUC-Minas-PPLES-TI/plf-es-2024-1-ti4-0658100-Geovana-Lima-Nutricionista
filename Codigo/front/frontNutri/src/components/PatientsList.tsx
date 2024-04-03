@@ -31,7 +31,21 @@ export const PatientsList = () => {
   }, []);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editedPatient, setEditedPatient] = useState<Patient | null>(null);
+  const [editedPatient, setEditedPatient] = useState<Patient>({
+    name: "",
+    email: "",
+    birthDate: "",
+    occupation: "",
+    goal: "",
+    address: {
+      zip: "",
+      state: "",
+      city: "",
+      district: "",
+      street: "",
+      country: "",
+    },
+  });
   const [isEditing, setIsEditing] = useState(false);
 
   const showEditModal = (patient: Patient) => {
