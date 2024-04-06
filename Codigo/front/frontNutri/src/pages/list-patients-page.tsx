@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Card, List, Button, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
-import EditPatientModal from "../components/EdiPatientModal";
-import SiderComponent from "./SiderComponent";
+import SiderComponent from "../components/SiderComponent";
 import "../index.css";
 import { Patient } from "../interfaces/patient";
 import { deletePatient, getPatients } from "../services/patient.service";
@@ -30,28 +29,8 @@ export const PatientsList = () => {
     loadPatients();
   }, []);
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editedPatient, setEditedPatient] = useState<Patient>({
-    name: "",
-    email: "",
-    birthDate: "",
-    occupation: "",
-    goal: "",
-    address: {
-      zip: "",
-      state: "",
-      city: "",
-      district: "",
-      street: "",
-      country: "",
-    },
-  });
-  const [isEditing, setIsEditing] = useState(false);
-
   const showEditModal = (patient: Patient) => {
-    setEditedPatient(patient);
-    setIsModalVisible(true);
-    setIsEditing(false);
+    console.log(patient);
   };
 
   const handleDelete = async (patientId: number) => {
@@ -61,7 +40,7 @@ export const PatientsList = () => {
       notification.success({
         message: "Paciente excluído com sucesso!",
       });
-      // remover paciente do array
+      
       const newPatients = patients.filter(
         (patient) => patient.id !== patientId
       );
@@ -72,24 +51,6 @@ export const PatientsList = () => {
         message: "Erro ao excluir paciente!",
       });
     }
-  };
-
-  const handleEditSubmit = (values: any) => {
-    if (editedPatient) {
-      const updatedPatient = {
-        ...editedPatient,
-        ...values,
-        birthDate: values.birthDate.format("DD-MM-YYYY"),
-      };
-
-      console.log("Dados do paciente atualizados:", updatedPatient);
-      setEditedPatient(updatedPatient);
-    }
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
   };
 
   return (
@@ -129,13 +90,6 @@ export const PatientsList = () => {
             );
           }}
           dataSource={patients}
-        />
-        {/* Modal de edição */}
-        <EditPatientModal
-          visible={isModalVisible}
-          onCancel={handleCancel}
-          editedPatient={editedPatient}
-          onSubmit={handleEditSubmit}
         />
       </div>
     </SiderComponent>

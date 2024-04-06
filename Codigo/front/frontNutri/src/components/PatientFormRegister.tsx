@@ -11,7 +11,8 @@ import {
 import { useEffect, useState } from "react";
 import { getStates, getCitiesByState } from "../services/ibge.service";
 import "../index.css";
-
+import "moment/locale/pt-br";
+import moment from "moment";
 const { Option } = Select;
 
 interface Estado {
@@ -28,7 +29,6 @@ export const PatientFormRegister = () => {
   const [estados, setEstados] = useState<Estado[]>([]);
   const [cidades, setCidades] = useState<Cidade[]>([]);
   const [estadoSelecionado, setEstadoSelecionado] = useState<string>("");
-  const [cidadeSelecionada, setCidadeSelecionada] = useState<string>("");
 
   useEffect(() => {
     const fetchEstados = async () => {
@@ -41,11 +41,11 @@ export const PatientFormRegister = () => {
 
   const handleChangeEstado = async (estado: string) => {
     setEstadoSelecionado(estado);
-    setCidadeSelecionada("");
 
     const cidadesData = await getCitiesByState(estado);
     setCidades(cidadesData);
   };
+
   return (
     <div>
       <Row gutter={24}>
@@ -82,7 +82,7 @@ export const PatientFormRegister = () => {
 
       <Row gutter={24}>
         <Col span={12}>
-          <Form.Item
+        <Form.Item
             name="birthDate"
             label="Data de Nascimento"
             rules={[
@@ -90,6 +90,16 @@ export const PatientFormRegister = () => {
                 required: true,
                 message: "Por favor digite a data de nascimento do paciente",
               },
+              () => ({
+                validator(_, value) {
+                  if (!value || value.isBefore(moment(), "day")) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("A data de nascimento deve ser no passado")
+                  );
+                },
+              }),
             ]}
           >
             <DatePicker

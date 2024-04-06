@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Lexend:wght@100..900&family=Philosopher:wght@700&family=Poppins:wght@500;600&display=swap');
 
 .sideBar {
-    background-color: #cb6cec;
+    background-color: white;
 }
 .logo {
     display: flex;
@@ -22,8 +22,8 @@
     background: rgba(28, 17, 41. 0.88);
 }
 .menu-bar {
-    height: 88vh;
-    margin-top: 2rem;
+    height: 100vh;
+    padding-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -86,6 +86,7 @@
 body {
     background-color: #F4EFEC;
     font-family: 'Lexend', sans-serif; /* Definindo a fonte para todo o corpo do site */
+    margin: 0;
 }
 .meta {
     background-color: #F4EFEC;
