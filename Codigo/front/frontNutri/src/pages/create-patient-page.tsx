@@ -18,6 +18,7 @@ const formItemLayout = {
 };
 
 export const CreatePatient = () => {
+  document.title = "Cadastro de Pacientes";
   const navigate = useNavigate();
 
   const onFinish = async (formData: PatientForm) => {
