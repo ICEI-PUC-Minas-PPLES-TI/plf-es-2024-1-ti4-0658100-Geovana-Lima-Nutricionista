@@ -6,6 +6,7 @@ import { login } from '../services/auth.service';
 import { useNavigate } from 'react-router';
 
 const Login = () => {
+    document.title = "Login";
     const navigate = useNavigate();
 
     const onFinish = async (values: {username: string; password: string}) => {

@@ -5,9 +5,9 @@ import Login from './components/Login';
 
 export const RoutesComponent = () => (
     <Routes>
-        <Route path="/add-new-patient" element={<CreatePatient />} />
-         <Route path="/check-patient" element={<PatientsList />} />
-         <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/cadastro" element={<CreatePatient />} />
+        <Route path="/busca" element={<PatientsList />} />
     </Routes>
   );
 

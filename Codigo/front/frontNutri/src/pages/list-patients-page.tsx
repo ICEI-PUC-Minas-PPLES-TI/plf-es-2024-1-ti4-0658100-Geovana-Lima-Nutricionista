@@ -9,6 +9,7 @@ import { Patient } from "../interfaces/patient";
 import { deletePatient, getPatients } from "../services/patient.service";
 
 export const PatientsList = () => {
+  document.title = "Busca de Pacientes";
   const [patients, setPatients] = useState<Patient[]>([]);
 
   useEffect(() => {
