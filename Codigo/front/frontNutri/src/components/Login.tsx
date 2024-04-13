@@ -1,5 +1,5 @@
 import '../index.css'
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, UserOutlined, QuestionCircleOutlined  } from '@ant-design/icons';
 import { Button, Form, Input, notification, Tooltip } from 'antd';
 import iconeNutri from '../assets/nutricionista-maria-fernanda_heroshot-receitas_01.png';
 import { login } from '../services/auth.service';
@@ -34,18 +34,18 @@ const Login = () => {
         <div className="login-Container">
 
             <div className="title-container">
-                <span className="title-text">GL</span>
-                <span className="title-text">Geovana Lima Nutricionista</span>
-                <Tooltip title="Digite o seu usuário e senha para logar no sistema.
+                <span className="gl">GL</span>
+                <span className="title">Geovana Lima Nutricionista</span>
+                <Tooltip className='tooltip' title="Digite o seu usuário e senha para logar no sistema.
                 Caso tenha esquecido a senha, clique no botão 'Esqueci a senha'.">
-                    <span>?</span>
+                <QuestionCircleOutlined style={{ fontSize: '25px', color: 'black' }} />
                 </Tooltip>
             </div>
-
-            <div className="login-Container-down">
-
+            <div className='imagemecard'>
+            <div className='imagem'>
                 <img src={iconeNutri}></img>
-
+                </div>
+                
                 <div className="login-card">
                     <h2>Login</h2>
                     <Form
