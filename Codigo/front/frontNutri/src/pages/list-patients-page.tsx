@@ -1,5 +1,5 @@
 // PatientsList.tsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, List, Button, notification } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
@@ -15,15 +15,20 @@ export const PatientsList = () => {
   useEffect(() => {
     const loadPatients = async () => {
       const { data, error } = await getPatients();
-
       if (data) {
         setPatients(data);
       }
-
-      if (error) {
-        notification.error({
-          message: "Erro ao buscar pacientes!",
+      if (data?.length === 0) {
+        notification.info({
+          message: "Não há pacientes cadastrados",
         });
+      }
+      else {
+        if (error) {
+          notification.error({
+            message: "Erro ao buscar pacientes!",
+          });
+        }
       }
     };
 
