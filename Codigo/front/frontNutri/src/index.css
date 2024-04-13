@@ -1,8 +1,92 @@
 @import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Lexend:wght@100..900&family=Philosopher:wght@700&family=Poppins:wght@500;600&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
 .sideBar {
     background-color: white;
 }
+
+.login-Container {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.imagemecard {
+  display: flex;
+}
+
+.imagem {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.imagem img {
+  max-height: 100%;
+}
+
+.title {
+  font-size: 40px;
+  font-family: 'Lexend', sans-serif;
+}
+
+.gl {
+  margin-left: 40px;
+  font-size: 40px;
+  font-family: 'Lexend', sans-serif;
+}
+
+.tooltip {
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.title-container {
+  margin-top: 50px !important;
+  margin-bottom: 70px !important;
+  width: 95%;
+  height: 50px;
+  background-color: #ddafeb7a; 
+  color: #807979; 
+  border-radius: 40px;
+  padding: 10px;
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.login-card {
+  display: flex;
+  flex: 1;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.1);
+  background-color: #F4EFEC;
+  font-family: 'Lexend', sans-serif;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .login-card {
+    height: 500px;
+    margin-right: 50px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .login-card {
+    height: 600px;
+    margin-right: 100px;
+  }
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -92,50 +176,16 @@ body {
     background-color: #F4EFEC;
 }
 
-.login-Container-down {
-    display: flex;
-	width: 100%;
-	align-items: center;
-  }
-
 .login-form {
   display: flex; 
   flex-direction: column; 
   align-items: center;
   
   }
-  .title-container {
-    width: 97%; 
-    background-color: #ddafeb7a; 
-    color: #807979 ;
-    border-radius: 10px; 
-    padding: 10px; 
-    display: flex; 
-    align-items: center;
-    justify-content: space-between; 
-    margin: 1vw 1px;
-
-  }
 
   #components-form-demo-normal-login .login-form-button {
     width: 100%;
   }
-
-  .login-card {
-    width: 30%;
-	margin: 115px;
-	height: 75vh;
-	padding: 40px;
-	border: 2px solid #ccc;
-	border-radius: 50px;
-	box-shadow: 0 4px 50px rgba(0, 0, 0, 0.1);
-	background-color: #F4EFEC;
-	display: flex ;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-    font-family: 'Lexend', sans-serif;
-}
 
  img{
     width: 55%;
