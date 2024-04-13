@@ -43,7 +43,7 @@ const Login = () => {
                 <img src={iconeNutri}></img>
 
                 <div className="login-card">
-                    <h2>Tela de Login</h2>
+                    <h2>Login</h2>
                     <Form
                         name="normal_login"
                         className="login-form"

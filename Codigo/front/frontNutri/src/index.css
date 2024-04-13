@@ -96,11 +96,12 @@ body {
     display: flex;
 	width: 100%;
 	align-items: center;
+    overflow: hidden;
 	
   }
 
 .login-form {
-    display: flex; 
+  display: flex; 
   flex-direction: column; 
   align-items: center;
   
@@ -122,14 +123,14 @@ body {
   }
 
   .login-card {
-    width: 41%;
+    width: 45%;
 	margin: 20px;
 	height: 65vh;
 	padding: 20px;
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	background-color: #fff;
+	background-color: #F4EFEC;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -137,7 +138,7 @@ body {
 }
 
  img{
-    width: 50%;
+    width: 45%;
 }
   
   .login-card h2 {
@@ -164,7 +165,7 @@ body {
   
   .login-card button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #6B6CEC;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -172,3 +173,4 @@ body {
     display: flex;
 	align-items: center;
   }
+
