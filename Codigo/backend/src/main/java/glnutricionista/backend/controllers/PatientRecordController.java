@@ -6,7 +6,6 @@ import glnutricionista.backend.services.PatientRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +16,7 @@ public class PatientRecordController {
     private PatientRecordService patientRecordService;
 
     @PostMapping()
-    public PatientRecord createPatientRecord(@RequestBody @Valid PatientRecordDTO patientRecordDTO) {
+    public PatientRecord createPatientRecord(@RequestBody PatientRecordDTO patientRecordDTO) {
         return patientRecordService.createPatientRecord(patientRecordDTO.toPatientRecord());
     }
 
@@ -32,7 +31,7 @@ public class PatientRecordController {
     }
 
     @PutMapping("/{id}")
-    public PatientRecord updatePatientRecord(@PathVariable Long id, @RequestBody @Valid PatientRecordDTO patientRecordDTO) {
+    public PatientRecord updatePatientRecord(@PathVariable Long id, @RequestBody PatientRecordDTO patientRecordDTO) {
         return patientRecordService.updatePatientRecord(id, patientRecordDTO.toPatientRecord());
     }
 
