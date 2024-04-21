@@ -10,6 +10,8 @@ import "../index.css";
 import "moment/locale/pt-br";
 import moment from "moment";
 
+export const ConsultationRegistration = () => {
+    return(
 <div>
     <Row gutter={24}>
         <Col span={12}>
@@ -112,4 +114,5 @@ import moment from "moment";
         </Button>
     </Form.Item>
 </div>
-
+    )
+}
