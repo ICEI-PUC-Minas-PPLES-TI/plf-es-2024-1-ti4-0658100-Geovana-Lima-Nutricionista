@@ -12,7 +12,7 @@ import glnutricionista.backend.models.Appointment;
 import glnutricionista.backend.services.AppointmentService;
 
 @RestController
-@RequestMapping(value = "/appointment")
+@RequestMapping(value = "/appointments")
 public class AppointmentController {
 
     @Autowired
