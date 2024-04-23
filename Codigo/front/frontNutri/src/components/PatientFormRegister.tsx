@@ -242,16 +242,11 @@ export const PatientFormRegister = () => {
         </Col>
       </Row>
 
-      <Form.Item>
-        <Button
-          key="submit"
-          htmlType="submit"
-          type="primary"
-          className="button"
-        >
-          Cadastrar
-        </Button>
-      </Form.Item>
+      <div className="create-patient-button">
+                <Button type="primary" className="button">
+                    Cadastrar
+                </Button>
+            </div>
     </div>
   );
 };
