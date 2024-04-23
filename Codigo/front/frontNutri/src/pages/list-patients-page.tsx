@@ -63,7 +63,7 @@ export const PatientsList = () => {
     <SiderComponent>
       <div className="patientList">
         <List
-          grid={{ column: 3 }}
+          grid={{ column: 4 }}
           renderItem={(patient: Patient, index) => {
             return (
               <Card

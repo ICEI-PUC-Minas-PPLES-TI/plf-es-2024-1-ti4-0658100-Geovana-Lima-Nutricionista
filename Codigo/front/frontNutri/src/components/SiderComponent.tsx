@@ -7,6 +7,20 @@ import { MenuList } from "./MenuList";
 import styled from "styled-components";
 
 const { Header, Sider, Content } = Layout;
+
+const StyledLayout = styled(Layout)`
+  width: 100%;
+  min-height: 100vh;
+`;
+
+const StyledContent = styled(Content)`
+  margin: 24px 16px;
+  padding: 24px;
+  background: #fff;
+  min-height: calc(100vh - 48px);
+  overflow-y: auto;
+`;
+
 interface SiderComponentProps {
   children: ReactNode;
 }
@@ -15,16 +29,20 @@ function SiderComponent({ children }: SiderComponentProps) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Layout
-      className="layout"
-      style={{ width: "100vw", minHeight: "100vh", margin: 0 }}
-    >
-      <Sider collapsed={collapsed} collapsible trigger={null}>
-        <Logo />
+    <StyledLayout>
+      <Sider
+        className="sideBar"
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+      >
+        <div className="logo">
+          <Logo />
+        </div>
         <MenuList />
       </Sider>
       <Layout>
-        <Header className="header" style={{ padding: 0 }}>
+        <Header className="header">
           <Button
             type="text"
             className="toggle"
@@ -32,18 +50,9 @@ function SiderComponent({ children }: SiderComponentProps) {
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           />
         </Header>
-        <Content
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            background: "#fff",
-            minHeight: 280,
-          }}
-        >
-          {children}
-        </Content>
+        <StyledContent>{children}</StyledContent>
       </Layout>
-    </Layout>
+    </StyledLayout>
   );
 }
 

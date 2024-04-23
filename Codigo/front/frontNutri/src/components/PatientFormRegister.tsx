@@ -242,6 +242,7 @@ export const PatientFormRegister = () => {
         </Col>
       </Row>
 
+      <Divider orientation="right">
       <Form.Item>
         <Button
           key="submit"
@@ -252,6 +253,7 @@ export const PatientFormRegister = () => {
           Cadastrar
         </Button>
       </Form.Item>
+      </Divider>
     </div>
   );
 };

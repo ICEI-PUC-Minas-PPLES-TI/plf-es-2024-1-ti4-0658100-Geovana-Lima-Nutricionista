@@ -59,7 +59,7 @@ export const CreatePatient = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            minHeight: "60vh",
+            minHeight: "60vh"
           }}
         >
           <Form
