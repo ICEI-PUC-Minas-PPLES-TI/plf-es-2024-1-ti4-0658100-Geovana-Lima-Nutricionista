@@ -242,6 +242,7 @@ export const PatientFormRegister = () => {
         </Col>
       </Row>
 
+
       <div className="create-patient-button">
                 <Button type="primary" className="button">
                     Cadastrar
