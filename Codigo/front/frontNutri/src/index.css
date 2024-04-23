@@ -58,8 +58,12 @@
 }
 
 .title{
-    color: '#807A7A';
+    color: #807A7A;
+    font-weight: lighter;
+    opacity: 60%;
 }
+
+
 
 .itemCardImage{
     height: 150px !important;
@@ -77,14 +81,11 @@
 .header{
     background-color: #F4EFEC;
 }
-.layout{
-    position: fixed;
-}
+
 .patientList{
     background-color: #F4EFEC;
 }
 body {
-    background-color: #F4EFEC;
     font-family: 'Lexend', sans-serif; /* Definindo a fonte para todo o corpo do site */
     margin: 0;
 }
@@ -96,6 +97,7 @@ body {
     display: flex;
 	width: 100%;
 	align-items: center;
+    position: fixed;
 	
   }
 
@@ -172,3 +174,5 @@ body {
     display: flex;
 	align-items: center;
   }
+
+ 
