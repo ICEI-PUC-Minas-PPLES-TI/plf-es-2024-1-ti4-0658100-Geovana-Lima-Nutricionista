@@ -1,13 +1,46 @@
-import { Row, Col, Form, Input, DatePicker, Button, TimePicker } from "antd";
+import {
+  Row,
+  Col,
+  Form,
+  Input,
+  DatePicker,
+  Button,
+  TimePicker,
+  notification,
+  Select,
+} from "antd";
 import "../index.css";
 import "moment/locale/pt-br";
 import moment from "moment";
 import "../index.css";
 import { getPatients } from "../services/patient.service";
+import { useEffect, useState } from "react";
+import { Patient } from "../interfaces/patient";
+import { Option } from "antd/es/mentions";
 
-export const ConsultationRegistration = () => {
-  const searchPatient = async (value: string) => {
-    const {data, error} = await getPatients();
+export const AppointmentRegistration = () => {
+  const [patients, setPatients] = useState<Patient[]>([]);
+
+  useEffect(() => {
+    fetchPatients("");
+  }, []);
+
+  const fetchPatients = async (value: string) => {
+    const { data, error } = await getPatients({
+      page: 1,
+      per_page: 10,
+      patient_name: value,
+    });
+
+    if (data) {
+      setPatients(data);
+    }
+
+    if (error) {
+      notification.error({
+        message: "Erro ao buscar pacientes!",
+      });
+    }
   };
 
   return (
@@ -16,7 +49,7 @@ export const ConsultationRegistration = () => {
       <Row gutter={24}>
         <Col span={18}>
           <Form.Item
-            name="name"
+            name="patientId"
             label="Nome"
             rules={[
               {
@@ -25,7 +58,19 @@ export const ConsultationRegistration = () => {
               },
             ]}
           >
-            <Input placeholder="Escreva o nome do paciente" />
+            <Select
+              showSearch
+              filterOption={false}
+              onSearch={fetchPatients}
+              notFoundContent={null}
+              placeholder="Digite o nome do paciente"
+            >
+              {patients.map((patient) => (
+                <Option key={patient.id?.toString()} value={patient.id?.toString()}>
+                  {patient.name}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
         </Col>
       </Row>
@@ -34,7 +79,7 @@ export const ConsultationRegistration = () => {
         {/* Data da Consulta */}
         <Col span={12}>
           <Form.Item
-            name="consultationDate"
+            name="date"
             label="Data da Consulta"
             rules={[
               {
@@ -43,7 +88,7 @@ export const ConsultationRegistration = () => {
               },
               () => ({
                 validator(_, value) {
-                  if (!value || value.isBefore(moment(), "day")) {
+                  if (!value || value.isAfter(moment(), "day")) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
@@ -57,7 +102,7 @@ export const ConsultationRegistration = () => {
               style={{ width: "100% " }}
               picker="date"
               placeholder="Escreva a data da consulta do paciente"
-              format="DD-MM-YYYY"
+              format="YYYY-MMM-DD"
             />
           </Form.Item>
         </Col>
@@ -65,7 +110,7 @@ export const ConsultationRegistration = () => {
         <Row gutter={24}>
           <Col span={-1}>
             <Form.Item
-              name="consultationTime"
+              name="hour"
               label="Hora da Consulta"
               rules={[
                 {
@@ -86,7 +131,7 @@ export const ConsultationRegistration = () => {
         <Col span={12}>
           {/* Valor da Consulta */}
           <Form.Item
-            name="value"
+            name="price"
             label="Valor da Consulta"
             rules={[
               {
@@ -117,8 +162,8 @@ export const ConsultationRegistration = () => {
         </div>
       </Row>
       {/* Botão Criar nova consulta */}
-      <div className="create-consultation-button">
-        <Button type="primary" className="button">
+      <div className="create-appointment-button">
+        <Button type="primary" htmlType="submit" className="button">
           Criar nova consulta
         </Button>
       </div>

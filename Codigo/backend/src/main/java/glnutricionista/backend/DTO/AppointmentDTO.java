@@ -11,7 +11,6 @@ import lombok.Data;
 
 @Data
 public class AppointmentDTO {
-
     @NotNull(message = "Patient ID cannot be null")
     private Long patientId;
 
