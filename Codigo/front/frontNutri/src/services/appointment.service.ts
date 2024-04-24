@@ -38,3 +38,36 @@ export const getPatientAppointments = async (id: number) => {
   };
 }
 
+export const updateAppointment = async (id: number, appointment: Appointment|null) => {
+  const config: AxiosRequestConfig = {
+    url: `${apiServerUrl}/api/appointments/${id}`,
+    method: "PUT",
+    data: appointment
+  };
+
+  const { data, error } = (await callExternalApi({
+    config,
+  })) as { data: Appointment | null; error: string | Error | null };
+
+  return {
+    data,
+    error,
+  };
+}
+
+export const deleteAppointment = async (id: number) => {
+  const config: AxiosRequestConfig = {
+    url: `${apiServerUrl}/api/appointments/${id}`,
+    method: "DELETE",
+  };
+
+  const { data, error } = (await callExternalApi({
+    config,
+  })) as { data: Appointment | null; error: string | Error | null };
+
+  return {
+    data,
+    error,
+  };
+}
+

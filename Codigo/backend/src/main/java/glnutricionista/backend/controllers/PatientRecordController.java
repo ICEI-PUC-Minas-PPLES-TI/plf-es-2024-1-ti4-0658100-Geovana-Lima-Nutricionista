@@ -29,10 +29,6 @@ public class PatientRecordController {
     public PatientRecord getPatientRecord(@PathVariable Long id) {
         return patientRecordService.getPatientRecord(id);
     }
-    @GetMapping("/p/{id}")
-    public PatientRecord getPatientRecordByPatient(@PathVariable Long id) {
-        return patientRecordService.getPatientRecordByPatient(id);
-    }
 
     @GetMapping("/patient/{id}")
     public PatientRecord getPatientRecordByPatient(@PathVariable Long id) {
