@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { callExternalApi } from "./api.service";
-import { Patient } from "../interfaces/patient";
+import { Patient, PatientSearchParams } from "../interfaces/patient";
 
 const apiServerUrl = "http://localhost:8080";
 
@@ -21,10 +21,11 @@ export const createPatient = async (patient: Patient) => {
   };
 };
 
-export const getPatients = async () => {
+export const getPatients = async (params: PatientSearchParams) => {
   const config: AxiosRequestConfig = {
     url: `${apiServerUrl}/api/patient`,
     method: "GET",
+    params
   };
 
   const { data, error } = (await callExternalApi({
