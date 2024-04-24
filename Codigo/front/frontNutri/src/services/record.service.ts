@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { RecordProps } from '../interfaces/Record';
 
-const apiServerUrl = 'http://localhost:8080';
+const apiServerUrl = 'http://localhost:8080/api';
 
 export const createPatientRecord = async (patientRecordDTO:RecordProps) => {
   try {
@@ -25,6 +25,14 @@ export const getAllPatientRecords = async () => {
 export const getPatientRecord = async (id:number) => {
   try {
     const response = await axios.get(`${apiServerUrl}/patient-records/${id}`);
+    return response.data;
+} catch (error:any) {
+    throw new Error(error.response.data.message || error.message);
+  }
+};
+export const getPatientRecordPatient = async (id:number) => {
+  try {
+    const response = await axios.get(`${apiServerUrl}/patient-records/p/${id}`);
     return response.data;
 } catch (error:any) {
     throw new Error(error.response.data.message || error.message);
