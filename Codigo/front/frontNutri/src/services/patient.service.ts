@@ -79,7 +79,7 @@ export const getPatient = async (patientId: number) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Patient | null; error: string | Error | null };
+  })) as { data: Patient ; error: string | Error | null };
 
   return {
     data,

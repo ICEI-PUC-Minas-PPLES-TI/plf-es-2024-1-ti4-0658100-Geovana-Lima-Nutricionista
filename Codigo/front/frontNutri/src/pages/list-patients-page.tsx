@@ -14,9 +14,9 @@ import {
 } from "../styledComponents/Patient/list-patient-styles";
 
 export const PatientsList = () => {
+  const navigate = useNavigate();
   document.title = "Busca de Pacientes";
   const [patients, setPatients] = useState<Patient[]>([]);
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useState<PatientSearchParams>({
     page: 1,
     per_page: 12,
@@ -45,8 +45,8 @@ export const PatientsList = () => {
   }, [searchParams]);
 
   const showEditModal = (patient: Patient) => {
-    console.log(patient)
-    navigate((Number(patient.id)).toString());
+    console.log(patient);
+    navigate(Number(patient.id).toString());
   };
 
   const handleDelete = async (patientId: number) => {
