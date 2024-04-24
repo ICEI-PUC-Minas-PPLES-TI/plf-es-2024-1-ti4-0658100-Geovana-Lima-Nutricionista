@@ -1,19 +1,86 @@
-import { Button, Card, Col, Divider, Flex, Input, Row, Space, Typography } from 'antd';
+import {  Card, Col, Divider, Flex, Row, Space, Typography } from 'antd';
 import SiderComponent from './SiderComponent';
 import Meta from 'antd/es/card/Meta';
-import { UserOutlined, EditOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { PatientTable } from './PatientTable';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Title from 'antd/es/typography/Title';
+import CardPatient from './PatientRecordCard';
+import { createPatientRecord, getPatientRecordPatient, updatePatientRecord } from '../services/record.service';
+import { RecordProps } from '../interfaces/Record';
+import { getPatient } from '../services/patient.service';
+import { Patient } from '../interfaces/patient';
 
 const { Text } = Typography;
 
 export const Patientspage = () => {
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleEditClick = () => {
-    setIsEditing(true);
+  const r= {
+    id:0,
+    weight: '',
+    height: '',
+    physicalActivities: '',
+    imc: '',
+    waist: '',
+    bust: '',
+    observations: ''
   };
+  const p={
+    id: 1,
+    name: "",
+    email: "",
+    birthDate: "",
+    occupation: "",
+    goal: "",
+    address: {
+      zip: "",
+      state: "",
+      city: "",
+      district: "",
+      street: "",
+      country: "",
+    }
+  }
+  const a = JSON.parse(localStorage.getItem('patient')??JSON.stringify(p));
+
+
+  const [patientRecord, setPatientRecord] = useState<RecordProps>(r);
+  const [patient, setPatient] = useState<Patient>(a);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getPatient(a.id);
+        setPatient(response.data);
+      } catch (error:any) {
+        console.error('Erro ao obter o registro do paciente:', error.message);
+      }
+
+      try {
+        const response = await getPatientRecordPatient(a.id);
+        setPatientRecord(response);
+      } catch (error:any) {
+
+        console.error('Erro ao obter o registro do paciente:', error.message);
+      }
+
+      
+
+    };
+
+    fetchData();
+  }, []); 
+
+ function updateRecord (Record :any){
+  console.log(patient)
+    updatePatientRecord(patientRecord.id, Record).then((success:any)=>{setPatientRecord(success)});
+  }
+
+  function createRecord (Record :any){
+    Record.patientId=a.id;
+    console.log(Record);
+    createPatientRecord(Record).then((success:any)=>{setPatientRecord(success)});
+    }
+
 
   return (
     <SiderComponent>
@@ -25,10 +92,10 @@ export const Patientspage = () => {
                 <UserOutlined style={{ fontSize: 64 }} />
               </div>
               <Meta
-                title="Maria Eduarda"
+                title={patient.name}
                 description={
                   <Flex gap="middle" vertical>
-                    <p>mariaeduarda@gmail.com</p>
+                    <p>{patient.email}</p>
                     <Text strong>Consultas: 20</Text>
                     <Text strong>Total Pago: R$500</Text>
                   </Flex>
@@ -43,51 +110,29 @@ export const Patientspage = () => {
               <Col span={12}>
                 <Space direction="vertical" size="middle">
                   <Text>Ocupação</Text>
-                  <Text strong>Professora</Text>
+                  <Text strong>{patient.occupation}</Text>
                   <Text>Data de Nascimento</Text>
-                  <Text strong>22/02/2003</Text>
+                  <Text strong>{new Date(patient.birthDate).toLocaleDateString('pt-BR')}</Text>
                   <Text>Cidade</Text>
-                  <Text strong>Belo Horizonte</Text>
+                  <Text strong>{patient.address.city}</Text>
                 </Space>
               </Col>
 
               <Col span={12}>
                 <Space direction="vertical" size="middle">
                   <Text>Objetivo</Text>
-                  <Text strong>Emagrecer</Text>
+                  <Text strong>{patient.goal}</Text>
                   <Text>Estado</Text>
-                  <Text strong>Minas Gerais</Text>
+                  <Text strong>{patient.address.state}</Text>
                   <Text>Endereço</Text>
-                  <Text strong>Rua ABC 123</Text>
+                  <Text strong>{patient.address.street}</Text>
                 </Space>
               </Col>
             </Row>
           </Card>
-        </Col>
-
+        </Col>         
         <Col span={8}>
-          <Card
-            title={
-              <Space>
-                <span>Ficha</span>
-                <Button className='button' shape="circle" icon={<EditOutlined />} onClick={handleEditClick} />
-              </Space>
-            }
-            bordered={false}
-          >
-            <Space direction="vertical" size="middle">
-              <Text strong>Peso: {isEditing ? <Input defaultValue="80kg" /> : '80kg'}</Text>
-              <Text strong>Altura: {isEditing ? <Input defaultValue="1.65cm" /> : '1.65cm'}</Text>
-              <Text strong>Atividades Físicas: {isEditing ? <Input defaultValue="Ginástica" /> : 'Ginástica'}</Text>
-              <Text strong>Medidas:</Text>
-              <Input.TextArea
-                placeholder="Observações"
-                autoSize={{ minRows: 2, maxRows: 6 }}
-                defaultValue="Observações iniciais"
-                disabled={!isEditing}
-              />
-            </Space>
-          </Card>
+          <CardPatient record={patientRecord}onUpdate={updateRecord}onCreate={createRecord}/>
         </Col>
       </Row>
 

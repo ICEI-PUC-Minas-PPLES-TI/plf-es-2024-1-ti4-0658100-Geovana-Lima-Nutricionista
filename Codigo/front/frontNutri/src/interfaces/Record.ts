@@ -1,5 +1,5 @@
 export interface RecordProps {
-    record: {
+      id:number;
       weight: number;
       height: number;
       physicalActivities: string;
@@ -7,8 +7,6 @@ export interface RecordProps {
       waist: number;
       bust: number;
       observations: string;
-    };
-    onUpdate: () => void;
   }
   
   
