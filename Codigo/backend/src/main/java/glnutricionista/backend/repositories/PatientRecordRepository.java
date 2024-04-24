@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface PatientRecordRepository extends JpaRepository<PatientRecord, Long> {
-  @Query("SELECT * FROM patient WHERE patient_id = :patientId")
-  List<PatientRecord> findByPatient(long patientId);
+  @Query("SELECT pr FROM PatientRecord pr WHERE pr.patient.id = :patientId")
+  List<PatientRecord> findByPatient(Long patientId);
 }

@@ -45,8 +45,7 @@ export const Patientspage = () => {
   const [patientRecord, setPatientRecord] = useState<RecordProps>(r);
 
   function updateRecord(Record: any) {
-    console.log(patient);
-    updatePatientRecord(Number(id), Record).then(
+    updatePatientRecord(patientRecord.id, Record).then(
       (success: any) => {
         setPatientRecord(success);
       }
@@ -166,7 +165,7 @@ export const Patientspage = () => {
           <Divider orientation="left">
             <Title level={2}>Consultas</Title>
           </Divider>
-          <PatientTable />
+          <PatientTable patientId={Number(id)} />
         </Col>
       </Row>
     </SiderComponent>

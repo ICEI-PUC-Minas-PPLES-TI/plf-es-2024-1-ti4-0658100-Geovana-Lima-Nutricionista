@@ -32,7 +32,7 @@ public class PatientRecordController {
 
     @GetMapping("/patient/{id}")
     public PatientRecord getPatientRecordByPatient(@PathVariable Long id) {
-        return patientRecordService.getPatientRecord(id);
+        return patientRecordService.getPatientRecordByPatient(id);
     }
 
     @PutMapping("/{id}")

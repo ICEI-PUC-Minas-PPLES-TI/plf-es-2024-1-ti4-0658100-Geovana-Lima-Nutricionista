@@ -22,3 +22,19 @@ export const createAppointment = async (appointment: AppointmentForm) => {
   };
 };
 
+export const getPatientAppointments = async (id: number) => {
+  const config: AxiosRequestConfig = {
+    url: `${apiServerUrl}/api/appointments/patient/${id}`,
+    method: "GET",
+  };
+
+  const { data, error } = (await callExternalApi({
+    config,
+  })) as { data: Appointment[] | null; error: string | Error | null };
+
+  return {
+    data,
+    error,
+  };
+}
+

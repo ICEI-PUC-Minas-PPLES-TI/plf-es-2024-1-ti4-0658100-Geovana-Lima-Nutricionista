@@ -1,24 +1,18 @@
 package glnutricionista.backend.services;
 
-import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.models.PatientRecord;
 import glnutricionista.backend.repositories.PatientRecordRepository;
-import glnutricionista.backend.repositories.PatientRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PatientRecordService {
 
     @Autowired
     private PatientRecordRepository patientRecordRepository;
-
-    @Autowired
-    private PatientRepository patientRepository;
 
     public PatientRecord createPatientRecord(PatientRecord patientRecord) {
         return patientRecordRepository.save(patientRecord);

@@ -23,7 +23,6 @@ public class AppointmentDTO {
     @NotNull(message = "Price cannot be null")
     private Double price;
 
-    @NotBlank(message = "Status cannot be blank")
     private StatusEnum status;
 
     public Appointment toAppointment() {
@@ -32,6 +31,9 @@ public class AppointmentDTO {
         appointment.setDate(this.date);
         appointment.setHour(this.hour);
         appointment.setPrice(this.price);
+        if (this.status == null) {
+            this.status = StatusEnum.MARCADO;
+        }
         appointment.setStatus(String.valueOf(this.status));
         return appointment;
     }

@@ -37,11 +37,9 @@ public class PatientService {
       patient.getAddress();
 
       long totalAppointments = appointmentRepository.countByPatientId(id);
-      System.out.println(totalAppointments);
-      // patient.setTotalAppointments(totalAppointments);
+      patient.setTotalAppointments(totalAppointments);
       double totalPrice = appointmentRepository.sumPriceByPatientId(id);
-      System.out.println(totalPrice);
-      // patient.setTotalPrice(totalPrice);
+      patient.setTotalPrice(totalPrice);
     }
     return patient;
   }

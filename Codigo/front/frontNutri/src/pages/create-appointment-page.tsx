@@ -5,7 +5,7 @@ import { createAppointment } from "../services/appointment.service";
 import { AppointmentForm } from "../interfaces/appointmentForms";
 import SiderComponent from "../components/SiderComponent";
 import { AppointmentRegistration } from "../components/AppointmentRegistration";
-import moment from "moment";
+import moment, { Moment } from "moment";
 
 const formItemLayout = {
   labelCol: {
@@ -23,13 +23,16 @@ export const CreateAppointment = () => {
   const navigate = useNavigate();
 
   const onFinish = async (formData: AppointmentForm) => {
+    console.log(formData.hour);
     const formattedDate = moment(formData.date).format("YYYY-MM-DD");
-    const formattedHour = moment(formData.hour).format("HH:mm:ss");
+    const formattedHour = (formData.hour).format("HH:mm");
 
     formData.date = formattedDate;
     formData.hour = formattedHour;
 
-    const { data, error } = await createAppointment(formData);
+    const objData = {...formData, hour: formattedHour}
+
+    const { data, error } = await createAppointment(objData);
     if (data) {
       notification.success({
         message: "Consulta cadastrada com sucesso!",

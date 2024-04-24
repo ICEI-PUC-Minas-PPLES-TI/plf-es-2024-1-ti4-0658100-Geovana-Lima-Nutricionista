@@ -28,6 +28,11 @@ public class AppointmentController {
         return appointmentService.getAllAppointments();
     }
 
+    @GetMapping("/patient/{id}")
+    public List<Appointment> getAllPatientAppointments(@PathVariable Long id) {
+        return appointmentService.getAllPatientAppointments(id);
+    }
+
     @GetMapping("/{id}")
     public Appointment getAppointment(@PathVariable Long id) {
         return appointmentService.getAppointment(id);

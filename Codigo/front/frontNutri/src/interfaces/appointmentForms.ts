@@ -1,7 +1,9 @@
+import { Moment } from "moment";
+
 export interface AppointmentForm {
     patientId: number;
     date: string;
-    hour: string;
+    hour: Moment;
     price: string;
   }
   

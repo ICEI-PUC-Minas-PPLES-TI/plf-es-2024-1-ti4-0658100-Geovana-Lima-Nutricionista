@@ -1,53 +1,35 @@
-import { useState } from 'react'
-import { Input, Modal, Table } from 'antd';
+import { useEffect, useState } from 'react'
+import { Input, Modal, notification, Table } from 'antd';
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Appointment } from '../interfaces/appointment';
+import { getPatientAppointments } from '../services/appointment.service';
 
-export const PatientTable = () => {
+export const PatientTable = ({patientId}:{patientId: number}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
-  const [dataSource, setDataSource] = useState<Appointment[]>([
-    {
-      id: 1,
-      date: '22/01/2002',
-      time: '10:59',
-      amount: '100',
-      paymentLink: 'www.pagamento.com',
-      status: 'Concluído',
-    },
-    {
-      id:2,
-      date:'22/01/2002',
-      time:'10:59',
-      amount:'100',
-      paymentLink: 'www.pagamento.com',
-      status: 'Concluído'
-    },
-    {
-      id:3,
-      date:'22/01/2002',
-      time:'10:59',
-      amount:'100',
-      paymentLink: 'www.pagamento.com',
-      status: 'Concluído'
-    },
-    {
-      id:4,
-      date:'22/01/2002',
-      time:'10:59',
-      amount:'100',
-      paymentLink: 'www.pagamento.com',
-      status: 'Concluído'
-    },
-    {
-      id:5,
-      date:'22/01/2002',
-      time:'10:59',
-      amount:'100',
-      paymentLink: 'www.pagamento.com',
-      status: 'Concluído'
-    },
-  ])
+  const [dataSource, setDataSource] = useState<Appointment[]>([])
+
+  useEffect(() => {
+    const loadAppointments = async () => {
+      const { data, error } = await getPatientAppointments(patientId);
+      if (data) {
+        setDataSource(data);
+      }
+      if (data?.length === 0) {
+        notification.info({
+          message: "Não há consultas cadastradas",
+        });
+      } else {
+        if (error) {
+          notification.error({
+            message: "Erro ao carregar consultas",
+          });
+        }
+      }
+    };
+
+    loadAppointments();
+  }, [])
 
   const columns =[
     {
@@ -60,13 +42,13 @@ export const PatientTable = () => {
       key:'2',
       id:2,
       title:'Hora',
-      dataIndex:'time'
+      dataIndex:'hour'
     },
     {
       key:'3',
       id:3,
       title:'Valor Pago',
-      dataIndex:'amount'
+      dataIndex:'price'
     },
     {
       key:'4',
