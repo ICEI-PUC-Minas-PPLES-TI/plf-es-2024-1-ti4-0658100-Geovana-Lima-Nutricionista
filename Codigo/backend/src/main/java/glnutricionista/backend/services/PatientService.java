@@ -2,6 +2,8 @@ package glnutricionista.backend.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import glnutricionista.backend.models.Address;
@@ -44,8 +46,18 @@ public class PatientService {
     return patient;
   }
 
-  public List<Patient> getAllPatients() {
-    return patientRepository.findAll();
+  public List<Patient> getAllPatients(int page, int pageSize, String patientName) {
+    int pageNumber = page - 1;
+    PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+
+    if (patientName != null && !patientName.isEmpty()) {
+      Page<Patient> patientsPage = patientRepository.findByNameContaining(patientName, pageRequest);
+      return patientsPage.getContent();
+    }
+
+    Page<Patient> patientsPage = patientRepository.findAll(pageRequest);
+
+    return patientsPage.getContent();
   }
 
   public Patient updatePatient(Long id, Patient patient) {

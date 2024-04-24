@@ -16,3 +16,10 @@ export interface Patient {
     country: string;
   };
 }
+
+export interface PatientSearchParams
+{
+  page: number;
+  per_page: number;
+  patient_name?: string;
+}
