@@ -1,6 +1,7 @@
 package glnutricionista.backend.DTO;
 
 import glnutricionista.backend.models.PatientRecord;
+import glnutricionista.backend.services.PatientService;
 
 public class PatientRecordDTO {
 
@@ -81,6 +82,7 @@ public class PatientRecordDTO {
 
     public PatientRecord toPatientRecord() {
         PatientRecord patientRecord = new PatientRecord();
+        PatientService patientService = new PatientService();
         patientRecord.setWeight(this.weight);
         patientRecord.setHeight(this.height);
         patientRecord.setPhysicalActivities(this.physicalActivities);
@@ -88,7 +90,8 @@ public class PatientRecordDTO {
         patientRecord.setWaist(this.waist);
         patientRecord.setBust(this.bust);
         patientRecord.setObservations(this.observations);
-        // Aqui você também pode setar o paciente, se tiver o ID do paciente
+        patientRecord.setPatient(patientService.getPatient(this.patientId));
+
         return patientRecord;
     }
 }

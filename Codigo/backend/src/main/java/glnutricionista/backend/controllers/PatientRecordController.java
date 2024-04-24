@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/patient-records")
+@RequestMapping(value = "/patient-records")
 public class PatientRecordController {
 
     @Autowired
@@ -28,6 +28,10 @@ public class PatientRecordController {
     @GetMapping("/{id}")
     public PatientRecord getPatientRecord(@PathVariable Long id) {
         return patientRecordService.getPatientRecord(id);
+    }
+    @GetMapping("/p/{id}")
+    public PatientRecord getPatientRecordByPatient(@PathVariable Long id) {
+        return patientRecordService.getPatientRecordByPatient(id);
     }
 
     @PutMapping("/{id}")

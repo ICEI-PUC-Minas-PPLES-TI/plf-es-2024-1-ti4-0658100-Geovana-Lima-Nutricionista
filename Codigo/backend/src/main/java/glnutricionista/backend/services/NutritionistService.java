@@ -4,8 +4,6 @@ import glnutricionista.backend.models.Nutritionist;
 import glnutricionista.backend.repositories.NutritionistRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class NutritionistService {
 

@@ -25,6 +25,10 @@ public class PatientRecordService {
         return patientRecordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Patient Record Id:" + id));
     }
+    public PatientRecord getPatientRecordByPatient(Long id) {
+        return patientRecordRepository.findByPatientId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Patient Id:" + id));
+    }
 
     public PatientRecord updatePatientRecord(Long id, PatientRecord updatedPatientRecord) {
         PatientRecord patientRecord = patientRecordRepository.findById(id)
