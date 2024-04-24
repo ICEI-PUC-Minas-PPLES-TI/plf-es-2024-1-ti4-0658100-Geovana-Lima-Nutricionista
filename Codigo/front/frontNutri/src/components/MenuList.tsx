@@ -20,7 +20,9 @@ export const MenuList = () => {
         title="Calendário"
       >
         <Menu.Item key={"check-schedule"}>Ver Agenda</Menu.Item>
-        <Menu.Item key={"add-new-event"}>Adicionar Novo Evento</Menu.Item>
+        <Menu.Item key={"/appointments/create"} onClick={({key}) => {
+          navigate(key);
+        }} >Adicionar Novo Evento</Menu.Item>
       </Menu.SubMenu>
       <Menu.SubMenu key="patients" icon={<TeamOutlined />} title="Pacientes">
         <Menu.Item
