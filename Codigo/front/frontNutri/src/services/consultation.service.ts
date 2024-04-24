@@ -1,14 +1,15 @@
 import { AxiosRequestConfig } from "axios";
 import { callExternalApi } from "./api.service";
-import { Patient, PatientSearchParams } from "../interfaces/patient";
+import { Patient } from "../interfaces/patient";
+import { ConsultationForm } from "../interfaces/consultationForms";
 
 const apiServerUrl = "http://localhost:8080";
 
-export const createPatient = async (patient: Patient) => {
+export const createConsultation = async (consultation: ConsultationForm) => {
   const config: AxiosRequestConfig = {
     url: `${apiServerUrl}/api/patient`,
     method: "POST",
-    data: patient,
+    data: consultation,
   };
 
   const { data, error } = (await callExternalApi({
@@ -21,11 +22,10 @@ export const createPatient = async (patient: Patient) => {
   };
 };
 
-export const getPatients = async (params: PatientSearchParams) => {
+export const getPatients = async () => {
   const config: AxiosRequestConfig = {
     url: `${apiServerUrl}/api/patient`,
     method: "GET",
-    params
   };
 
   const { data, error } = (await callExternalApi({
@@ -79,7 +79,7 @@ export const getPatient = async (patientId: number) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Patient ; error: string | Error | null };
+  })) as { data: Patient | null; error: string | Error | null };
 
   return {
     data,

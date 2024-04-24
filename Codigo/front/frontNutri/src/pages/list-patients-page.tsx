@@ -11,8 +11,10 @@ import {
   PaginationPatient,
   SearchField,
 } from "../styledComponents/Patient/list-patient-styles";
+import { useNavigate } from "react-router-dom";
 
 export const PatientsList = () => {
+  const navigate = useNavigate();
   document.title = "Busca de Pacientes";
   const [patients, setPatients] = useState<Patient[]>([]);
   const [searchParams, setSearchParams] = useState<PatientSearchParams>({
@@ -43,7 +45,8 @@ export const PatientsList = () => {
   }, [searchParams]);
 
   const showEditModal = (patient: Patient) => {
-    console.log(patient);
+    localStorage.setItem("patient",JSON.stringify(patient) );
+    navigate('/see-patient');
   };
 
   const handleDelete = async (patientId: number) => {
@@ -80,7 +83,7 @@ export const PatientsList = () => {
         </SearchField>
 
         <List
-          grid={{ column: 3 }}
+          grid={{ column: 4 }}
           renderItem={(patient: Patient, index) => {
             return (
               <Card

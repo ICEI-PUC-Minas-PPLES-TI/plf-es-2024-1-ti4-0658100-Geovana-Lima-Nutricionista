@@ -3,8 +3,10 @@ import Title from "antd/es/typography/Title";
 import { PatientForm } from "../interfaces/patientForms";
 import { Form, notification } from "antd";
 import { createPatient } from "../services/patient.service";
+import { createConsultation } from "../services/consultation.service";
 import SiderComponent from "../components/SiderComponent";
-import { PatientFormRegister } from "../components/PatientFormRegister";
+import { ConsultationForm } from "../interfaces/consultationForms";
+import { ConsultationRegistration } from "../components/ConsultationRegistration";
 
 const formItemLayout = {
   labelCol: {
@@ -17,36 +19,27 @@ const formItemLayout = {
   },
 };
 
-export const CreatePatient = () => {
-  document.title = "Cadastro de Pacientes";
+export const CreateConsultation = () => {
+  document.title = "Cadastro de Consultas";
   const navigate = useNavigate();
 
-  const onFinish = async (formData: PatientForm) => {
-    const patientData = {
+  const onFinish = async (formData: ConsultationForm) => {
+    const consultationData = {
       name: formData.name,
-      email: formData.email,
-      birthDate: formData.birthDate,
-      occupation: formData.occupation,
-      goal: formData.goal,
-      address: {
-        zip: formData.zip,
-        state: formData.state,
-        city: formData.city,
-        district: formData.district,
-        street: formData.street,
-        country: formData.country,
-      },
-    };
-    const { data, error } = await createPatient(patientData);
+      consultationDate: formData.consultationDate,
+      consultationTime: formData.consultationTime,
+      value: formData.value,
+      }
+    const { data, error } = await createConsultation(consultationData);
     if (data) {
       notification.success({
-        message: "Paciente cadastrado com sucesso!",
+        message: "Consulta cadastrada com sucesso!",
       });
       navigate("/check-patient");
     }
     if (error) {
       notification.error({
-        message: "Erro ao cadastrar paciente!",
+        message: "Erro ao cadastrar nova consulta!",
       });
     }
   };
@@ -59,7 +52,7 @@ export const CreatePatient = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            minHeight: "60vh"
+            minHeight: "60vh",
           }}
         >
           <Form
@@ -71,9 +64,9 @@ export const CreatePatient = () => {
           >
             <div>
               <Title style={{ textAlign: "center" }}>
-                Cadastro do Paciente
+                Cadastro da Consulta
               </Title>
-              <PatientFormRegister />
+              <ConsultationRegistration />
             </div>
           </Form>
         </div>

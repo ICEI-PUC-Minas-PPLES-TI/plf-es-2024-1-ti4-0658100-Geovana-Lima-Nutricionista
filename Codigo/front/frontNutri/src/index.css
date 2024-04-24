@@ -142,8 +142,12 @@
 }
 
 .title{
-    color: '#807A7A';
+    color: #807A7A;
+    font-weight: lighter;
+    opacity: 60%;
 }
+
+
 
 .itemCardImage{
     height: 150px !important;
@@ -161,14 +165,11 @@
 .header{
     background-color: #F4EFEC;
 }
-.layout{
-    position: fixed;
-}
+
 .patientList{
     background-color: #F4EFEC;
 }
 body {
-    background-color: #F4EFEC;
     font-family: 'Lexend', sans-serif; /* Definindo a fonte para todo o corpo do site */
     margin: 0;
 }
@@ -176,6 +177,13 @@ body {
     background-color: #F4EFEC;
 }
 
+.login-Container-down {
+    display: flex;
+	width: 100%;
+	align-items: center;
+    position: fixed;
+	
+  }
 .login-form {
   display: flex; 
   flex-direction: column; 
@@ -188,7 +196,7 @@ body {
   }
 
  img{
-    width: 55%;
+    width: 75%;
 }
   
   .login-card h2 {
@@ -205,7 +213,7 @@ body {
   }
   
   .login-card label {
-    margin-bottom: 5px;
+    margin-bottom: 5%;
     display: block;
     font-family: 'Lexend', sans-serif;
   }
@@ -228,8 +236,24 @@ body {
     display: flex;
 	align-items: center;
   }
+
+
   .login-form-forgot{
     color: #6B6CEC;
   }
 
+  .create-consultation-button {
+    position: fixed;
+    bottom: 30px;
+    right: 90px;
+}
+
+.create-patient-button {
+  position: fixed;
+  bottom: 30px;
+  right: 90px;
+}
+
+
   
+
