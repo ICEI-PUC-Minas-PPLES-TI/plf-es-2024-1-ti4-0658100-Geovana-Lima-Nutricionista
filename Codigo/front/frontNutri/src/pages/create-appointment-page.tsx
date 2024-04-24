@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router";
 import Title from "antd/es/typography/Title";
-import { PatientForm } from "../interfaces/patientForms";
 import { Form, notification } from "antd";
-import { createPatient } from "../services/patient.service";
-import { createConsultation } from "../services/consultation.service";
+import { createAppointment } from "../services/appointment.service";
+import { AppointmentForm } from "../interfaces/appointmentForms";
 import SiderComponent from "../components/SiderComponent";
-import { ConsultationForm } from "../interfaces/consultationForms";
-import { ConsultationRegistration } from "../components/ConsultationRegistration";
+import { AppointmentRegistration } from "../components/AppointmentRegistration";
+import moment, { Moment } from "moment";
 
 const formItemLayout = {
   labelCol: {
@@ -19,23 +18,26 @@ const formItemLayout = {
   },
 };
 
-export const CreateConsultation = () => {
+export const CreateAppointment = () => {
   document.title = "Cadastro de Consultas";
   const navigate = useNavigate();
 
-  const onFinish = async (formData: ConsultationForm) => {
-    const consultationData = {
-      name: formData.name,
-      consultationDate: formData.consultationDate,
-      consultationTime: formData.consultationTime,
-      value: formData.value,
-      }
-    const { data, error } = await createConsultation(consultationData);
+  const onFinish = async (formData: AppointmentForm) => {
+    console.log(formData.hour);
+    const formattedDate = moment(formData.date).format("YYYY-MM-DD");
+    const formattedHour = (formData.hour).format("HH:mm");
+
+    formData.date = formattedDate;
+    formData.hour = formattedHour;
+
+    const objData = {...formData, hour: formattedHour}
+
+    const { data, error } = await createAppointment(objData);
     if (data) {
       notification.success({
         message: "Consulta cadastrada com sucesso!",
       });
-      navigate("/check-patient");
+      navigate("/patients");
     }
     if (error) {
       notification.error({
@@ -66,7 +68,7 @@ export const CreateConsultation = () => {
               <Title style={{ textAlign: "center" }}>
                 Cadastro da Consulta
               </Title>
-              <ConsultationRegistration />
+              <AppointmentRegistration />
             </div>
           </Form>
         </div>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import glnutricionista.backend.models.Address;
 import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.repositories.AddressRepository;
+import glnutricionista.backend.repositories.AppointmentRepository;
 import glnutricionista.backend.repositories.PatientRepository;
 
 @Service
@@ -20,8 +21,10 @@ public class PatientService {
   @Autowired
   private AddressRepository addressRepository;
 
-  public Patient createPatient(Patient patient) {
+  @Autowired
+  private AppointmentRepository appointmentRepository;
 
+  public Patient createPatient(Patient patient) {
     Address address = patient.getAddress();
     patient.setAddress(addressRepository.save(address));
 
@@ -29,7 +32,16 @@ public class PatientService {
   }
 
   public Patient getPatient(Long id) {
-    return patientRepository.getReferenceById(id);
+    Patient patient = patientRepository.findById(id).orElse(null);
+    if (patient != null) {
+      patient.getAddress();
+
+      long totalAppointments = appointmentRepository.countByPatientId(id);
+      patient.setTotalAppointments(totalAppointments);
+      double totalPrice = appointmentRepository.sumPriceByPatientId(id);
+      patient.setTotalPrice(totalPrice);
+    }
+    return patient;
   }
 
   public List<Patient> getAllPatients(int page, int pageSize, String patientName) {
@@ -47,7 +59,6 @@ public class PatientService {
   }
 
   public Patient updatePatient(Long id, Patient patient) {
-
     Address oldAddress = this.getPatient(id).getAddress();
     Address newAddress = patient.getAddress();
     newAddress.setId(oldAddress.getId());

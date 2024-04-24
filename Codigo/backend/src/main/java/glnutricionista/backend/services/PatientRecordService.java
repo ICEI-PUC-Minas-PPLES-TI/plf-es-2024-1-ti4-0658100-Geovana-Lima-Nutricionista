@@ -2,6 +2,7 @@ package glnutricionista.backend.services;
 
 import glnutricionista.backend.models.PatientRecord;
 import glnutricionista.backend.repositories.PatientRecordRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,10 @@ public class PatientRecordService {
     public PatientRecord getPatientRecord(Long id) {
         return patientRecordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Patient Record Id:" + id));
+    }
+
+    public PatientRecord getPatientRecordByPatient(Long id) {
+        return patientRecordRepository.findByPatient(id).get(0);
     }
 
     public PatientRecord updatePatientRecord(Long id, PatientRecord updatedPatientRecord) {

@@ -7,11 +7,11 @@ import SiderComponent from "../components/SiderComponent";
 import "../index.css";
 import { Patient, PatientSearchParams } from "../interfaces/patient";
 import { deletePatient, getPatients } from "../services/patient.service";
+import { useNavigate } from "react-router";
 import {
   PaginationPatient,
   SearchField,
 } from "../styledComponents/Patient/list-patient-styles";
-import { useNavigate } from "react-router-dom";
 
 export const PatientsList = () => {
   const navigate = useNavigate();
@@ -45,8 +45,8 @@ export const PatientsList = () => {
   }, [searchParams]);
 
   const showEditModal = (patient: Patient) => {
-    localStorage.setItem("patient",JSON.stringify(patient) );
-    navigate('/see-patient');
+    console.log(patient);
+    navigate(Number(patient.id).toString());
   };
 
   const handleDelete = async (patientId: number) => {

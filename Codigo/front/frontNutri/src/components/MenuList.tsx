@@ -24,7 +24,7 @@ export const MenuList = () => {
       </Menu.SubMenu>
       <Menu.SubMenu key="patients" icon={<TeamOutlined />} title="Pacientes">
         <Menu.Item
-          key={"/check-patient"}
+          key={"/patients"}
           onClick={({ key }) => {
             navigate(key);
           }}
@@ -32,7 +32,7 @@ export const MenuList = () => {
           Ver Pacientes
         </Menu.Item>
         <Menu.Item
-          key={"/add-new-patient"}
+          key={"/patients/create"}
           onClick={({ key }) => {
             navigate(key);
           }}

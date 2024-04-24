@@ -32,7 +32,7 @@ export const getPatientRecord = async (id:number) => {
 };
 export const getPatientRecordPatient = async (id:number) => {
   try {
-    const response = await axios.get(`${apiServerUrl}/patient-records/p/${id}`);
+    const response = await axios.get(`${apiServerUrl}/patient-records/patient/${id}`);
     return response.data;
 } catch (error:any) {
     throw new Error(error.response.data.message || error.message);

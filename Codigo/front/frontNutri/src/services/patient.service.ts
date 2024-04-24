@@ -85,5 +85,4 @@ export const getPatient = async (patientId: number) => {
     data,
     error,
   };
-
 };

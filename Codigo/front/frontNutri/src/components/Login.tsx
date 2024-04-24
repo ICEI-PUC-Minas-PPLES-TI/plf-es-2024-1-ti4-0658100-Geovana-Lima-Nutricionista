@@ -21,7 +21,7 @@ const Login = () => {
             notification.success({
                 message: "Login efetuado com sucesso!",
             })
-            navigate("/check-patient");
+            navigate("/patients");
         }
 
         if (error) {

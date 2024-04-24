@@ -23,6 +23,10 @@ public class AppointmentService {
         return appointmentRepository.findAll();
     }
 
+    public List<Appointment> getAllPatientAppointments(Long id) {
+        return appointmentRepository.findByPatient(id);
+    }
+
     public Appointment getAppointment(Long id) {
         Optional<Appointment> appointment = appointmentRepository.findById(id);
         if (appointment.isPresent()) {
