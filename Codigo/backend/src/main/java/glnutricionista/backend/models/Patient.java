@@ -3,14 +3,19 @@ package glnutricionista.backend.models;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ColumnResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -37,7 +42,13 @@ public class Patient implements Serializable {
 
   @Column(length = 250, nullable = false)
   private String goal;
+  
+  @Transient // Este campo não será mapeado para o banco de dados
+  private long totalAppointments;
 
+  @Transient // Este campo não será mapeado para o banco de dados
+  private double totalPrice;
+  
   @OneToOne
   private Address address;
 
@@ -87,6 +98,23 @@ public class Patient implements Serializable {
 
   public void setGoal(String goal) {
     this.goal = goal;
+  }
+
+  public long getTotalAppointments() {
+    return this.totalAppointments;
+  }
+
+  public void setTotalAppointments(long totalAppointments)
+  {
+    this.totalAppointments = totalAppointments;
+  }
+
+  public double getTotalPrice() {
+    return this.totalPrice;
+  }
+
+  public void setTotalPrice(double totalPrice) {
+    this.totalPrice = totalPrice;
   }
 
   public Address getAddress() {

@@ -7,10 +7,12 @@ import SiderComponent from "../components/SiderComponent";
 import "../index.css";
 import { Patient } from "../interfaces/patient";
 import { deletePatient, getPatients } from "../services/patient.service";
+import { useNavigate } from "react-router";
 
 export const PatientsList = () => {
   document.title = "Busca de Pacientes";
   const [patients, setPatients] = useState<Patient[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadPatients = async () => {
@@ -36,7 +38,8 @@ export const PatientsList = () => {
   }, []);
 
   const showEditModal = (patient: Patient) => {
-    console.log(patient);
+    console.log(patient)
+    navigate((Number(patient.id)).toString());
   };
 
   const handleDelete = async (patientId: number) => {

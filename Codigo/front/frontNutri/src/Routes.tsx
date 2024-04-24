@@ -7,10 +7,10 @@ import { Patientspage } from './components/PatientPage';
 export const RoutesComponent = () => (
     <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/add-new-patient" element={<CreatePatient />} />
-        <Route path="/check-patient" element={<PatientsList />} />
-        <Route path="/cadastroConsulta" element={<CreateConsultation />} />
-        <Route path="/see-patient" element={<Patientspage />} />
+        <Route path="/patients/create" element={<CreatePatient />} />
+        <Route path="/patients" element={<PatientsList />} />
+        <Route path="/patients/:id" element={<Patientspage />} />
+        <Route path="/appointments/create" element={<CreateConsultation />} />
     </Routes>
   );
 

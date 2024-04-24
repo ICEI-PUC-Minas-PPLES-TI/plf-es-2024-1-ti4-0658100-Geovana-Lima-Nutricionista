@@ -1,19 +1,44 @@
-import { Button, Card, Col, Divider, Flex, Input, Row, Space, Typography } from 'antd';
+import { Button, Card, Col, Divider, Flex, Input, notification, Row, Space, Typography } from 'antd';
 import SiderComponent from './SiderComponent';
 import Meta from 'antd/es/card/Meta';
 import { UserOutlined, EditOutlined } from "@ant-design/icons";
 import { PatientTable } from './PatientTable';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Title from 'antd/es/typography/Title';
+import { useParams } from 'react-router';
+import { Patient } from '../interfaces/patient';
+import { getPatient } from '../services/patient.service';
 
 const { Text } = Typography;
 
 export const Patientspage = () => {
+  const { id } = useParams<{ id: string }>();
   const [isEditing, setIsEditing] = useState(false);
+  const [patient, setPatient] = useState<Patient|null>();
 
   const handleEditClick = () => {
     setIsEditing(true);
   };
+
+  useEffect(() => {
+    const loadPatient = async () => {
+      const {data, error} = await getPatient(Number(id));
+
+      if (data) {
+        setPatient(data);
+      }
+
+      if (error) {
+        notification.error({
+          message: "Erro ao carregar paciente!",
+        });
+
+        setPatient(null);
+      }
+    }
+
+    loadPatient();
+  }, [id])
 
   return (
     <SiderComponent>
@@ -25,12 +50,12 @@ export const Patientspage = () => {
                 <UserOutlined style={{ fontSize: 64 }} />
               </div>
               <Meta
-                title="Maria Eduarda"
+                title={patient?.name}
                 description={
                   <Flex gap="middle" vertical>
-                    <p>mariaeduarda@gmail.com</p>
-                    <Text strong>Consultas: 20</Text>
-                    <Text strong>Total Pago: R$500</Text>
+                    <p>{patient?.email}</p>
+                    <Text strong>Consultas: {patient?.totalAppointments ?? 0}</Text>
+                    <Text strong>Total Pago: R${patient?.totalPrice ?? 0.00}</Text>
                   </Flex>
                 }
               />
@@ -43,22 +68,22 @@ export const Patientspage = () => {
               <Col span={12}>
                 <Space direction="vertical" size="middle">
                   <Text>Ocupação</Text>
-                  <Text strong>Professora</Text>
+                  <Text strong>{patient?.occupation}</Text>
                   <Text>Data de Nascimento</Text>
-                  <Text strong>22/02/2003</Text>
+                  <Text strong>{patient?.birthDate}</Text>
                   <Text>Cidade</Text>
-                  <Text strong>Belo Horizonte</Text>
+                  <Text strong>{patient?.address.city}</Text>
                 </Space>
               </Col>
 
               <Col span={12}>
                 <Space direction="vertical" size="middle">
                   <Text>Objetivo</Text>
-                  <Text strong>Emagrecer</Text>
+                  <Text strong>{patient?.goal}</Text>
                   <Text>Estado</Text>
-                  <Text strong>Minas Gerais</Text>
+                  <Text strong>{patient?.address.state}</Text>
                   <Text>Endereço</Text>
-                  <Text strong>Rua ABC 123</Text>
+                  <Text strong>{patient?.address.street}, {patient?.address.district}</Text>
                 </Space>
               </Col>
             </Row>

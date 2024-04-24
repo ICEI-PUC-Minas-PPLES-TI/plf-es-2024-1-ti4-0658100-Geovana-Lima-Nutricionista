@@ -5,6 +5,8 @@ export interface Patient {
   birthDate: string;
   occupation: string;
   goal: string;
+  totalAppointments?: number;
+  totalPrice?: number;
   address: {
     zip: string;
     state: string;

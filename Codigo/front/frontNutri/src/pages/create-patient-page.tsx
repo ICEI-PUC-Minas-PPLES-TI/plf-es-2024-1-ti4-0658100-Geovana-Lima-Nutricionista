@@ -22,6 +22,7 @@ export const CreatePatient = () => {
   const navigate = useNavigate();
 
   const onFinish = async (formData: PatientForm) => {
+    console.log(formData)
     const patientData = {
       name: formData.name,
       email: formData.email,
@@ -42,7 +43,7 @@ export const CreatePatient = () => {
       notification.success({
         message: "Paciente cadastrado com sucesso!",
       });
-      navigate("/check-patient");
+      navigate("/patients");
     }
     if (error) {
       notification.error({

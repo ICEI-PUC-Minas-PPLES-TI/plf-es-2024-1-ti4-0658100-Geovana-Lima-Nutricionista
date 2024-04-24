@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router";
 import Title from "antd/es/typography/Title";
-import { PatientForm } from "../interfaces/patientForms";
 import { Form, notification } from "antd";
-import { createPatient } from "../services/patient.service";
 import { createConsultation } from "../services/consultation.service";
 import SiderComponent from "../components/SiderComponent";
 import { ConsultationForm } from "../interfaces/consultationForms";
@@ -35,7 +33,7 @@ export const CreateConsultation = () => {
       notification.success({
         message: "Consulta cadastrada com sucesso!",
       });
-      navigate("/check-patient");
+      navigate("/patients");
     }
     if (error) {
       notification.error({

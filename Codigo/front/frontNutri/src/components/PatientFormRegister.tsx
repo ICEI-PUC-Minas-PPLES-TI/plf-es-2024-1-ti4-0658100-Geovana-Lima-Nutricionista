@@ -82,7 +82,7 @@ export const PatientFormRegister = () => {
 
       <Row gutter={24}>
         <Col span={12}>
-        <Form.Item
+          <Form.Item
             name="birthDate"
             label="Data de Nascimento"
             rules={[
@@ -242,12 +242,11 @@ export const PatientFormRegister = () => {
         </Col>
       </Row>
 
-
       <div className="create-patient-button">
-                <Button type="primary" className="button">
-                    Cadastrar
-                </Button>
-            </div>
+        <Button htmlType="submit" type="primary" className="button">
+          Cadastrar
+        </Button>
+      </div>
     </div>
   );
 };
