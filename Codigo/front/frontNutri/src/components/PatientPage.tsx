@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Card,
   Col,
@@ -27,75 +28,33 @@ import { RecordProps } from "../interfaces/Record";
 
 const { Text } = Typography;
 
-const r = {
+const r =  {
   id: 0,
-  weight: "",
-  height: "",
-  physicalActivities: "",
-  imc: "",
-  waist: "",
-  bust: "",
-  observations: "",
-};
-const p = {
-  id: 1,
-  name: "",
-  email: "",
-  birthDate: "",
-  occupation: "",
-  goal: "",
-  address: {
-    zip: "",
-    state: "",
-    city: "",
-    district: "",
-    street: "",
-    country: "",
-  },
-};
+  weight: 0,
+  height: 0,
+  physicalActivities: '',
+  imc: 0,
+  waist: 0,
+  bust: 0,
+  observations: '',
+}
 
 export const Patientspage = () => {
   const { id } = useParams<{ id: string }>();
-  const [isEditing, setIsEditing] = useState(false);
-  const [patient, setPatient] = useState<Patient>(p);
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const a = JSON.parse(localStorage.getItem("patient") ?? JSON.stringify(p));
-
+  const [patient, setPatient] = useState<Patient | null>();
   const [patientRecord, setPatientRecord] = useState<RecordProps>(r);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getPatient(a.id);
-        setPatient(response.data);
-      } catch (error: any) {
-        console.error("Erro ao obter o registro do paciente:", error.message);
-      }
-
-      try {
-        const response = await getPatientRecordPatient(a.id);
-        setPatientRecord(response);
-      } catch (error: any) {
-        console.error("Erro ao obter o registro do paciente:", error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   function updateRecord(Record: any) {
     console.log(patient);
-    updatePatientRecord(patientRecord.id, Record).then((success: any) => {
-      setPatientRecord(success);
-    });
+    updatePatientRecord(Number(id), Record).then(
+      (success: any) => {
+        setPatientRecord(success);
+      }
+    );
   }
 
   function createRecord(Record: any) {
-    Record.patientId = a.id;
+    Record.patientId = id;
     console.log(Record);
     createPatientRecord(Record).then((success: any) => {
       setPatientRecord(success);
@@ -114,8 +73,13 @@ export const Patientspage = () => {
         notification.error({
           message: "Erro ao carregar paciente!",
         });
+      }
 
-        setPatient(p);
+      try {
+        const response = await getPatientRecordPatient(Number(id));
+        setPatientRecord(response);
+      } catch (error: any) {
+        console.error("Erro ao obter o registro do paciente:", error.message);
       }
     };
 
@@ -139,15 +103,15 @@ export const Patientspage = () => {
                 <UserOutlined style={{ fontSize: 64 }} />
               </div>
               <Meta
-                title={patient.name}
+                title={patient?.name}
                 description={
                   <Flex gap="middle" vertical>
-                    <p>{patient.email}</p>
+                    <p>{patient?.email}</p>
                     <Text strong>
-                      Consultas: {patient.totalAppointments ?? 0}
+                      Consultas: {patient?.totalAppointments ?? 0}
                     </Text>
                     <Text strong>
-                      Total Pago: R${patient.totalPrice ?? 0.0}
+                      Total Pago: R${patient?.totalPrice ?? 0.0}
                     </Text>
                   </Flex>
                 }
@@ -161,35 +125,39 @@ export const Patientspage = () => {
               <Col span={12}>
                 <Space direction="vertical" size="middle">
                   <Text>Ocupação</Text>
-                  <Text strong>{patient.occupation}</Text>
+                  <Text strong>{patient?.occupation}</Text>
                   <Text>Data de Nascimento</Text>
                   <Text strong>
-                    {new Date(patient.birthDate).toLocaleDateString("pt-BR")}
+                    {new Date(patient?.birthDate ?? "").toLocaleDateString(
+                      "pt-BR"
+                    )}
                   </Text>
                   <Text>Cidade</Text>
-                  <Text strong>{patient.address.city}</Text>
+                  <Text strong>{patient?.address.city}</Text>
                 </Space>
               </Col>
 
               <Col span={12}>
                 <Space direction="vertical" size="middle">
                   <Text>Objetivo</Text>
-                  <Text strong>{patient.goal}</Text>
+                  <Text strong>{patient?.goal}</Text>
                   <Text>Estado</Text>
-                  <Text strong>{patient.address.state}</Text>
+                  <Text strong>{patient?.address.state}</Text>
                   <Text>Endereço</Text>
-                  <Text strong>{patient.address.street}</Text>
+                  <Text strong>{patient?.address.street}</Text>
                 </Space>
               </Col>
             </Row>
           </Card>
         </Col>
         <Col span={8}>
-          <CardPatient
-            record={patientRecord}
-            onUpdate={updateRecord}
-            onCreate={createRecord}
-          />
+          {patientRecord && (
+            <CardPatient
+              record={patientRecord}
+              onUpdate={updateRecord}
+              onCreate={createRecord}
+            />
+          )}
         </Col>
       </Row>
 

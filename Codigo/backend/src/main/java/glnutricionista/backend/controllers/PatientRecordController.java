@@ -30,6 +30,11 @@ public class PatientRecordController {
         return patientRecordService.getPatientRecord(id);
     }
 
+    @GetMapping("/patient/{id}")
+    public PatientRecord getPatientRecordByPatient(@PathVariable Long id) {
+        return patientRecordService.getPatientRecord(id);
+    }
+
     @PutMapping("/{id}")
     public PatientRecord updatePatientRecord(@PathVariable Long id, @RequestBody PatientRecordDTO patientRecordDTO) {
         return patientRecordService.updatePatientRecord(id, patientRecordDTO.toPatientRecord());
