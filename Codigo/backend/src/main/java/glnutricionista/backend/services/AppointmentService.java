@@ -24,7 +24,11 @@ public class AppointmentService {
     }
 
     public List<Appointment> getAllPatientAppointments(Long id) {
-        return appointmentRepository.findByPatient(id);
+        List<Appointment> appointments = appointmentRepository.findByPatient(id);
+        appointments.forEach(appointment -> {
+            appointment.getRecord(); // Define o registro do paciente na consulta
+        });
+        return appointments;
     }
 
     public Appointment getAppointment(Long id) {

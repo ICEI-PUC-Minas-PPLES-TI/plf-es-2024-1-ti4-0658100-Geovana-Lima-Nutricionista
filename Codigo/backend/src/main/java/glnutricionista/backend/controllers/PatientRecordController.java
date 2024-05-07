@@ -17,7 +17,7 @@ public class PatientRecordController {
 
     @PostMapping()
     public PatientRecord createPatientRecord(@RequestBody PatientRecordDTO patientRecordDTO) {
-        return patientRecordService.createPatientRecord(patientRecordDTO.toPatientRecord());
+        return patientRecordService.createPatientRecord(patientRecordDTO.toPatientRecord(), patientRecordDTO.getPatientId(), patientRecordDTO.getAppointmentId());
     }
 
     @GetMapping()

@@ -1,11 +1,13 @@
 package glnutricionista.backend.DTO;
 
+import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.models.PatientRecord;
 import glnutricionista.backend.services.PatientService;
 
 public class PatientRecordDTO {
 
     private Long patientId;
+    private Long appointmentId;
     private double weight;
     private double height;
     private String physicalActivities;
@@ -22,6 +24,14 @@ public class PatientRecordDTO {
 
     public void setPatientId(Long patientId) {
         this.patientId = patientId;
+    }
+
+    public Long getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public double getWeight() {
@@ -82,7 +92,7 @@ public class PatientRecordDTO {
 
     public PatientRecord toPatientRecord() {
         PatientRecord patientRecord = new PatientRecord();
-        PatientService patientService = new PatientService();
+
         patientRecord.setWeight(this.weight);
         patientRecord.setHeight(this.height);
         patientRecord.setPhysicalActivities(this.physicalActivities);
@@ -90,7 +100,6 @@ public class PatientRecordDTO {
         patientRecord.setWaist(this.waist);
         patientRecord.setBust(this.bust);
         patientRecord.setObservations(this.observations);
-        patientRecord.setPatient(patientService.getPatient(this.patientId));
 
         return patientRecord;
     }

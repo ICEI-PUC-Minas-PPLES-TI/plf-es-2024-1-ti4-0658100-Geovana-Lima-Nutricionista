@@ -1,7 +1,12 @@
 package glnutricionista.backend.services;
 
+import glnutricionista.backend.DTO.PatientRecordDTO;
+import glnutricionista.backend.models.Appointment;
+import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.models.PatientRecord;
+import glnutricionista.backend.repositories.AppointmentRepository;
 import glnutricionista.backend.repositories.PatientRecordRepository;
+import glnutricionista.backend.repositories.PatientRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +19,29 @@ public class PatientRecordService {
     @Autowired
     private PatientRecordRepository patientRecordRepository;
 
-    public PatientRecord createPatientRecord(PatientRecord patientRecord) {
+    @Autowired 
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
+
+    public PatientRecord createPatientRecord(PatientRecord patientRecord, Long patientId, Long appointmentId) {
+
+        Patient patient = patientRepository.findById(patientId).orElse(null);
+
+        if (patient == null) {
+            throw new IllegalArgumentException("Invalid Patient Id:" + patientId);
+        }
+
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElse(null);
+
+        if (appointment == null) {
+            throw new IllegalArgumentException("Invalid Appointment Id: " + appointmentId);
+        }
+
+        patientRecord.setPatient(patient);
+        patientRecord.setAppointment(appointment);
+
         return patientRecordRepository.save(patientRecord);
     }
 

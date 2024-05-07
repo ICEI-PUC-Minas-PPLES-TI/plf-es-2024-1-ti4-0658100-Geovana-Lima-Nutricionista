@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import org.springframework.data.repository.cdi.Eager;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -17,8 +21,12 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "patient_id", nullable = false)
-    private Long patientId;
+    @OneToOne(mappedBy = "appointment")
+    private PatientRecord record;
+
+    @ManyToOne
+    @JsonIgnore
+    private Patient patient;
 
     @Column(nullable = false)
     private LocalDate date;

@@ -26,7 +26,6 @@ public class AppointmentDTO {
 
     public Appointment toAppointment() {
         Appointment appointment = new Appointment();
-        appointment.setPatientId(this.patientId);
         appointment.setDate(this.date);
         appointment.setHour(this.hour);
         appointment.setPrice(this.price);
