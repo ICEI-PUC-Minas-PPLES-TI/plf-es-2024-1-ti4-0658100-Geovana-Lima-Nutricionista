@@ -1,6 +1,7 @@
 package glnutricionista.backend.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ColumnResult;
@@ -8,10 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
@@ -27,6 +30,9 @@ public class Patient implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @OneToMany(mappedBy = "patient")
+  private List<PatientRecord> records;
 
   @Column(length = 100, nullable = false)
   private String name;
@@ -58,6 +64,10 @@ public class Patient implements Serializable {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public List<PatientRecord> getRecords() {
+    return this.records;
   }
 
   public String getName() {

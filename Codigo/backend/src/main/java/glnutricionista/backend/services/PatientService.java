@@ -35,6 +35,7 @@ public class PatientService {
     Patient patient = patientRepository.findById(id).orElse(null);
     if (patient != null) {
       patient.getAddress();
+      patient.getRecords();
 
       long totalAppointments = appointmentRepository.countByPatientId(id);
       patient.setTotalAppointments(totalAppointments);

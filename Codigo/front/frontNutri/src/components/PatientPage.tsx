@@ -41,7 +41,7 @@ const r =  {
 
 export const Patientspage = () => {
   const { id } = useParams<{ id: string }>();
-  const [patient, setPatient] = useState<Patient | null>();
+  const [patient, setPatient] = useState<Patient | null>(null);
   const [patientRecord, setPatientRecord] = useState<RecordProps>(r);
 
   function updateRecord(Record: any) {
@@ -132,7 +132,7 @@ export const Patientspage = () => {
                     )}
                   </Text>
                   <Text>Cidade</Text>
-                  <Text strong>{patient?.address.city}</Text>
+                  <Text strong>{patient?.address?.city ?? "" }</Text>
                 </Space>
               </Col>
 
