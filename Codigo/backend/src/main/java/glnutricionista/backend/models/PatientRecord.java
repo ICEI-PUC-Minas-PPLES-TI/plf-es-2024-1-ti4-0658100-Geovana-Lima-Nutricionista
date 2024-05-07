@@ -24,6 +24,7 @@ public class PatientRecord {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
+    @JsonIgnore
     private Patient patient;
 
     @OneToOne()

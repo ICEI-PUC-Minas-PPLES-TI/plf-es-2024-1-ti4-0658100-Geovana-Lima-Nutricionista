@@ -32,7 +32,6 @@ public class Patient implements Serializable {
   private Long id;
 
   @OneToMany(mappedBy = "patient")
-  @JsonIgnore
   private List<PatientRecord> records;
 
   @Column(length = 100, nullable = false)
