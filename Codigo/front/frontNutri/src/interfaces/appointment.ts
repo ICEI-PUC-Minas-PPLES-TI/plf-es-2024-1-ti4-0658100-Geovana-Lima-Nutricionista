@@ -1,3 +1,5 @@
+import { RecordProps } from "./record";
+
 export interface Appointment {
     id?: number;
     date: string;
@@ -5,5 +7,7 @@ export interface Appointment {
     price: string;
     status: string;
     paymentLink: string;
+    record: RecordProps|null;
+    patientId?: number;
   }
   

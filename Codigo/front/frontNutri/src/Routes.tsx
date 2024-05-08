@@ -2,7 +2,7 @@ import {  Route, Routes } from 'react-router-dom';
 import { PatientsList } from './pages/list-patients-page';
 import { CreatePatient } from './pages/create-patient-page';
 import Login from './components/Login';
-import { Patientspage } from './components/PatientPage';
+import { Patientspage } from './pages/PatientPage';
 import { CreateAppointment } from './pages/create-appointment-page';
 export const RoutesComponent = () => (
     <Routes>

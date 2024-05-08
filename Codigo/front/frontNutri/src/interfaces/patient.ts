@@ -1,3 +1,5 @@
+import { RecordProps } from "./record";
+
 export interface Patient {
   id?: number;
   name: string;
@@ -7,6 +9,7 @@ export interface Patient {
   goal: string;
   totalAppointments?: number;
   totalPrice?: number;
+  records: RecordProps[]
   address: {
     zip: string;
     state: string;
