@@ -71,3 +71,19 @@ export const deleteAppointment = async (id: number) => {
   };
 }
 
+export const getAppointments = async () => {
+  const config: AxiosRequestConfig = {
+    url: `${apiServerUrl}/api/appointments`,
+    method: "GET",
+  };
+
+  const { data, error } = (await callExternalApi({
+    config,
+  })) as { data: Appointment[] | null; error: string | Error | null };
+
+  return {
+    data,
+    error,
+  };
+}
+
