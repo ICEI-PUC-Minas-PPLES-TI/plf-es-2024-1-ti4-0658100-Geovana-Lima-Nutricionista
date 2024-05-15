@@ -1,18 +1,40 @@
 import { useEffect, useState } from "react";
-import { Input, Modal, notification, Table } from "antd";
+import { Button, Modal, notification, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Appointment } from "../interfaces/appointment";
 import {
   deleteAppointment,
   getPatientAppointments,
-  updateAppointment,
 } from "../services/appointment.service";
+import { AppointmentEditModal } from "./AppointmentEditModal";
+import PatientRecordModal from "./PatientRecordModal";
+import { RecordProps } from "../interfaces/record";
+
+interface RecordModal {
+  showRecordModal: boolean;
+  recordModal: RecordProps | null;
+  appointmentRecordModal: Appointment;
+}
+
+const mockAppointment: Appointment = {
+  date: "",
+  hour: "",
+  price: "",
+  status: "",
+  paymentLink: "",
+  record: null,
+};
 
 export const PatientTable = ({ patientId }: { patientId: number }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editingAppointment, setEditingAppointment] =
-    useState<Appointment | null>(null);
   const [dataSource, setDataSource] = useState<Appointment[]>([]);
+  const [appointmentEditing, setAppointmentEditing] =
+    useState<Appointment | null>(null);
+  const [recordModal, setRecordModal] = useState<RecordModal>({
+    showRecordModal: false,
+    recordModal: null,
+    appointmentRecordModal: mockAppointment,
+  });
 
   useEffect(() => {
     const loadAppointments = async () => {
@@ -34,7 +56,7 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
     };
 
     loadAppointments();
-  }, []);
+  }, [patientId]);
 
   const columns = [
     {
@@ -69,6 +91,19 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
     },
     {
       key: "6",
+      title: "Ficha",
+      render: (record: Appointment) => {
+        return (
+          <>
+            <Button onClick={() => handleRecord(record)}>
+              {record.record != null ? "Editar ficha" : "Criar ficha"}
+            </Button>
+          </>
+        );
+      },
+    },
+    {
+      key: "7",
       title: "Ações",
       render: (record: Appointment) => {
         return (
@@ -112,98 +147,47 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
     });
   };
 
-  const onEditAppointment = async (record: Appointment) => {
-    setIsEditing(true);
-    setEditingAppointment({ ...record });
+  const closeRecordModal = () => {
+    setRecordModal({ ...recordModal, showRecordModal: false });
   };
 
-  const handleUpdate = async (record: Appointment) => {
-    const { data } = await updateAppointment(Number(record.id), editingAppointment);
-
-    if (data) {
-      notification.success({
-        message: "Consulta atualizada com sucesso!",
-      });
-    }
-    setIsEditing(false);
-    setEditingAppointment(null);
+  const onEditAppointment = async (record: Appointment) => {
+    setAppointmentEditing(record);
+    setIsEditing(true);
   };
 
   const resetEditing = () => {
     setIsEditing(false);
-    setEditingAppointment(null);
+    setAppointmentEditing(null);
+  };
+
+  const handleRecord = (appointment: Appointment) => {
+    setRecordModal({
+      ...recordModal,
+      showRecordModal: true,
+      appointmentRecordModal: appointment,
+      recordModal: appointment.record,
+    });
   };
 
   return (
     <div>
       <Table columns={columns} dataSource={dataSource} />
-      <Modal
-        title="Editar Consulta"
-        open={isEditing}
-        okText="Salvar"
-        onCancel={() => {
-          resetEditing();
-        }}
-        onOk={() => {
-          setDataSource((pre) => {
-            return pre.map((appointment) => {
-              if (appointment.id === editingAppointment?.id) {
-                handleUpdate(appointment);
-                return editingAppointment!;
-              } else {
-                return appointment;
-              }
-            });
-          });
-          resetEditing();
-        }}
-      >
-        Data
-        <Input
-          value={editingAppointment?.date}
-          onChange={(e) => {
-            setEditingAppointment((pre) => {
-              return { ...pre!, date: e.target.value };
-            });
-          }}
+      {appointmentEditing && (
+        <AppointmentEditModal
+          appointment={appointmentEditing}
+          resetEditing={resetEditing}
+          isEditing={isEditing}
         />
-        Hora
-        <Input
-          value={editingAppointment?.hour}
-          onChange={(e) => {
-            setEditingAppointment((pre) => {
-              return { ...pre!, hour: e.target.value };
-            });
-          }}
+      )}
+      {recordModal.showRecordModal && (
+        <PatientRecordModal
+          showModal={recordModal.showRecordModal}
+          closeModal={closeRecordModal}
+          appointment={recordModal.appointmentRecordModal}
+          record={recordModal.recordModal}
         />
-        Preço
-        <Input
-          value={editingAppointment?.price}
-          onChange={(e) => {
-            setEditingAppointment((pre) => {
-              return { ...pre!, price: e.target.value };
-            });
-          }}
-        />
-        Link
-        <Input
-          value={editingAppointment?.paymentLink}
-          onChange={(e) => {
-            setEditingAppointment((pre) => {
-              return { ...pre!, paymentLink: e.target.value };
-            });
-          }}
-        />
-        Status
-        <Input
-          value={editingAppointment?.status}
-          onChange={(e) => {
-            setEditingAppointment((pre) => {
-              return { ...pre!, status: e.target.value };
-            });
-          }}
-        />
-      </Modal>
+      )}
     </div>
   );
 };

@@ -1,19 +1,17 @@
 package glnutricionista.backend.controllers;
 
-import java.util.Collections;
-import java.util.List;
-
+import glnutricionista.backend.DTO.AppointmentDTO;
+import glnutricionista.backend.models.Appointment;
+import glnutricionista.backend.services.AppointmentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import jakarta.validation.Valid;
-
-import glnutricionista.backend.DTO.AppointmentDTO;
-import glnutricionista.backend.models.Appointment;
-import glnutricionista.backend.services.AppointmentService;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/appointments")
@@ -59,7 +57,7 @@ public class AppointmentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id,
-            @RequestBody @Valid AppointmentDTO appointmentDTO) {
+                                                         @RequestBody @Valid AppointmentDTO appointmentDTO) {
         try {
             Appointment updatedAppointment = appointmentService.updateAppointment(id, appointmentDTO.toAppointment());
             return ResponseEntity.ok(updatedAppointment);

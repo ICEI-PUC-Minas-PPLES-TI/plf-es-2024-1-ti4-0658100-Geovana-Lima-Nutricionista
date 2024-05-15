@@ -9,56 +9,23 @@ import {
   Space,
   Typography,
 } from "antd";
-import SiderComponent from "./SiderComponent";
+import SiderComponent from "../components/SiderComponent";
 import Meta from "antd/es/card/Meta";
 import { UserOutlined } from "@ant-design/icons";
-import { PatientTable } from "./PatientTable";
+import { PatientTable } from "../components/PatientTable";
 import { useEffect, useState } from "react";
 import Title from "antd/es/typography/Title";
 import { useParams } from "react-router";
 import { Patient } from "../interfaces/patient";
 import { getPatient } from "../services/patient.service";
-import CardPatient from "./PatientRecordCard";
-import {
-  createPatientRecord,
-  getPatientRecordPatient,
-  updatePatientRecord,
-} from "../services/record.service";
-import { RecordProps } from "../interfaces/Record";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const { Text } = Typography;
-
-const r =  {
-  id: 0,
-  weight: 0,
-  height: 0,
-  physicalActivities: '',
-  imc: 0,
-  waist: 0,
-  bust: 0,
-  observations: '',
-}
 
 export const Patientspage = () => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | null>(null);
-  const [patientRecord, setPatientRecord] = useState<RecordProps>(r);
 
-  function updateRecord(Record: any) {
-    updatePatientRecord(patientRecord.id, Record).then(
-      (success: any) => {
-        setPatientRecord(success);
-      }
-    );
-  }
-
-  function createRecord(Record: any) {
-    Record.patientId = id;
-    console.log(Record);
-    createPatientRecord(Record).then((success: any) => {
-      setPatientRecord(success);
-    });
-  }
 
   useEffect(() => {
     const loadPatient = async () => {
@@ -72,13 +39,6 @@ export const Patientspage = () => {
         notification.error({
           message: "Erro ao carregar paciente!",
         });
-      }
-
-      try {
-        const response = await getPatientRecordPatient(Number(id));
-        setPatientRecord(response);
-      } catch (error: any) {
-        console.error("Erro ao obter o registro do paciente:", error.message);
       }
     };
 
@@ -132,7 +92,7 @@ export const Patientspage = () => {
                     )}
                   </Text>
                   <Text>Cidade</Text>
-                  <Text strong>{patient?.address?.city ?? "" }</Text>
+                  <Text strong>{patient?.address?.city ?? ""}</Text>
                 </Space>
               </Col>
 
@@ -150,12 +110,16 @@ export const Patientspage = () => {
           </Card>
         </Col>
         <Col span={8}>
-          {patientRecord && (
-            <CardPatient
-              record={patientRecord}
-              onUpdate={updateRecord}
-              onCreate={createRecord}
-            />
+          {patient?.records && (
+            <LineChart width={400} height={300} data={patient?.records}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="id" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="weight" stroke="#8884d8" />
+              <Line type="monotone" dataKey="imc" stroke="#82ca9d" />
+            </LineChart>
           )}
         </Col>
       </Row>

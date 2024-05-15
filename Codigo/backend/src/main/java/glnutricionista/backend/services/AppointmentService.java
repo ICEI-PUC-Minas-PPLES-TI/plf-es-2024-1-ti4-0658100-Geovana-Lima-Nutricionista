@@ -1,13 +1,12 @@
 package glnutricionista.backend.services;
 
+import glnutricionista.backend.models.Appointment;
+import glnutricionista.backend.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
-import glnutricionista.backend.models.Appointment;
-import glnutricionista.backend.repositories.AppointmentRepository;
 
 @Service
 public class AppointmentService {
