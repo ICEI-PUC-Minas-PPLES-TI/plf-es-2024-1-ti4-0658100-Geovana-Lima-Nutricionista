@@ -23,8 +23,8 @@ export const CreateAppointment = () => {
   const navigate = useNavigate();
 
   const onFinish = async (formData: AppointmentForm) => {
-    console.log(formData.hour);
-    const formattedDate = moment(formData.date).format("YYYY-MM-DD");
+    console.log(formData);
+    const formattedDate = formData.date.format("YYYY-MM-DD");
     const formattedHour = (formData.hour).format("HH:mm");
 
     formData.date = formattedDate;

@@ -24,8 +24,7 @@ public class Appointment {
     @OneToOne(mappedBy = "appointment")
     private PatientRecord record;
 
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
 
     @Column(nullable = false)

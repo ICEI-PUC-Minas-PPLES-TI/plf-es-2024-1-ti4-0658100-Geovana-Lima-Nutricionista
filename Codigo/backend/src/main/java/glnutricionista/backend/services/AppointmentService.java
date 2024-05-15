@@ -1,10 +1,15 @@
 package glnutricionista.backend.services;
 
 import glnutricionista.backend.models.Appointment;
+import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.repositories.AppointmentRepository;
+import glnutricionista.backend.repositories.PatientRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +19,10 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public Appointment createAppointment(Appointment appointment) {
+    @Autowired
+    private PatientRepository patientRepository;
+
+    public Appointment createAppointment(Appointment appointment, Long patientId) {
         Optional<Appointment> existingAppointment = appointmentRepository.findByDateAndHour(appointment.getDate(),
                 appointment.getHour());
 
@@ -22,18 +30,36 @@ public class AppointmentService {
             throw new RuntimeException("Horário já ocupado por outra consulta.");
         }
 
+        Patient patient = patientRepository.findById(patientId).orElse(null);
+        appointment.setPatient(patient);
+
         return appointmentRepository.save(appointment);
     }
 
     public List<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
+        List<Appointment> appointments = appointmentRepository.findAll();
+
+        Collections.sort(appointments, Comparator.comparing(Appointment::getDate)
+                .thenComparing(Appointment::getHour));
+
+        appointments.forEach(appointment -> {
+            appointment.getRecord();
+            appointment.getPatient();
+        });
+
+        return appointments;
     }
 
     public List<Appointment> getAllPatientAppointments(Long id) {
         List<Appointment> appointments = appointmentRepository.findByPatient(id);
+
+        Collections.sort(appointments, Comparator.comparing(Appointment::getDate)
+                .thenComparing(Appointment::getHour));
+
         appointments.forEach(appointment -> {
-            appointment.getRecord(); // Define o registro do paciente na consulta
+            appointment.getRecord();
         });
+
         return appointments;
     }
 

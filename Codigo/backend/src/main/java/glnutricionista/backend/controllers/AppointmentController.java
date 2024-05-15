@@ -23,7 +23,7 @@ public class AppointmentController {
     @PostMapping()
     public ResponseEntity<?> createAppointment(@RequestBody @Valid AppointmentDTO appointmentDTO) {
         try {
-            Appointment createdAppointment = appointmentService.createAppointment(appointmentDTO.toAppointment());
+            Appointment createdAppointment = appointmentService.createAppointment(appointmentDTO.toAppointment(), appointmentDTO.getPatientId());
             return ResponseEntity.status(HttpStatus.CREATED).body(createdAppointment);
         } catch (RuntimeException e) {
             return ResponseEntity
