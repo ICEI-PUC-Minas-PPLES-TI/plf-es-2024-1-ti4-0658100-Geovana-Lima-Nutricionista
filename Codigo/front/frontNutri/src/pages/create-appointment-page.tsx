@@ -5,7 +5,7 @@ import { createAppointment } from "../services/appointment.service";
 import { AppointmentForm } from "../interfaces/appointmentForms";
 import SiderComponent from "../components/SiderComponent";
 import { AppointmentRegistration } from "../components/AppointmentRegistration";
-import moment, { Moment } from "moment";
+import moment from "moment";
 
 const formItemLayout = {
   labelCol: {
@@ -28,7 +28,6 @@ export const CreateAppointment = () => {
     const formattedHour = (formData.hour).format("HH:mm");
 
     formData.date = formattedDate;
-    formData.hour = formattedHour;
 
     const objData = {...formData, hour: formattedHour}
 
