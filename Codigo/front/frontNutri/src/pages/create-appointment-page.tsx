@@ -40,8 +40,9 @@ export const CreateAppointment = () => {
       navigate("/patients");
     }
     if (error) {
+      console.log(error);
       notification.error({
-        message: "Erro ao cadastrar nova consulta!",
+        message: error ?? "Erro ao cadastrar nova consulta!",
       });
     }
   };

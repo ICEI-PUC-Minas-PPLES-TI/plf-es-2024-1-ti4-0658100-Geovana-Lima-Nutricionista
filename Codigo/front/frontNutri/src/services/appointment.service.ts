@@ -14,7 +14,7 @@ export const createAppointment = async (appointment: AppointmentForm) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Appointment | null; error: string | Error | null };
+  })) as { data: Appointment | null; error: string | null };
 
   return {
     data,
@@ -30,7 +30,7 @@ export const getPatientAppointments = async (id: number) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Appointment[] | null; error: string | Error | null };
+  })) as { data: Appointment[] | null; error: string | null };
 
   return {
     data,
@@ -47,7 +47,7 @@ export const updateAppointment = async (id: number, appointment: Appointment|nul
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Appointment | null; error: string | Error | null };
+  })) as { data: Appointment | null; error: string | null };
 
   return {
     data,
@@ -63,7 +63,7 @@ export const deleteAppointment = async (id: number) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Appointment | null; error: string | Error | null };
+  })) as { data: Appointment | null; error: string | null };
 
   return {
     data,
