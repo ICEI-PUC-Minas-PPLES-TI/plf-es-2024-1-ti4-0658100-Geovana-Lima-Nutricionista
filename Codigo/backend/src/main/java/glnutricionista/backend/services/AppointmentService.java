@@ -16,6 +16,13 @@ public class AppointmentService {
     private AppointmentRepository appointmentRepository;
 
     public Appointment createAppointment(Appointment appointment) {
+        Optional<Appointment> existingAppointment = appointmentRepository.findByDateAndHour(appointment.getDate(),
+                appointment.getHour());
+
+        if (existingAppointment.isPresent()) {
+            throw new RuntimeException("Horário já ocupado por outra consulta.");
+        }
+
         return appointmentRepository.save(appointment);
     }
 
