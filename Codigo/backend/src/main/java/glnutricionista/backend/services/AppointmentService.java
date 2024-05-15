@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 import glnutricionista.backend.models.Appointment;
+import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.repositories.AppointmentRepository;
+import glnutricionista.backend.repositories.PatientRepository;
 
 @Service
 public class AppointmentService {
@@ -15,7 +17,12 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public Appointment createAppointment(Appointment appointment) {
+    @Autowired
+    private PatientRepository patientRepository;
+
+    public Appointment createAppointment(Appointment appointment, Long patientId) {
+        Patient patient = patientRepository.findById(patientId).orElse(null);
+        appointment.setPatient(patient);
         return appointmentRepository.save(appointment);
     }
 

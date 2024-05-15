@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import { RecordProps } from '../interfaces/Record';
+import { RecordProps } from '../interfaces/record';
 
 const apiServerUrl = 'http://localhost:8080/api';
 
-export const createPatientRecord = async (patientRecordDTO:RecordProps) => {
+export const createPatientRecord = async (patientRecordDTO:RecordProps, appointmentId: number) => {
   try {
-    const response = await axios.post(`${apiServerUrl}/patient-records`, patientRecordDTO);
+    const response = await axios.post(`${apiServerUrl}/patient-records/${appointmentId}`, patientRecordDTO);
     return response.data;
 } catch (error:any) {
     throw new Error(error.response.data.message || error.message);
