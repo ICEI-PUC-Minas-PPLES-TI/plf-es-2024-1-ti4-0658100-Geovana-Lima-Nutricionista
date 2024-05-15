@@ -15,9 +15,9 @@ public class PatientRecordController {
     @Autowired
     private PatientRecordService patientRecordService;
 
-    @PostMapping()
-    public PatientRecord createPatientRecord(@RequestBody PatientRecordDTO patientRecordDTO) {
-        return patientRecordService.createPatientRecord(patientRecordDTO.toPatientRecord(), patientRecordDTO.getPatientId(), patientRecordDTO.getAppointmentId());
+    @PostMapping("/{appointmentId}")
+    public PatientRecord createPatientRecord(@RequestBody PatientRecordDTO patientRecordDTO, @PathVariable Long appointmentId) {
+        return patientRecordService.createPatientRecord(patientRecordDTO.toPatientRecord(), appointmentId);
     }
 
     @GetMapping()

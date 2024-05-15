@@ -23,7 +23,7 @@ public class PatientRecord {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", unique = false)
     @JsonIgnore
     private Patient patient;
 

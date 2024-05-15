@@ -19,24 +19,21 @@ public class PatientRecordService {
     @Autowired
     private PatientRecordRepository patientRecordRepository;
 
-    @Autowired 
-    private PatientRepository patientRepository;
-
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public PatientRecord createPatientRecord(PatientRecord patientRecord, Long patientId, Long appointmentId) {
-
-        Patient patient = patientRepository.findById(patientId).orElse(null);
-
-        if (patient == null) {
-            throw new IllegalArgumentException("Invalid Patient Id:" + patientId);
-        }
+    public PatientRecord createPatientRecord(PatientRecord patientRecord, Long appointmentId) {
 
         Appointment appointment = appointmentRepository.findById(appointmentId).orElse(null);
 
         if (appointment == null) {
             throw new IllegalArgumentException("Invalid Appointment Id: " + appointmentId);
+        }
+
+        Patient patient = appointment.getPatient();
+
+        if (patient == null) {
+            throw new IllegalArgumentException("Invalid Patient Associated to Appointment: " + appointment.getId());
         }
 
         patientRecord.setPatient(patient);
@@ -53,6 +50,7 @@ public class PatientRecordService {
         return patientRecordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Patient Record Id:" + id));
     }
+
     public PatientRecord getPatientRecordByPatient(Long id) {
         return patientRecordRepository.findByPatientId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Patient Id:" + id));

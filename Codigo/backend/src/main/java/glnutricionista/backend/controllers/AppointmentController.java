@@ -20,7 +20,7 @@ public class AppointmentController {
 
     @PostMapping()
     public Appointment createAppointment(@RequestBody @Valid AppointmentDTO appointmentDTO) {
-        return appointmentService.createAppointment(appointmentDTO.toAppointment());
+        return appointmentService.createAppointment(appointmentDTO.toAppointment(), appointmentDTO.getPatientId());
     }
 
     @GetMapping()
