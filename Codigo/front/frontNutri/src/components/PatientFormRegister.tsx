@@ -7,12 +7,14 @@ import {
   Divider,
   Select,
   Button,
+  ConfigProvider,
 } from "antd";
 import { useEffect, useState } from "react";
 import { getStates, getCitiesByState } from "../services/ibge.service";
 import "../index.css";
 import "moment/locale/pt-br";
 import moment from "moment";
+import locale from 'antd/lib/locale/pt_BR';
 const { Option } = Select;
 
 interface Estado {
@@ -25,10 +27,12 @@ interface Cidade {
   nome: string;
 }
 
+
 export const PatientFormRegister = () => {
   const [estados, setEstados] = useState<Estado[]>([]);
   const [cidades, setCidades] = useState<Cidade[]>([]);
   const [estadoSelecionado, setEstadoSelecionado] = useState<string>("");
+  
 
   useEffect(() => {
     const fetchEstados = async () => {
@@ -49,7 +53,7 @@ export const PatientFormRegister = () => {
   return (
     <div>
       <Row gutter={24}>
-        <Col span={12}>
+        <Col span={24}>
           <Form.Item
             name="name"
             label="Nome"
@@ -59,11 +63,12 @@ export const PatientFormRegister = () => {
                 message: "Por favor escreva o nome do paciente",
               },
             ]}
+             
           >
             <Input placeholder="Escreva o nome do paciente" />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col span={24}>
           <Form.Item
             name="email"
             label="E-mail"
@@ -81,7 +86,7 @@ export const PatientFormRegister = () => {
       </Row>
 
       <Row gutter={24}>
-        <Col span={12}>
+        <Col span={24}>
           <Form.Item
             name="birthDate"
             label="Data de Nascimento"
@@ -102,15 +107,18 @@ export const PatientFormRegister = () => {
               }),
             ]}
           >
+            <ConfigProvider
+              locale={locale}>
             <DatePicker
               style={{ width: "100% " }}
               picker="date"
               placeholder="Escreva a data de nascimento do paciente"
               format="DD-MM-YYYY"
             />
+            </ConfigProvider>
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col span={24}>
           <Form.Item
             name="occupation"
             label="Ocupação"
