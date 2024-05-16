@@ -54,7 +54,7 @@ public class AppointmentService {
         List<Appointment> appointments = appointmentRepository.findByPatient(id);
 
         Collections.sort(appointments, Comparator.comparing(Appointment::getDate)
-                .thenComparing(Appointment::getHour));
+                .thenComparing(Appointment::getHour).reversed());
 
         appointments.forEach(appointment -> {
             appointment.getRecord();
@@ -73,7 +73,9 @@ public class AppointmentService {
     }
 
     public Appointment updateAppointment(Long id, Appointment appointment) {
+        Appointment oldAppointment = appointmentRepository.findById(id).orElseThrow();
         appointment.setId(id);
+        appointment.setPatient(oldAppointment.getPatient());
         return appointmentRepository.save(appointment);
     }
 

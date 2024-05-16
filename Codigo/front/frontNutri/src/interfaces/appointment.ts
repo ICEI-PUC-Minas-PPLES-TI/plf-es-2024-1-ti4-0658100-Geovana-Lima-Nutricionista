@@ -9,4 +9,5 @@ export interface Appointment {
   status: string;
   paymentLink: string;
   patient?: Patient
+  record: RecordProps|null;
 }

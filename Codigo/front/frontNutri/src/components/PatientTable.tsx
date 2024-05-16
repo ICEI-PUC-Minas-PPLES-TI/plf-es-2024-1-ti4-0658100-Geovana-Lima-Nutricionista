@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button, Modal, notification, Table } from "antd";
+import { Button, Modal, notification, Table, Select } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Appointment } from "../interfaces/appointment";
 import {
   deleteAppointment,
   getPatientAppointments,
+  updateAppointment,
 } from "../services/appointment.service";
 import { AppointmentEditModal } from "./AppointmentEditModal";
 import PatientRecordModal from "./PatientRecordModal";
@@ -35,6 +36,7 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
     recordModal: null,
     appointmentRecordModal: mockAppointment,
   });
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
 
   useEffect(() => {
     const loadAppointments = async () => {
@@ -88,6 +90,17 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
       id: 5,
       title: "Status",
       dataIndex: "status",
+      render: (text: string, record: Appointment) => (
+        <Select
+          defaultValue={record.status}
+          onChange={(value: string) => handleChangeStatus(record, value)}
+        >
+          <Select.Option value="MARCADO">Marcado</Select.Option>
+          <Select.Option value="CANCELADO">Cancelado</Select.Option>
+          <Select.Option value="ADIADO">Adiado</Select.Option>
+          <Select.Option value="CONCLUIDO">Concluído</Select.Option>
+        </Select>
+      ),
     },
     {
       key: "6",
@@ -159,6 +172,17 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
   const resetEditing = () => {
     setIsEditing(false);
     setAppointmentEditing(null);
+  };
+
+  const handleChangeStatus = (record: Appointment, value: string) => {
+    setSelectedStatus(value);
+    // Update status locally
+    const updatedDataSource = dataSource.map((item) =>
+      item.id === record.id ? { ...item, status: value } : item
+    );
+    setDataSource(updatedDataSource);
+    // Send update to API
+    updateAppointment(Number(record.id), { ...record, status: value });
   };
 
   const handleRecord = (appointment: Appointment) => {
