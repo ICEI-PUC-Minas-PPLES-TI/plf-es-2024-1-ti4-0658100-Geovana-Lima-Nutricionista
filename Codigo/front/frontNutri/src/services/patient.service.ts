@@ -13,7 +13,7 @@ export const createPatient = async (patient: Patient) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Patient | null; error: string | Error | null };
+  })) as { data: Patient | null; error: string | null };
 
   return {
     data,
@@ -30,7 +30,7 @@ export const getPatients = async (params: PatientSearchParams) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Array<Patient> | null; error: string | Error | null };
+  })) as { data: Array<Patient> | null; error: string | null };
 
   return {
     data,
@@ -46,7 +46,7 @@ export const deletePatient = async (patientId: number) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Patient | null; error: string | Error | null };
+  })) as { data: Patient | null; error: string | null };
 
   return {
     data,
@@ -63,7 +63,7 @@ export const updatePatient = async (patientId: number, patient: Patient) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Patient | null; error: string | Error | null };
+  })) as { data: Patient | null; error: string | null };
 
   return {
     data,
@@ -79,7 +79,7 @@ export const getPatient = async (patientId: number) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Patient ; error: string | Error | null };
+  })) as { data: Patient ; error: string | null };
 
   return {
     data,

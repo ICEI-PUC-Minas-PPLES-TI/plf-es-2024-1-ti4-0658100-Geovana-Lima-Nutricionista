@@ -14,7 +14,7 @@ export const login = async (payload: LoginForm) => {
 
   const { data, error } = (await callExternalApi({
     config,
-  })) as { data: Patient | null; error: string | Error | null };
+  })) as { data: Patient | null; error: string | null };
 
   return {
     data,
