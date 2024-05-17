@@ -8,6 +8,7 @@ import {
   TimePicker,
   notification,
   Select,
+  ConfigProvider,
 } from "antd";
 import "../index.css";
 import "moment/locale/pt-br";
@@ -17,6 +18,7 @@ import { getPatients } from "../services/patient.service";
 import { useEffect, useState } from "react";
 import { Patient } from "../interfaces/patient";
 import { Option } from "antd/es/mentions";
+import locale from 'antd/lib/locale/pt_BR';
 
 export const AppointmentRegistration = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -44,7 +46,7 @@ export const AppointmentRegistration = () => {
   };
 
   return (
-    <div>
+    <><div>
       {/* Nome do paciente */}
       <Row gutter={24}>
         <Col span={24}>
@@ -63,6 +65,7 @@ export const AppointmentRegistration = () => {
               filterOption={false}
               onSearch={fetchPatients}
               notFoundContent={null}
+              size="large"
               placeholder="Digite o nome do paciente"
             >
               {patients.map((patient) => (
@@ -98,36 +101,40 @@ export const AppointmentRegistration = () => {
               }),
             ]}
           >
+           <ConfigProvider 
+        locale={locale}>
             <DatePicker
               style={{ width: "100% " }}
               picker="date"
+              size="large"
               placeholder="Escreva a data da consulta do paciente"
-              format="YYYY-MMM-DD"
-            />
+              format="DD-MM-YYYY" />
+              </ConfigProvider>
           </Form.Item>
         </Col>
-        </Row>
-        {/* Hora da Consulta */}
-        <Row gutter={24}>
-          <Col span={24}>
-            <Form.Item
-              name="hour"
-              label="Hora da Consulta"
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor digite a hora da consulta do paciente",
-                },
-              ]}
-            >
-              <TimePicker
-                format="HH:mm"
-                placeholder="Selecione a hora da consulta"
-              />
-            </Form.Item>
-          </Col>
-        </Row>
+      </Row>
+      {/* Hora da Consulta */}
       <Row gutter={24}>
+        <Col span={24}>
+          <Form.Item
+            name="hour"
+            label="Hora da Consulta"
+            rules={[
+              {
+                required: true,
+                message: "Por favor digite a hora da consulta do paciente",
+              },
+            ]}
+          >
+            <TimePicker
+              size="large"
+              format="HH:mm"
+              placeholder="Selecione a hora da consulta" />
+          </Form.Item>
+        </Col>
+    </Row>
+    
+    <Row gutter={24}>
         <Col span={24}>
           {/* Valor da Consulta */}
           <Form.Item
@@ -148,27 +155,31 @@ export const AppointmentRegistration = () => {
               placeholder="Escreva o valor da consulta do paciente"
               addonBefore="R$"
               maxLength={15} // máximo de 15 caracteres, incluindo o "R$"
+              size="large"
             />
           </Form.Item>
-        </Col>
+      </Col>
+        </Row>
 
         {/* Botão Link de pagamento */}
         <div>
         <Row gutter={24} justify="center">
           <Col span={24} offset={12}>
-            <Button type="primary" style={}>
+            <Button type="primary" style={{backgroundColor:'#807A7A'}} size="large">
               Link de pagamento
             </Button>
           </Col>
         </Row>
         </div>
-      </Row>
+      
       {/* Botão Criar nova consulta */}
       <div className="create-appointment-button">
         <Button type="primary" htmlType="submit" className="button">
           Criar nova consulta
         </Button>
       </div>
+
     </div>
+    </>
   );
 };

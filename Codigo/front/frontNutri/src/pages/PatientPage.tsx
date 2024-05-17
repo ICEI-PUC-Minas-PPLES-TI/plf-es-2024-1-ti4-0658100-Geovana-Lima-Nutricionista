@@ -19,6 +19,7 @@ import { useParams } from "react-router";
 import { Patient } from "../interfaces/patient";
 import { getPatient } from "../services/patient.service";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import '../index.css';
 
 const { Text } = Typography;
 
@@ -49,7 +50,7 @@ export const Patientspage = () => {
     <SiderComponent>
       <Row gutter={16}>
         <Col span={8}>
-          <Card bordered={false}>
+          <Card bordered={false} className="itemCard">
             <div
               style={{
                 display: "flex",
@@ -79,7 +80,7 @@ export const Patientspage = () => {
           </Card>
         </Col>
         <Col span={8}>
-          <Card bordered={false}>
+          <Card bordered={false} className="itemCard">
             <Row gutter={16}>
               <Col span={12}>
                 <Space direction="vertical" size="middle">

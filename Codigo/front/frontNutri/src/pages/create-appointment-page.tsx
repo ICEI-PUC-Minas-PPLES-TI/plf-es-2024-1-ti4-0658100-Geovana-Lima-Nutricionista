@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router";
 import Title from "antd/es/typography/Title";
-import { Form, notification } from "antd";
+import { Form, Typography, notification } from "antd";
 import { createAppointment } from "../services/appointment.service";
 import { AppointmentForm } from "../interfaces/appointmentForms";
 import SiderComponent from "../components/SiderComponent";
 import { AppointmentRegistration } from "../components/AppointmentRegistration";
 import moment from "moment";
+import '../index.css';
 
 const formItemLayout = {
   labelCol: {
@@ -19,7 +20,7 @@ const formItemLayout = {
 };
 
 export const CreateAppointment = () => {
-  document.title = "Cadastro de Consultas";
+   document.title = "Cadastro de Consultas";
   const navigate = useNavigate();
 
   const onFinish = async (formData: AppointmentForm) => {
@@ -64,9 +65,7 @@ export const CreateAppointment = () => {
             onFinish={onFinish}
           >
             <div>
-              <Title style={{ textAlign: "center" }}>
-                Cadastro da Consulta
-              </Title>
+            <Typography.Title className="title" style={{ textAlign: "center" }}>Cadastro da Consulta</Typography.Title>
               <AppointmentRegistration />
             </div>
           </Form>
