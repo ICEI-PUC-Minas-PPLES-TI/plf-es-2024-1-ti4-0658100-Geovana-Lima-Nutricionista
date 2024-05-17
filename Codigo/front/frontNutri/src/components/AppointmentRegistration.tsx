@@ -156,7 +156,7 @@ export const AppointmentRegistration = () => {
         <div>
         <Row gutter={24} justify="center">
           <Col span={24} offset={12}>
-            <Button type="primary" style={}>
+            <Button type="primary">
               Link de pagamento
             </Button>
           </Col>
