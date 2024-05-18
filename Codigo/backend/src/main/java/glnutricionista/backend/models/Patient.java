@@ -52,6 +52,9 @@ public class Patient implements Serializable {
   @Transient // Este campo não será mapeado para o banco de dados
   private long totalAppointments;
 
+  @Transient
+  private int age;
+
   @Transient // Este campo não será mapeado para o banco de dados
   private double totalPrice;
   
@@ -133,5 +136,13 @@ public class Patient implements Serializable {
 
   public void setAddress(Address address) {
     this.address = address;
+  }
+
+  public int getAge() {
+    return this.age;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
   }
 }

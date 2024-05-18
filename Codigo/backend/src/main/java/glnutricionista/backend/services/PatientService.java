@@ -1,5 +1,8 @@
 package glnutricionista.backend.services;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -37,6 +40,7 @@ public class PatientService {
   public Patient getPatient(Long id) {
     Patient patient = patientRepository.findById(id).orElse(null);
     if (patient != null) {
+      calculateAndSetPatientAge(patient);
       patient.getAddress();
       if (patient.getRecords() != null) {
         Collections.sort(patient.getRecords(),
@@ -78,4 +82,16 @@ public class PatientService {
   public void deletePatient(Long id) {
     patientRepository.deleteById(id);
   }
+
+  public static void calculateAndSetPatientAge(Patient patient) {
+    String birthDateString = patient.getBirthDate(); // Assuming this returns the birthDate as a String
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+    LocalDate birthDate = LocalDate.parse(birthDateString, formatter);
+
+    LocalDate currentDate = LocalDate.now();
+    int age = Period.between(birthDate, currentDate).getYears();
+
+    patient.setAge(age);
+  }
+
 }
