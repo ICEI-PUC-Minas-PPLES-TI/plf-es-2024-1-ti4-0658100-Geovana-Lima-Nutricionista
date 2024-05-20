@@ -5,8 +5,12 @@ import Login from './components/Login';
 import { Patientspage } from './pages/PatientPage';
 import { CreateAppointment } from './pages/create-appointment-page';
 import { CalendarPage } from './pages/calendar-page';
+import { HomePage } from './pages/homePage';
+
 export const RoutesComponent = () => (
     <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/patients" element={<PatientsList />} />
         <Route path="/patients/create" element={<CreatePatient />} />
