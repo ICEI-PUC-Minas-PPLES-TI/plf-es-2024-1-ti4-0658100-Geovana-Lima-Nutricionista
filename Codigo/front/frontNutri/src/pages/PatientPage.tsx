@@ -72,6 +72,9 @@ export const Patientspage = () => {
                     <Text strong>
                       Total Pago: R${patient?.totalPrice ?? 0.0}
                     </Text>
+                    <Text strong>
+                      Total Não Pago: R${patient?.amountUnpaid ?? 0.0}
+                    </Text>
                   </Flex>
                 }
               />

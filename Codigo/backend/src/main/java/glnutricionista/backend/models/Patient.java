@@ -61,6 +61,9 @@ public class Patient implements Serializable {
   @OneToOne
   private Address address;
 
+  @Transient
+  private Double amountUnpaid;
+
   public Long getId() {
     return this.id;
   }
@@ -144,5 +147,13 @@ public class Patient implements Serializable {
 
   public void setAge(int age) {
     this.age = age;
+  }
+
+  public void setAmountUnpaid(Double amount) {
+    this.amountUnpaid = amount;
+  }
+
+  public Double getAmountUnpaid() {
+    return this.amountUnpaid;
   }
 }

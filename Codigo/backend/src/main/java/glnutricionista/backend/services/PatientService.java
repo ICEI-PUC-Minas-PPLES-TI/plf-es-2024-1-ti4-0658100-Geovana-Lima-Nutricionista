@@ -52,6 +52,8 @@ public class PatientService {
       patient.setTotalAppointments(totalAppointments);
       double totalPrice = appointmentRepository.sumPriceByPatientId(id);
       patient.setTotalPrice(totalPrice);
+      double amountUnpaid = appointmentRepository.sumPriceNotPaidByPatientId(id);
+      patient.setAmountUnpaid(amountUnpaid);
     }
     return patient;
   }

@@ -9,6 +9,7 @@ export interface Patient {
   goal: string;
   totalAppointments?: number;
   totalPrice?: number;
+  amountUnpaid?: number;
   age?: number;
   records?: RecordProps[]
   address: {
