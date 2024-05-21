@@ -1,5 +1,7 @@
 package glnutricionista.backend.services;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import glnutricionista.backend.models.Address;
 import glnutricionista.backend.models.Patient;
+import glnutricionista.backend.models.PatientRecord;
 import glnutricionista.backend.repositories.AddressRepository;
 import glnutricionista.backend.repositories.AppointmentRepository;
 import glnutricionista.backend.repositories.PatientRepository;
@@ -35,7 +38,11 @@ public class PatientService {
     Patient patient = patientRepository.findById(id).orElse(null);
     if (patient != null) {
       patient.getAddress();
-      patient.getRecords();
+      if (patient.getRecords() != null) {
+        Collections.sort(patient.getRecords(),
+            Comparator.comparing((PatientRecord record) -> record.getAppointment().getDate())
+                .thenComparing(record -> record.getAppointment().getHour()));
+      }
 
       long totalAppointments = appointmentRepository.countByPatientId(id);
       patient.setTotalAppointments(totalAppointments);

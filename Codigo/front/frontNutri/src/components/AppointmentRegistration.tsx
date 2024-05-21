@@ -47,7 +47,7 @@ export const AppointmentRegistration = () => {
     <div>
       {/* Nome do paciente */}
       <Row gutter={24}>
-        <Col span={18}>
+        <Col span={24}>
           <Form.Item
             name="patientId"
             label="Nome"
@@ -77,7 +77,7 @@ export const AppointmentRegistration = () => {
 
       <Row gutter={24}>
         {/* Data da Consulta */}
-        <Col span={12}>
+        <Col span={24}>
           <Form.Item
             name="date"
             label="Data da Consulta"
@@ -106,9 +106,10 @@ export const AppointmentRegistration = () => {
             />
           </Form.Item>
         </Col>
+        </Row>
         {/* Hora da Consulta */}
         <Row gutter={24}>
-          <Col span={-1}>
+          <Col span={24}>
             <Form.Item
               name="hour"
               label="Hora da Consulta"
@@ -126,9 +127,8 @@ export const AppointmentRegistration = () => {
             </Form.Item>
           </Col>
         </Row>
-      </Row>
       <Row gutter={24}>
-        <Col span={12}>
+        <Col span={24}>
           {/* Valor da Consulta */}
           <Form.Item
             name="price"
@@ -154,11 +154,13 @@ export const AppointmentRegistration = () => {
 
         {/* Botão Link de pagamento */}
         <div>
-          <Col span={12} style={{ textAlign: "left" }}>
-            <Button type="primary" className="button">
+        <Row gutter={24} justify="center">
+          <Col span={24} offset={12}>
+            <Button type="primary">
               Link de pagamento
             </Button>
           </Col>
+        </Row>
         </div>
       </Row>
       {/* Botão Criar nova consulta */}

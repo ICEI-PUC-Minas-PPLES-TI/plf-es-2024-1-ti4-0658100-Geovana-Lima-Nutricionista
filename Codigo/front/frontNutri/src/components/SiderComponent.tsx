@@ -11,12 +11,13 @@ const { Header, Sider, Content } = Layout;
 const StyledLayout = styled(Layout)`
   width: 100%;
   min-height: 100vh;
+  position: fixed;
+  max-height: 100vh;
 `;
 
 const StyledContent = styled(Content)`
   margin: 24px 16px;
   padding: 24px;
-  background: #fff;
   min-height: calc(100vh - 48px);
   overflow-y: auto;
 `;
