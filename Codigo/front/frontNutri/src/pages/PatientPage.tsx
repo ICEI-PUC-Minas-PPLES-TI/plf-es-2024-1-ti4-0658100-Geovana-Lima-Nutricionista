@@ -72,6 +72,9 @@ export const Patientspage = () => {
                     <Text strong>
                       Total Pago: R${patient?.totalPrice ?? 0.0}
                     </Text>
+                    <Text strong>
+                      Total Não Pago: R${patient?.amountUnpaid ?? 0.0}
+                    </Text>
                   </Flex>
                 }
               />
@@ -89,7 +92,7 @@ export const Patientspage = () => {
                   <Text>
                     {new Date(patient?.birthDate ?? "").toLocaleDateString(
                       "pt-BR"
-                    )}
+                    )} - {patient?.age + " anos"}
                   </Text>
                   <Text strong>Objetivo:</Text>
                   <Text>{patient?.goal}</Text>

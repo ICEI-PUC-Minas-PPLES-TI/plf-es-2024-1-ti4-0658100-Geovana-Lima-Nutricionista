@@ -52,11 +52,17 @@ public class Patient implements Serializable {
   @Transient // Este campo não será mapeado para o banco de dados
   private long totalAppointments;
 
+  @Transient
+  private int age;
+
   @Transient // Este campo não será mapeado para o banco de dados
   private double totalPrice;
   
   @OneToOne
   private Address address;
+
+  @Transient
+  private Double amountUnpaid;
 
   public Long getId() {
     return this.id;
@@ -133,5 +139,21 @@ public class Patient implements Serializable {
 
   public void setAddress(Address address) {
     this.address = address;
+  }
+
+  public int getAge() {
+    return this.age;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  public void setAmountUnpaid(Double amount) {
+    this.amountUnpaid = amount;
+  }
+
+  public Double getAmountUnpaid() {
+    return this.amountUnpaid;
   }
 }

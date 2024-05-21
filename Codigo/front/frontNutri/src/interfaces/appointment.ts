@@ -8,6 +8,7 @@ export interface Appointment {
   price: string;
   status: string;
   paymentLink: string;
+  paid: boolean;
   patient?: Patient
   record: RecordProps|null;
 }
