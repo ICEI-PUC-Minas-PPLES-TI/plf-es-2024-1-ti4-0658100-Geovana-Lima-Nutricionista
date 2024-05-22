@@ -9,58 +9,60 @@ import {
   Space,
   Typography,
 } from "antd";
+import { EditOutlined, UserOutlined } from "@ant-design/icons";
 import SiderComponent from "../components/SiderComponent";
 import Meta from "antd/es/card/Meta";
-import { UserOutlined } from "@ant-design/icons";
 import { PatientTable } from "../components/PatientTable";
 import { useEffect, useState } from "react";
 import Title from "antd/es/typography/Title";
 import { useParams } from "react-router";
 import { Patient } from "../interfaces/patient";
-import { getPatient } from "../services/patient.service";
+import { getPatient, updatePatient } from "../services/patient.service";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import '../index.css';
+import EditPatientModal from '../components/EditPatientModal';
 
 const { Text } = Typography;
-
-interface PatientModal {
-  showRecordModal: boolean;
-  recordModal: Patient | null;
-  appointmentRecordModal: Patient;
-}
-
-// const mockPatient: Patient = {
-//   id?: '1',
-//   name: "",
-//   email: "string",
-//   birthDate: "string",
-//   occupation: "string",
-//   goal: "",
-//   totalAppointments: 2,
-//   totalPrice: 500,
-//   records: Record
-//   address: {
-//     zip: string;
-//     state: string;
-//     city: string;
-//     district: string;
-//     street: string;
-//     country: string;
-//   };
-// };
 
 export const Patientspage = () => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [patientEditing, setPatientEditing] = useState<Patient | null>(null);
 
-  // const [patientModal, setPatientModal] = useState<PatientModal>({
-  //   showRecordModal: false,
-  //   recordModal: null,
-  //   appointmentRecordModal: ,
-  // });
+  const openEditModal = (patient: Patient) => {
+    if (patient) {
+      setPatientEditing(patient);
+      setIsEditing(true);
+    }
+  };
 
+  const closeEditModal = () => {
+    setIsEditing(false);
+    setPatientEditing(null);
+  };
 
+  const saveEdit = async (values: any) => {
+    if (patientEditing) {
+      const updatedPatient = { ...patientEditing, ...values };
+      const { data, error } = await updatePatient(Number(id), updatedPatient);
+
+      if (data) {
+        setPatient(data);
+        notification.success({
+          message: "Paciente atualizado com sucesso!",
+        });
+      }
+
+      if (error) {
+        notification.error({
+          message: "Erro ao atualizar paciente!",
+        });
+      }
+
+      closeEditModal();
+    }
+  };
 
   useEffect(() => {
     const loadPatient = async () => {
@@ -84,7 +86,16 @@ export const Patientspage = () => {
     <SiderComponent>
       <Row gutter={16}>
         <Col span={8}>
-          <Card bordered={false} className="itemCard">
+        {patient && (
+          <Card
+            bordered={false}
+            className="itemCard"
+          >
+            <EditOutlined
+                key="edit"
+                onClick={() => openEditModal(patient)}
+                style={{ position: 'absolute', top: 20, right: 20, zIndex: 1, fontSize:20}} 
+              />
             <div
               style={{
                 display: "flex",
@@ -112,6 +123,7 @@ export const Patientspage = () => {
               />
             </div>
           </Card>
+          )}
         </Col>
         <Col span={8}>
           <Card bordered={false} className="itemCard">
@@ -130,7 +142,6 @@ export const Patientspage = () => {
                   <Text>{patient?.goal}</Text>
                 </Space>
               </Col>
-
               <Col style={{border: "1 solid black"}} span={12}>
                 <Space direction="vertical" size="middle">
                   <Text strong>Endereço:</Text>
@@ -165,6 +176,13 @@ export const Patientspage = () => {
           <PatientTable patientId={Number(id)} />
         </Col>
       </Row>
+
+      <EditPatientModal
+        visible={isEditing}
+        patient={patientEditing}
+        onCancel={closeEditModal}
+        onSave={saveEdit}
+      />
     </SiderComponent>
-  );
-};
+  
+)};

@@ -10,6 +10,7 @@ import {
 import { AppointmentEditModal } from "./AppointmentEditModal";
 import PatientRecordModal from "./PatientRecordModal";
 import { RecordProps } from "../interfaces/record";
+ import locale from 'antd/lib/locale/pt_BR';
 
 interface RecordModal {
   showRecordModal: boolean;
@@ -31,6 +32,7 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
   const [dataSource, setDataSource] = useState<Appointment[]>([]);
   const [appointmentEditing, setAppointmentEditing] =
     useState<Appointment | null>(null);
+    
   const [recordModal, setRecordModal] = useState<RecordModal>({
     showRecordModal: false,
     recordModal: null,
