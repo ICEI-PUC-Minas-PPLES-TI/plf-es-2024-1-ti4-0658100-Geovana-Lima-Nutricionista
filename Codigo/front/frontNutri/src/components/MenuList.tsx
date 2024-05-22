@@ -19,10 +19,22 @@ export const MenuList = () => {
         icon={<CalendarOutlined />}
         title="Calendário"
       >
-        <Menu.Item key={"check-schedule"}>Ver Agenda</Menu.Item>
-        <Menu.Item key={"/appointments/create"} onClick={({key}) => {
-          navigate(key);
-        }} >Adicionar Novo Evento</Menu.Item>
+        <Menu.Item
+          key={"/appointments"}
+          onClick={({ key }) => {
+            navigate(key);
+          }}
+        >
+          Ver Agenda
+        </Menu.Item>
+        <Menu.Item
+          key={"/appointments/create"}
+          onClick={({ key }) => {
+            navigate(key);
+          }}
+        >
+          Adicionar Novo Evento
+        </Menu.Item>
       </Menu.SubMenu>
       <Menu.SubMenu key="patients" icon={<TeamOutlined />} title="Pacientes">
         <Menu.Item

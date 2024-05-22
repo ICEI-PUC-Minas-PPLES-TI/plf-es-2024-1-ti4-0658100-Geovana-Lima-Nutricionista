@@ -1,3 +1,4 @@
+import { message } from "antd";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 
@@ -8,40 +9,37 @@ export const callExternalApi = async (options: {
     const response: AxiosResponse = await axios(options.config);
     const { data } = response;
 
+    console.log("nao caiu catch")
+
     return {
       data,
       error: null,
     };
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-
-      const { response } = axiosError;
-
-      let message = "http request failed";
-
-      if (response && response.statusText) {
-        message = response.statusText;
-      }
-
-      if (axiosError.message) {
-        message = axiosError.message;
-      }
-
-      return {
-        data: null,
-        error: {
-          message,
-        },
-      };
-    }
-
     return {
       data: null,
-      error: {
-        message: (error as Error).message,
-      },
+      error: defineError(error)
     };
   }
 
 };
+
+const defineError = (error: unknown) => {
+  if (error instanceof AxiosError) {
+    return error.response?.data.error;
+  }
+
+  if (typeof error === 'string') {
+    return error;
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (error.error !== null) {
+    return error.error;
+  }
+
+  return null;
+}

@@ -46,7 +46,7 @@ export const AppointmentRegistration = () => {
   };
 
   return (
-    <><div>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
       {/* Nome do paciente */}
       <Row gutter={24}>
         <Col span={24}>
@@ -67,6 +67,7 @@ export const AppointmentRegistration = () => {
               notFoundContent={null}
               size="large"
               placeholder="Digite o nome do paciente"
+              style={{ width: "100%" }}
             >
               {patients.map((patient) => (
                 <Option key={patient.id?.toString()} value={patient.id?.toString()}>
@@ -101,18 +102,19 @@ export const AppointmentRegistration = () => {
               }),
             ]}
           >
-           <ConfigProvider 
-        locale={locale}>
-            <DatePicker
-              style={{ width: "100% " }}
-              picker="date"
-              size="large"
-              placeholder="Escreva a data da consulta do paciente"
-              format="DD-MM-YYYY" />
-              </ConfigProvider>
+            <ConfigProvider locale={locale}>
+              <DatePicker
+                style={{ width: "100%" }}
+                picker="date"
+                size="large"
+                placeholder="Escreva a data da consulta do paciente"
+                format="DD-MM-YYYY"
+              />
+            </ConfigProvider>
           </Form.Item>
         </Col>
       </Row>
+
       {/* Hora da Consulta */}
       <Row gutter={24}>
         <Col span={24}>
@@ -129,12 +131,14 @@ export const AppointmentRegistration = () => {
             <TimePicker
               size="large"
               format="HH:mm"
-              placeholder="Selecione a hora da consulta" />
+              placeholder="Selecione a hora da consulta"
+              style={{ width: "100%" }}
+            />
           </Form.Item>
         </Col>
-    </Row>
-    
-    <Row gutter={24}>
+      </Row>
+
+      <Row gutter={24}>
         <Col span={24}>
           {/* Valor da Consulta */}
           <Form.Item
@@ -156,30 +160,27 @@ export const AppointmentRegistration = () => {
               addonBefore="R$"
               maxLength={15} // máximo de 15 caracteres, incluindo o "R$"
               size="large"
+              style={{ width: "100%" }}
             />
           </Form.Item>
-      </Col>
-        </Row>
+        </Col>
+      </Row>
 
-        {/* Botão Link de pagamento */}
-        <div>
-        <Row gutter={24} justify="center">
-          <Col span={24} offset={12}>
-            <Button type="primary" style={{backgroundColor:'#807A7A'}} size="large">
-              Link de pagamento
-            </Button>
-          </Col>
-        </Row>
-        </div>
-      
+      {/* Botão Link de pagamento */}
+      <Row gutter={24} justify="center">
+        <Col span={24} style={{ textAlign: "center" }}>
+          <Button type="primary" style={{ backgroundColor: '#807A7A', width: "100%" }} size="large">
+            Link de pagamento
+          </Button>
+        </Col>
+      </Row>
+
       {/* Botão Criar nova consulta */}
-      <div className="create-appointment-button">
-        <Button type="primary" htmlType="submit" className="button">
+      <div className="create-appointment-button" style={{ textAlign: "center", marginTop: "20px" }}>
+        <Button type="primary" htmlType="submit" className="button" style={{ width: "100%" }}>
           Criar nova consulta
         </Button>
       </div>
-
     </div>
-    </>
   );
 };

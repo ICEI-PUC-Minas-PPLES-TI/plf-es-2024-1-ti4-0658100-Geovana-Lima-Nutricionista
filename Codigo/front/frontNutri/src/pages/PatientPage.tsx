@@ -23,9 +23,43 @@ import '../index.css';
 
 const { Text } = Typography;
 
+interface PatientModal {
+  showRecordModal: boolean;
+  recordModal: Patient | null;
+  appointmentRecordModal: Patient;
+}
+
+// const mockPatient: Patient = {
+//   id?: '1',
+//   name: "",
+//   email: "string",
+//   birthDate: "string",
+//   occupation: "string",
+//   goal: "",
+//   totalAppointments: 2,
+//   totalPrice: 500,
+//   records: Record
+//   address: {
+//     zip: string;
+//     state: string;
+//     city: string;
+//     district: string;
+//     street: string;
+//     country: string;
+//   };
+// };
+
 export const Patientspage = () => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  // const [patientModal, setPatientModal] = useState<PatientModal>({
+  //   showRecordModal: false,
+  //   recordModal: null,
+  //   appointmentRecordModal: ,
+  // });
+
 
 
   useEffect(() => {
@@ -84,27 +118,25 @@ export const Patientspage = () => {
             <Row gutter={16}>
               <Col span={12}>
                 <Space direction="vertical" size="middle">
-                  <Text>Ocupação</Text>
-                  <Text strong>{patient?.occupation}</Text>
-                  <Text>Data de Nascimento</Text>
-                  <Text strong>
+                  <Text strong>Ocupação:</Text>
+                  <Text>{patient?.occupation}</Text>
+                  <Text strong>Data de Nascimento:</Text>
+                  <Text>
                     {new Date(patient?.birthDate ?? "").toLocaleDateString(
                       "pt-BR"
                     )}
                   </Text>
-                  <Text>Cidade</Text>
-                  <Text strong>{patient?.address?.city ?? ""}</Text>
+                  <Text strong>Objetivo:</Text>
+                  <Text>{patient?.goal}</Text>
                 </Space>
               </Col>
 
-              <Col span={12}>
+              <Col style={{border: "1 solid black"}} span={12}>
                 <Space direction="vertical" size="middle">
-                  <Text>Objetivo</Text>
-                  <Text strong>{patient?.goal}</Text>
-                  <Text>Estado</Text>
-                  <Text strong>{patient?.address.state}</Text>
-                  <Text>Endereço</Text>
-                  <Text strong>{patient?.address.street}</Text>
+                  <Text strong>Endereço:</Text>
+                  <Text>{patient?.address.street}</Text>
+                  <Text strong>Cidade/Estado:</Text>
+                  <Text>{patient?.address?.city ?? ""} / {patient?.address.state}</Text>
                 </Space>
               </Col>
             </Row>

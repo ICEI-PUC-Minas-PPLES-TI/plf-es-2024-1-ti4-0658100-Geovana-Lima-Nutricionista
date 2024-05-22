@@ -51,7 +51,7 @@ export const PatientFormRegister = () => {
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
       <Row gutter={24}>
         <Col span={24}>
           <Form.Item
@@ -65,7 +65,7 @@ export const PatientFormRegister = () => {
             ]}
              
           >
-            <Input placeholder="Escreva o nome do paciente" />
+            <Input placeholder="Escreva o nome do paciente" size="large" />
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -80,7 +80,7 @@ export const PatientFormRegister = () => {
               },
             ]}
           >
-            <Input placeholder="Escreva o e-mail do paciente" />
+            <Input placeholder="Escreva o e-mail do paciente" size="large"/>
           </Form.Item>
         </Col>
       </Row>
@@ -114,6 +114,7 @@ export const PatientFormRegister = () => {
               picker="date"
               placeholder="Escreva a data de nascimento do paciente"
               format="DD-MM-YYYY"
+              size="large"
             />
             </ConfigProvider>
           </Form.Item>
@@ -129,7 +130,7 @@ export const PatientFormRegister = () => {
               },
             ]}
           >
-            <Input placeholder="Escreva a ocupação do paciente" />
+            <Input placeholder="Escreva a ocupação do paciente" size="large"/>
           </Form.Item>
         </Col>
         <Col span={24}>
@@ -143,7 +144,7 @@ export const PatientFormRegister = () => {
               },
             ]}
           >
-            <Input placeholder="Escreva o objetivo do paciente" />
+            <Input placeholder="Escreva o objetivo do paciente" size="large"/>
           </Form.Item>
         </Col>
       </Row>
@@ -160,7 +161,7 @@ export const PatientFormRegister = () => {
               },
             ]}
           >
-            <Input placeholder="Escreva o cep do paciente" />
+            <Input placeholder="Escreva o cep do paciente" size="large"/>
           </Form.Item>
         </Col>
         <Col span={12}>
@@ -177,6 +178,7 @@ export const PatientFormRegister = () => {
             <Select
               placeholder="Selecione o estado"
               onChange={handleChangeEstado}
+              size="large"
             >
               {estados.map((estado) => (
                 <Option key={estado.sigla} value={estado.sigla}>
@@ -203,6 +205,7 @@ export const PatientFormRegister = () => {
             <Select
               placeholder="Selecione a cidade"
               disabled={!estadoSelecionado}
+              size="large"
             >
               {cidades.map((cidade) => (
                 <Option key={cidade.id} value={cidade.nome}>
@@ -223,7 +226,7 @@ export const PatientFormRegister = () => {
               },
             ]}
           >
-            <Input placeholder="Escreva o bairro do paciente" />
+            <Input placeholder="Escreva o bairro do paciente" size="large"/>
           </Form.Item>
         </Col>
       </Row>
@@ -240,7 +243,7 @@ export const PatientFormRegister = () => {
               },
             ]}
           >
-            <Input placeholder="Escreva o endereço do paciente" />
+            <Input placeholder="Escreva o endereço do paciente" size="large"/>
           </Form.Item>
         </Col>
         <Col span={12}>

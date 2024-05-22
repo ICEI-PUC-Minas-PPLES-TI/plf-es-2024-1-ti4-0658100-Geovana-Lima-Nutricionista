@@ -253,6 +253,24 @@ body {
   right: 90px;
 }
 
+.rounded-calendar .ant-picker-panel {
+  border-radius: 15px; /* Valor de exemplo, ajuste conforme necessário */
+}
 
-  
+/* index.css */
+.title {
+  margin-bottom: 16px;
+}
+
+.rounded-calendar .ant-picker-panel {
+  border-radius: 15px;
+}
+
+/* Custom styles for status indicators */
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
 
