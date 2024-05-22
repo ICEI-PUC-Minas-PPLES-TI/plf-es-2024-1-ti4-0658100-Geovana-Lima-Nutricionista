@@ -110,9 +110,11 @@ export const CalendarComponent = () => {
         </Radio.Group>
       </ConfigProvider>
       <div style={{ padding: 10, textAlign: "center" }}>
-        <Typography.Title level={3} className="subtitle">
-          {calendarTitle.charAt(0).toUpperCase() + calendarTitle.slice(1)}
-        </Typography.Title>
+        {view === "month" && (
+          <Typography.Title level={3} className="subtitle">
+            {calendarTitle.charAt(0).toUpperCase() + calendarTitle.slice(1)}
+          </Typography.Title>
+        )}
       </div>
       <ConfigProvider
         theme={{
@@ -138,7 +140,9 @@ export const CalendarComponent = () => {
               return (
                 <ul>
                   {appointmentsForDate.map((appointment, index) => (
-                    <li key={index}>{appointment.hour + " - " + appointment.patient?.name}</li>
+                    <li key={index}>
+                      {appointment.hour + " - " + appointment.patient?.name}
+                    </li>
                   ))}
                 </ul>
               );
