@@ -8,4 +8,6 @@ import glnutricionista.backend.models.Patient;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
   Page<Patient> findByNameContaining(String name, Pageable pageable);
+
+  Patient findByEmail(String email);
 }
