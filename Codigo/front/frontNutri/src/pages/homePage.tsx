@@ -2,8 +2,15 @@ import React from "react";
 import { Card, Col, Row, Typography, Button, Statistic, Select, Space, Tooltip } from "antd";
 import { CalendarOutlined, UserOutlined, DollarOutlined, BellOutlined, SearchOutlined } from "@ant-design/icons";
 import SiderComponent from "../components/SiderComponent";
+import money from '../assets/money.svg';
+import patients from '../assets/patients.svg';
+import doctor from '../assets/doctor.svg';
+import virtualMeeting from '../assets/virtual-meeting.svg';
+import meeting from '../assets/meeting.svg';
+import pin from '../assets/pin.svg';
 import "../styles/HomePage.css";
 import { BarChart, CartesianGrid, XAxis, YAxis, Legend, Bar } from "recharts";
+import { render } from "react-dom";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -14,44 +21,88 @@ const data = [
   { name: "Produto C", visitas: 90 },
   { name: "Produto D", visitas: 20 },
 ];
+const schedule: any[] = [
+  {
+    date: "Oct 24, 2022",
+    agenda: [
+      {
+        type: "virtualMeeting",
+        description: "Meet with Ellen Cho",
+        local: "Zoom Call"
+      },
+      {
+        type: "meeting",
+        description: "Meet with Ellen Cho",
+        local: "Zoom Call"
+      },
+      {
+        type: "pin",
+        description: "Meet with Ellen Cho",
+        local: "Zoom Call"
+      }
+    ]
+  }
+];
+
 
 export const HomePage = () => {
   return (
+
     <SiderComponent>
       <div className="home-page">
-        <Title className="page-title">Página Inicial</Title>
+        <div className="page-title">
+          <Title className="title">Página Inicial</Title>
+          <div className="buttons">
+            <Button className="icon-button">
+              <SearchOutlined />
+            </Button>
+            <Button className="icon-button">
+              <BellOutlined />
+            </Button>
+          </div>
 
-        <Row gutter={16}>
-          <Col span={8}>
+        </div>
+
+        <Row className="row principal-cards" gutter={16}>
+          <Col span={6}>
             <Card bordered={false} className="stat-card">
-              <Statistic
-                title="Consultas Totais"
-                value={100}
-                prefix={<CalendarOutlined className="stat-icon" />}
-              />
+              <div className="start-card">
+                <img src={doctor}></img>
+                <div>
+                  <p>Consultas Totais:</p>
+                  <p>100</p>
+                </div>
+              </div>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             <Card bordered={false} className="stat-card">
-              <Statistic
-                title="Pacientes Totais"
-                value={100}
-                prefix={<UserOutlined className="stat-icon" />}
-              />
+              <div className="start-card">
+                <img src={patients}></img>
+                <div>
+                  <p>Pacientes Totais:</p>
+                  <p>100</p>
+                </div>
+              </div>
             </Card>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             <Card bordered={false} className="stat-card">
-              <Statistic
-                title="Total Arrecadado"
-                value={10000}
-                prefix={<DollarOutlined className="stat-icon" />}
-                suffix="R$"
-              />
+              <div className="start-card">
+                <img src={money}></img>
+                <div>
+                  <p>Total Arrencado:</p>
+                  <p>100</p>
+                </div>
+              </div>
             </Card>
+          </Col>
+          <Col span={6}>
+            <Button type="primary" className="schedule-button">
+              Agendar Consulta
+            </Button>
           </Col>
         </Row>
-
         <Row gutter={16} style={{ marginTop: 16 }}>
           <Col span={16}>
             <div className="header-actions">
@@ -59,22 +110,16 @@ export const HomePage = () => {
                 <Option value="visitas">Visitas X Mês</Option>
                 <Option value="consultas">Consultas X Mês</Option>
               </Select>
-              <Select defaultValue="Este Ano" className="select-filter">
-                <Option value="2024">2024</Option>
-                <Option value="2023">2023</Option>
-              </Select>
-              <Button type="primary" className="schedule-button">
-                Agendar Consulta
-              </Button>
-              <Button className="icon-button">
-                <SearchOutlined />
-              </Button>
-              <Button className="icon-button">
-                <BellOutlined />
-              </Button>
+
             </div>
             <Card bordered={false} className="chart-card">
-              <Title level={3}>Visitas Pacientes</Title>
+              <div className="patient-visit">
+                <Title level={3}>Visitas Pacientes</Title>
+                <Select defaultValue="Este Ano" className="select-filter">
+                  <Option value="2024">2024</Option>
+                  <Option value="2023">2023</Option>
+                </Select>
+              </div>
               <BarChart
                 width={600}
                 height={300}
@@ -91,7 +136,7 @@ export const HomePage = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="visitas" fill="#8884d8" />
+                <Bar dataKey="visitas" fill="#A642F4" />
               </BarChart>
             </Card>
           </Col>
@@ -99,11 +144,7 @@ export const HomePage = () => {
           <Col span={8}>
             <Card bordered={false} className="events-card">
               <Title level={3}>Eventos do Mês</Title>
-              <Space direction="vertical" size="large">
-                <EventItem date="2024-05-20" description="Meet with Ellen Cho" />
-                <EventItem date="2024-05-21" description="1-1 with Scott" />
-                <EventItem date="2024-05-22" description="Figma Webinar" />
-              </Space>
+              <GenerateSchedule schedule={schedule} />
             </Card>
           </Col>
         </Row>
@@ -112,7 +153,31 @@ export const HomePage = () => {
   );
 };
 
-const EventItem = ({ date, description }:any) => (
+const GenerateSchedule = ({ schedule }: any) =>
+(schedule.map((item: any) => {
+  return <div>
+    <small className="date">{item.date}</small>
+    <GenerateAgenda agenda = {item.agenda}/>
+
+  </div>
+})
+)
+
+const GenerateAgenda = ({ agenda }: any) =>
+(agenda.map((item: any) => {
+  return <div className="agenda">
+    <div className="agenda-picture" >
+    <img src={item.type === "virtualMeeting" ? virtualMeeting : item.type === "meeting" ? meeting : pin}></img>
+    </div>
+    <div>
+      <p>{item.description}</p>
+      <small>{item.local}</small>
+    </div>
+  </div>
+})
+)
+
+const EventItem = ({ date, description }: any) => (
   <Row>
     <Col span={6}>
       <Typography.Text strong>{new Date(date).toLocaleDateString("pt-BR")}</Typography.Text>
