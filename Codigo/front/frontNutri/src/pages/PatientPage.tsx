@@ -1,23 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   Col,
   Divider,
-  Flex,
-  notification,
   Row,
   Space,
   Typography,
-} from "antd";
-import { EditOutlined, UserOutlined } from "@ant-design/icons";
-import SiderComponent from "../components/SiderComponent";
-import Meta from "antd/es/card/Meta";
-import { PatientTable } from "../components/PatientTable";
-import { useEffect, useState } from "react";
-import Title from "antd/es/typography/Title";
-import { useParams } from "react-router";
-import { Patient } from "../interfaces/patient";
-import { getPatient, updatePatient } from "../services/patient.service";
+  notification,
+} from 'antd';
+import { EditOutlined, UserOutlined } from '@ant-design/icons';
+import SiderComponent from '../components/SiderComponent';
+import Meta from 'antd/es/card/Meta';
+import { PatientTable } from '../components/PatientTable';
+import { useParams } from 'react-router';
+import { Patient } from '../interfaces/patient';
+import { getPatient, updatePatient } from '../services/patient.service';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import '../index.css';
 import EditPatientModal from '../components/EditPatientModal';
@@ -45,25 +42,36 @@ export const Patientspage = () => {
   const saveEdit = async (values: any) => {
     if (patientEditing) {
       const updatedPatient = { ...patientEditing, ...values };
-      const { data, error } = await updatePatient(Number(id), updatedPatient);
-
-      if (data) {
-        setPatient(data);
-        notification.success({
-          message: "Paciente atualizado com sucesso!",
-        });
-      }
-
-      if (error) {
+  
+      // Log dos dados antes do envio
+      console.log('Dados enviados para atualização:', JSON.stringify(updatedPatient, null, 2));
+  
+      try {
+        const { data, error } = await updatePatient(Number(id), updatedPatient);
+  
+        if (data) {
+          setPatient(data);
+          notification.success({
+            message: 'Paciente atualizado com sucesso!',
+          });
+        }
+  
+        if (error) {
+          notification.error({
+            message: 'Erro ao atualizar paciente!',
+          });
+        }
+  
+        closeEditModal();
+      } catch (error) {
         notification.error({
-          message: "Erro ao atualizar paciente!",
+          message: 'Erro ao atualizar paciente!',
         });
+        console.error('Erro ao atualizar paciente:', error);
       }
-
-      closeEditModal();
     }
   };
-
+  
   useEffect(() => {
     const loadPatient = async () => {
       const { data, error } = await getPatient(Number(id));
@@ -74,7 +82,7 @@ export const Patientspage = () => {
 
       if (error) {
         notification.error({
-          message: "Erro ao carregar paciente!",
+          message: 'Erro ao carregar paciente!',
         });
       }
     };
@@ -86,43 +94,36 @@ export const Patientspage = () => {
     <SiderComponent>
       <Row gutter={16}>
         <Col span={8}>
-        {patient && (
-          <Card
-            bordered={false}
-            className="itemCard"
-          >
-            <EditOutlined
+          {patient && (
+            <Card bordered={false} className="itemCard">
+              <EditOutlined
                 key="edit"
                 onClick={() => openEditModal(patient)}
-                style={{ position: 'absolute', top: 20, right: 20, zIndex: 1, fontSize:20}} 
+                style={{ position: 'absolute', top: 20, right: 20, zIndex: 1, fontSize: 20 }}
               />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                textAlign: "center",
-              }}
-            >
-              <div style={{ marginBottom: 16 }}>
-                <UserOutlined style={{ fontSize: 64 }} />
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                }}
+              >
+                <div style={{ marginBottom: 16 }}>
+                  <UserOutlined style={{ fontSize: 64 }} />
+                </div>
+                <Meta
+                  title={patient.name}
+                  description={
+                    <Space direction="vertical">
+                      <p>{patient.email}</p>
+                      <Text strong>Consultas: {patient.totalAppointments ?? 0}</Text>
+                      <Text strong>Total Pago: R${patient.totalPrice ?? 0.0}</Text>
+                    </Space>
+                  }
+                />
               </div>
-              <Meta
-                title={patient?.name}
-                description={
-                  <Flex gap="middle" vertical>
-                    <p>{patient?.email}</p>
-                    <Text strong>
-                      Consultas: {patient?.totalAppointments ?? 0}
-                    </Text>
-                    <Text strong>
-                      Total Pago: R${patient?.totalPrice ?? 0.0}
-                    </Text>
-                  </Flex>
-                }
-              />
-            </div>
-          </Card>
+            </Card>
           )}
         </Col>
         <Col span={8}>
@@ -133,29 +134,31 @@ export const Patientspage = () => {
                   <Text strong>Ocupação:</Text>
                   <Text>{patient?.occupation}</Text>
                   <Text strong>Data de Nascimento:</Text>
-                  <Text>
-                    {new Date(patient?.birthDate ?? "").toLocaleDateString(
-                      "pt-BR"
-                    )}
-                  </Text>
+                  <Text>{new Date(patient?.birthDate ?? '').toLocaleDateString('pt-BR')}</Text>
                   <Text strong>Objetivo:</Text>
                   <Text>{patient?.goal}</Text>
                 </Space>
               </Col>
-              <Col style={{border: "1 solid black"}} span={12}>
+              <Col span={12}>
                 <Space direction="vertical" size="middle">
                   <Text strong>Endereço:</Text>
                   <Text>{patient?.address.street}</Text>
                   <Text strong>Cidade/Estado:</Text>
-                  <Text>{patient?.address?.city ?? ""} / {patient?.address.state}</Text>
+                  <Text>{patient?.address.city ?? ''} / {patient?.address.state}</Text>
                 </Space>
               </Col>
             </Row>
           </Card>
         </Col>
+        <EditPatientModal
+          visible={isEditing}
+          patient={patientEditing}
+          onCancel={closeEditModal}
+          onSave={saveEdit}
+        />
         <Col span={8}>
           {patient?.records && (
-            <LineChart width={400} height={300} data={patient?.records}>
+            <LineChart width={400} height={300} data={patient.records}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="id" />
               <YAxis />
@@ -171,18 +174,11 @@ export const Patientspage = () => {
       <Row>
         <Col span={24}>
           <Divider orientation="left">
-            <Title level={2}>Consultas</Title>
+            <Typography.Title level={2}>Consultas</Typography.Title>
           </Divider>
           <PatientTable patientId={Number(id)} />
         </Col>
       </Row>
-
-      <EditPatientModal
-        visible={isEditing}
-        patient={patientEditing}
-        onCancel={closeEditModal}
-        onSave={saveEdit}
-      />
     </SiderComponent>
-  
-)};
+  );
+};

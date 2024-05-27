@@ -1,5 +1,4 @@
-// EditPatientModal.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
 import { Patient } from '../interfaces/patient';
 
@@ -11,6 +10,14 @@ interface EditPatientModalProps {
 }
 
 const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, patient, onCancel, onSave }) => {
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (patient) {
+      form.setFieldsValue(patient);
+    }
+  }, [patient]);
+
   return (
     <Modal
       title="Editar Paciente"
@@ -19,6 +26,7 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, patient, o
       footer={null}
     >
       <Form
+        form={form}
         initialValues={patient ? patient : {}}
         onFinish={onSave}
         layout="vertical"
@@ -38,6 +46,13 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, patient, o
           <Input />
         </Form.Item>
         <Form.Item
+          name="birthDate"
+          label="Data de Nascimento"
+          rules={[{ required: true, message: 'Por favor insira a data de nascimento do paciente!' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           name="occupation"
           label="Ocupação"
         >
@@ -50,17 +65,41 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, patient, o
           <Input />
         </Form.Item>
         <Form.Item
-          name="adress"
-          label="Endereço"
+          name={['address', 'zip']}
+          label="CEP"
         >
           <Input />
-          </Form.Item>
-          <Form.Item
-          name="city/state"
-          label="Cidade/Estado"
+        </Form.Item>
+        <Form.Item
+          name={['address', 'state']}
+          label="Estado"
         >
           <Input />
-          </Form.Item>
+        </Form.Item>
+        <Form.Item
+          name={['address', 'city']}
+          label="Cidade"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name={['address', 'district']}
+          label="Bairro"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name={['address', 'street']}
+          label="Rua"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name={['address', 'country']}
+          label="País"
+        >
+          <Input />
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className='button'>
             Salvar

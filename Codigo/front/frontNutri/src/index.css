@@ -254,7 +254,7 @@ body {
 }
 
 .rounded-calendar .ant-picker-panel {
-  border-radius: 15px; /* Valor de exemplo, ajuste conforme necessário */
+  border-radius: 15px; 
 }
 
 /* index.css */
