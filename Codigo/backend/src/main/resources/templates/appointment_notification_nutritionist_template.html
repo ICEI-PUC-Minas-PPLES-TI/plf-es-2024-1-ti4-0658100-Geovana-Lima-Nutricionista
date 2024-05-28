@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lembrete de Consulta</title>
+    <title>Consulta Próxima</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,27 +51,19 @@
         .footer p {
             margin: 0;
         }
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 20px 0;
-            color: #ffffff;
-            background-color: #cb6cec;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>Lembrete de Consulta</h1>
+        <h1>Consulta Próxima</h1>
     </div>
     <div class="content">
-        <p>Olá <strong th:text="${nome}"></strong>,</p>
-        <p>Gostaríamos de lembrar que sua consulta marcada para o dia <strong th:text="${dataConsulta}"></strong> às <strong th:text="${horaConsulta}"></strong> está próxima.</p>
-        <p>Por favor, não se esqueça!</p>
+        <p>Olá,</p>
+        <p>Gostaríamos de informar que a consulta do paciente <strong th:text="${nomePaciente}"></strong>
+            marcada para o dia <strong th:text="${dataConsulta}"></strong> às <strong
+                    th:text="${horaConsulta}"></strong>
+            está próxima.</p>
     </div>
     <div class="footer">
         <p>Atenciosamente,</p>
