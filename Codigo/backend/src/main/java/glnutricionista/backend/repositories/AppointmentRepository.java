@@ -14,8 +14,11 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
   @Query("SELECT COUNT(a) FROM Appointment a WHERE a.patient.id = :patientId")
   public long countByPatientId(Long patientId);
 
-  @Query("SELECT COALESCE(SUM(a.price), 0) FROM Appointment a WHERE a.patient.id = :patientId")
+  @Query("SELECT COALESCE(SUM(a.price), 0) FROM Appointment a WHERE a.patient.id = :patientId AND a.paid = true")
   public double sumPriceByPatientId(Long patientId);
+
+  @Query("SELECT COALESCE(SUM(a.price), 0) FROM Appointment a WHERE a.patient.id = :patientId AND a.paid = false")
+  public double sumPriceNotPaidByPatientId(Long patientId);
 
   @Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId")
   public List<Appointment> findByPatient(Long patientId);

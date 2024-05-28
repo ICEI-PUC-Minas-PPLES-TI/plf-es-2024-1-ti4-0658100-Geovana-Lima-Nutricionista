@@ -38,4 +38,7 @@ public class Appointment {
 
     @Column(nullable = false)
     private String status;
+
+    @Column(nullable = false)
+    private Boolean paid = false;
 }

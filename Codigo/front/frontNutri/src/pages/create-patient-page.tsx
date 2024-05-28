@@ -23,7 +23,6 @@ export const CreatePatient = () => {
   const navigate = useNavigate();
 
   const onFinish = async (formData: PatientForm) => {
-    console.log(formData)
     const patientData = {
       name: formData.name,
       email: formData.email,
@@ -63,7 +62,7 @@ export const CreatePatient = () => {
             alignItems: "center",
             paddingBottom:'20px',
             minHeight: "40vh",
-            overflow:"hidden"
+            overflow:"hidden",
           }}
         >
           <Form
@@ -77,7 +76,7 @@ export const CreatePatient = () => {
               <Typography.Title className="title" style={{ textAlign: "center" }}>
                 Cadastro do Paciente
               </Typography.Title>
-              <PatientFormRegister />
+              <PatientFormRegister onFinish={onFinish} />
             </div>
           </Form>
         </div>

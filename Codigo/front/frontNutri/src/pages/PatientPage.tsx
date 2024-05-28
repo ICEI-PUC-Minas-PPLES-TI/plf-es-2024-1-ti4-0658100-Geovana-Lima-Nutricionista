@@ -135,6 +135,11 @@ export const Patientspage = () => {
                   <Text>{patient?.occupation}</Text>
                   <Text strong>Data de Nascimento:</Text>
                   <Text>{new Date(patient?.birthDate ?? '').toLocaleDateString('pt-BR')}</Text>
+                  <Text>
+                    {new Date(patient?.birthDate ?? "").toLocaleDateString(
+                      "pt-BR"
+                    )} - {patient?.age + " anos"}
+                  </Text>
                   <Text strong>Objetivo:</Text>
                   <Text>{patient?.goal}</Text>
                 </Space>
