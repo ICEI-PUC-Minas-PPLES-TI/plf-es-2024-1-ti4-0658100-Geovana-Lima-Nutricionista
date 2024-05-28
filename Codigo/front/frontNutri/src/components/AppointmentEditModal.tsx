@@ -22,6 +22,7 @@ export const AppointmentEditModal = ({
     status: '',
     paymentLink: '',
     record: null,
+    paid: false
   }
   const [editingAppointment, setEditingAppointment] = useState<Appointment>(mock);
 
