@@ -1,9 +1,12 @@
 import '../index.css'
 import { LockOutlined, UserOutlined, QuestionCircleOutlined  } from '@ant-design/icons';
-import { Button, Form, Input, notification, Tooltip } from 'antd';
+import { Button, Form, Input, notification, Tooltip, Typography } from 'antd';
 import iconeNutri from '../assets/nutricionista-maria-fernanda_heroshot-receitas_01.png';
 import { login } from '../services/auth.service';
 import { useNavigate } from 'react-router';
+import { Header } from 'antd/es/layout/layout';
+import Title from 'antd/es/skeleton/Title';
+
 
 const Login = () => {
     document.title = "Login";
@@ -33,17 +36,16 @@ const Login = () => {
     return (
         <div className="login-Container">
 
-            <div className="title-container">
-                <span className="gl">GL</span>
-                <span className="title">Geovana Lima Nutricionista</span>
-                <Tooltip className='tooltip' title="Digite o seu usuário e senha para logar no sistema.
+            <Header style={{ display: 'flex', alignItems: 'center', backgroundColor:'#ddafeb7a', borderRadius:70, margin:15, padding: '0 20px'}}>
+            <Tooltip className='tooltip' title="Digite o seu usuário e senha para logar no sistema.
                 Caso tenha esquecido a senha, clique no botão 'Esqueci a senha'.">
                 <QuestionCircleOutlined style={{ fontSize: '25px', color: 'black' }} />
                 </Tooltip>
-            </div>
+            <h1 className='titleLogin'>Geovana Lima Nutricionista</h1>
+            </Header>
             <div className='imagemecard'>
             <div className='imagem'>
-                <img src={iconeNutri}></img>
+                <img className='image-login' src={iconeNutri}></img>
                 </div>
                 
                 <div className="login-card">
@@ -74,7 +76,7 @@ const Login = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="login-form-button">
+                            <Button type="primary" htmlType="submit" className="button">
                                 Log in
                             </Button>
                         </Form.Item>
