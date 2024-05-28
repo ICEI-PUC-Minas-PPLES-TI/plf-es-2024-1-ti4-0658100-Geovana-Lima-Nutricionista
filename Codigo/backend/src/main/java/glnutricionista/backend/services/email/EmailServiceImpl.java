@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class EmailServiceImpl {
+public class EmailServiceImpl implements EmailService{
 
     private final List<EmailStrategy> strategies;
 

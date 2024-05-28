@@ -1,15 +1,11 @@
 package glnutricionista.backend.models;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import org.springframework.data.repository.cdi.Eager;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
