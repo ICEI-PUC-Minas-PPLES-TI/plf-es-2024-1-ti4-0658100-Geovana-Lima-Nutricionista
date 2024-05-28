@@ -1,7 +1,8 @@
-import { Input, Modal, notification } from "antd";
+import { ConfigProvider, Input, Modal, notification } from "antd";
 import { Appointment } from "../interfaces/appointment";
 import { useState } from "react";
 import { updateAppointment } from "../services/appointment.service";
+import locale from 'antd/lib/locale/pt_BR';
 
 interface AppointmentEditModalInterface {
   resetEditing: () => void;
@@ -54,6 +55,7 @@ export const AppointmentEditModal = ({
       }}
     >
       Data
+      <ConfigProvider locale={locale}>
       <Input
         value={appointment.date}
         onChange={(e) => {
@@ -62,6 +64,7 @@ export const AppointmentEditModal = ({
           });
         }}
       />
+      </ConfigProvider>
       Hora
       <Input
         value={appointment.hour}
