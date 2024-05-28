@@ -89,12 +89,6 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
     },
     {
       key: "4",
-      id: 4,
-      title: "Link de Pagamento",
-      dataIndex: "paymentLink",
-    },
-    {
-      key: "5",
       id: 5,
       title: "Status",
       dataIndex: "status",
@@ -111,7 +105,7 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
       ),
     },
     {
-      key: "6",
+      key: "5",
       id: 6,
       title: "Pago",
       dataIndex: "paid",
@@ -131,7 +125,7 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
       ),
     },
     {
-      key: "7",
+      key: "6",
       title: "Ficha",
       render: (record: Appointment) => {
         return (
@@ -144,7 +138,7 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
       },
     },
     {
-      key: "8",
+      key: "7",
       title: "Ações",
       render: (record: Appointment) => {
         return (

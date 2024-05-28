@@ -1,19 +1,50 @@
 import { ReactNode, useState } from "react";
-import { Layout, Button } from "antd";
+import { Layout, Button, Badge, Drawer } from "antd";
 import { Logo } from "./Logo";
 import { MenuFoldOutlined, MenuUnfoldOutlined, BellOutlined, SearchOutlined } from "@ant-design/icons";
 import "../index.css";
 import { MenuList } from "./MenuList";
+import { Patient } from "../interfaces/patient";
 import styled from "styled-components";
+import { getPatient } from "../services/patient.service";
+import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
+
+const mockConsultations = [
+  {
+    title: "Consulta de Rotina",
+    description: "Verificação de saúde geral e atualização de vacinas.",
+    patient:  "Paciente: João",
+  },
+  {
+    title: "Consulta de Cardiologia",
+    description: "Avaliação de pressão arterial e exame de ecocardiograma.",
+    patient: "Paciente: Marcos"
+  },
+  {
+    title: "Consulta de Pediatria",
+    description: "Acompanhamento do desenvolvimento infantil e orientações nutricionais.",
+    patient: "Paciente: Maria" ,
+  },
+  {
+    title: "Consulta de Dermatologia",
+    description: "Exame de manchas na pele e tratamento de acne.",
+    patient: "Paciente: João",
+  },
+  {
+    title: "Consulta de Ortopedia",
+    description: "Avaliação de dores no joelho e exame de raio-X.",
+    patient: "Paciente: Ana",
+  }
+];
+
 
 const StyledLayout = styled(Layout)`
   width: 100%;
   min-height: 100vh;
   position: fixed;
   max-height: 100vh;
-  }
 `;
 
 const StyledContent = styled(Content)`
@@ -39,6 +70,11 @@ interface SiderComponentProps {
 
 function SiderComponent({ children }: SiderComponentProps) {
   const [collapsed, setCollapsed] = useState(false);
+  const [notificationsVisible, setNotificationsVisible] = useState(false);
+
+  const toggleNotifications = () => {
+    setNotificationsVisible(!notificationsVisible);
+  };
 
   return (
     <StyledLayout>
@@ -73,14 +109,34 @@ function SiderComponent({ children }: SiderComponentProps) {
               />
               <Button
                 type="text"
-                icon={<BellOutlined />}
+                icon={<Badge count={5}><BellOutlined /></Badge>}
                 style={{ fontSize: '16px', backgroundColor: '#cb6cec', borderRadius: '30px', boxShadow: '0 2px 4px' }}
+                onClick={toggleNotifications}
               />
             </div>
           </HeaderContent>
         </Header>
         <StyledContent>{children}</StyledContent>
       </Layout>
+      <Drawer
+        title="Notificações"
+        placement="right"
+        closable={true}
+        onClose={toggleNotifications}
+        open={notificationsVisible}
+      >
+        {mockConsultations.map((consultation, index) => (
+          <div key={index} style={{ marginBottom: '16px' }}>
+            <h3>{consultation.title}</h3>
+            <p>{consultation.description}</p>
+            <p>
+              <strong>
+                <Link to={`/paciente/patient.id`}>{consultation.patient}</Link>
+              </strong>
+            </p>
+          </div>
+        ))}
+      </Drawer>
     </StyledLayout>
   );
 }
