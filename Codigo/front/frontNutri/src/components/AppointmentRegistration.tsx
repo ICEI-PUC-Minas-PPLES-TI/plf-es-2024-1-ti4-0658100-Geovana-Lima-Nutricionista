@@ -165,16 +165,6 @@ export const AppointmentRegistration = () => {
           </Form.Item>
         </Col>
       </Row>
-
-      {/* Botão Link de pagamento */}
-      <Row gutter={24} justify="center">
-        <Col span={24} style={{ textAlign: "center" }}>
-          <Button type="primary" style={{ backgroundColor: '#807A7A', width: "100%" }} size="large">
-            Link de pagamento
-          </Button>
-        </Col>
-      </Row>
-
       {/* Botão Criar nova consulta */}
       <div className="create-appointment-button" style={{ textAlign: "center", marginTop: "20px" }}>
         <Button type="primary" htmlType="submit" className="button" style={{ width: "100%" }}>

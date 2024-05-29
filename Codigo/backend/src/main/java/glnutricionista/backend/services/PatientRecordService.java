@@ -1,12 +1,11 @@
 package glnutricionista.backend.services;
 
-import glnutricionista.backend.DTO.PatientRecordDTO;
 import glnutricionista.backend.models.Appointment;
 import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.models.PatientRecord;
 import glnutricionista.backend.repositories.AppointmentRepository;
 import glnutricionista.backend.repositories.PatientRecordRepository;
-import glnutricionista.backend.repositories.PatientRepository;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

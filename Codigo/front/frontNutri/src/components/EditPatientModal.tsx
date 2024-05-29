@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Modal, Form, Input, Button } from 'antd';
+import { Modal, Form, Input, Button, DatePicker } from 'antd';
 import { Patient } from '../interfaces/patient';
+import moment from 'moment';
 
 interface EditPatientModalProps {
   visible: boolean;
@@ -14,7 +15,10 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, patient, o
 
   useEffect(() => {
     if (patient) {
-      form.setFieldsValue(patient);
+      form.setFieldsValue({
+        ...patient,
+        birthDate: patient.birthDate ? moment(patient.birthDate) : null,
+      });
     }
   }, [patient]);
 
@@ -27,8 +31,17 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, patient, o
     >
       <Form
         form={form}
-        initialValues={patient ? patient : {}}
-        onFinish={onSave}
+        initialValues={patient ? {
+          ...patient,
+          birthDate: patient.birthDate ? moment(patient.birthDate) : null,
+        } : {}}
+        onFinish={(values) => {
+          const formattedValues = {
+            ...values,
+            birthDate: values.birthDate ? values.birthDate.format('YYYY-MM-DD') : null,
+          };
+          onSave(formattedValues);
+        }}
         layout="vertical"
       >
         <Form.Item
@@ -50,7 +63,7 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, patient, o
           label="Data de Nascimento"
           rules={[{ required: true, message: 'Por favor insira a data de nascimento do paciente!' }]}
         >
-          <Input />
+          <DatePicker style={{ width: '100%' }} />
         </Form.Item>
         <Form.Item
           name="occupation"

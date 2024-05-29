@@ -1,6 +1,8 @@
 package glnutricionista.backend.controllers;
 
 import glnutricionista.backend.DTO.AppointmentDTO;
+import glnutricionista.backend.DTO.PatientVisitsDTO;
+import glnutricionista.backend.DTO.SummaryDTO;
 import glnutricionista.backend.models.Appointment;
 import glnutricionista.backend.services.AppointmentService;
 import jakarta.validation.Valid;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/appointments")
@@ -56,6 +60,8 @@ public class AppointmentController {
         return ResponseEntity.ok(appointment);
     }
 
+   
+
     @PutMapping("/{id}")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id,
             @RequestBody @Valid AppointmentDTO appointmentDTO) {
@@ -71,5 +77,32 @@ public class AppointmentController {
     public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
         appointmentService.deleteAppointment(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/patient/{id}/visits")
+    public ResponseEntity<Map<String, Object>> getPatientVisits(@PathVariable Long id) {
+        try {
+            String patientName = appointmentService.getPatientNameById(id);
+            Long visitCount = appointmentService.countAppointmentsByPatientId(id);
+            Map<String, Object> response = new HashMap<>();
+            response.put("name", patientName);
+            response.put("visits", visitCount);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data provided", e);
+        }
+    }
+    
+    @GetMapping("/summary")
+    public ResponseEntity<SummaryDTO> getSummary() {
+        SummaryDTO summary = appointmentService.getSummary();
+        return ResponseEntity.ok(summary);
+    }
+
+
+    @GetMapping("/patient-visits")
+    public ResponseEntity<List<PatientVisitsDTO>> getAllPatientsWithVisits() {
+        List<PatientVisitsDTO> patientVisits = appointmentService.getAllPatientsWithVisits();
+        return ResponseEntity.ok(patientVisits);
     }
 }
