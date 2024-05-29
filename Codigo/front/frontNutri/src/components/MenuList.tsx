@@ -54,7 +54,13 @@ export const MenuList = () => {
           Adicionar Novo Paciente
         </Menu.Item>
       </Menu.SubMenu>
-      <Menu.Item key="profile" icon={<UserOutlined />}>
+      <Menu.Item 
+      key={"/user"} 
+      onClick={({ key }) => {
+        navigate(key);
+      }}
+      icon={<UserOutlined />}
+      >
         Perfil
       </Menu.Item>
     </Menu>
