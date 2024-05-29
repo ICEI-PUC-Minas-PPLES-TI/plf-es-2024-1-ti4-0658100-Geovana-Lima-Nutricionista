@@ -1,27 +1,21 @@
-import {
-  Row,
-  Col,
-  Form,
-  Input,
-  DatePicker,
-  Button,
-  TimePicker,
-  notification,
-  Select,
-  ConfigProvider,
-} from "antd";
-import "../index.css";
+import React, { useEffect, useState } from "react";
+import { Row, Col, Form, Input, DatePicker, Button, TimePicker, notification, Select, ConfigProvider } from "antd";
 import "moment/locale/pt-br";
 import moment from "moment";
 import "../index.css";
 import { getPatients } from "../services/patient.service";
-import { useEffect, useState } from "react";
 import { Patient } from "../interfaces/patient";
-import { Option } from "antd/es/mentions";
-import locale from "antd/lib/locale/pt_BR";
+import locale from 'antd/lib/locale/pt_BR';
 
-export const AppointmentRegistration = () => {
+const { Option } = Select;
+
+interface AppointmentRegistrationProps {
+  onFinish: (values: any) => void;
+}
+
+export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = ({ onFinish }) => {
   const [patients, setPatients] = useState<Patient[]>([]);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     fetchPatients("");
@@ -46,10 +40,15 @@ export const AppointmentRegistration = () => {
   };
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
-      {/* Nome do paciente */}
-      <Row gutter={24}>
-        <Col span={24}>
+    <ConfigProvider locale={locale}>
+      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+        <Form
+          form={form}
+          layout="horizontal"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          onFinish={onFinish}
+        >
           <Form.Item
             name="patientId"
             label="Nome"
@@ -70,57 +69,40 @@ export const AppointmentRegistration = () => {
               style={{ width: "100%" }}
             >
               {patients.map((patient) => (
-                <Option
-                  key={patient.id?.toString()}
-                  value={patient.id?.toString()}
-                >
+                <Option key={patient.id?.toString()} value={patient.id?.toString()}>
                   {patient.name}
                 </Option>
               ))}
             </Select>
           </Form.Item>
-        </Col>
-      </Row>
 
-      <Row gutter={24}>
-        {/* Data da Consulta */}
-        <Col span={24}>
-          <ConfigProvider locale={locale}>
-            <Form.Item
-              name="date"
-              label="Data da Consulta"
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor digite a data da consulta do paciente",
+          <Form.Item
+            name="date"
+            label="Data da Consulta"
+            rules={[
+              {
+                required: true,
+                message: "Por favor digite a data da consulta do paciente",
+              },
+              () => ({
+                validator(_, value) {
+                  if (!value || value.isAfter(moment().endOf('day'))) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error("A data da consulta deve ser no futuro"));
                 },
-                () => ({
-                  validator(_, value) {
-                    if (!value || value.isAfter(moment(), "day")) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error("A data da consulta deve ser no futuro")
-                    );
-                  },
-                }),
-              ]}
-            >
-              <DatePicker
-                style={{ width: "100%" }}
-                picker="date"
-                size="large"
-                placeholder="Escreva a data da consulta do paciente"
-                format="DD-MM-YYYY"
-              />
-            </Form.Item>
-          </ConfigProvider>
-        </Col>
-      </Row>
+              }),
+            ]}
+          >
+            <DatePicker
+              style={{ width: "100%" }}
+              picker="date"
+              size="large"
+              placeholder="Escreva a data da consulta do paciente"
+              format="DD-MM-YYYY"
+            />
+          </Form.Item>
 
-      {/* Hora da Consulta */}
-      <Row gutter={24}>
-        <Col span={24}>
           <Form.Item
             name="hour"
             label="Hora da Consulta"
@@ -138,12 +120,7 @@ export const AppointmentRegistration = () => {
               style={{ width: "100%" }}
             />
           </Form.Item>
-        </Col>
-      </Row>
 
-      <Row gutter={24}>
-        <Col span={24}>
-          {/* Valor da Consulta */}
           <Form.Item
             name="price"
             label="Valor da Consulta"
@@ -166,22 +143,14 @@ export const AppointmentRegistration = () => {
               style={{ width: "100%" }}
             />
           </Form.Item>
-        </Col>
-      </Row>
-      {/* Botão Criar nova consulta */}
-      <div
-        className="create-appointment-button"
-        style={{ textAlign: "center", marginTop: "20px" }}
-      >
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="button"
-          style={{ width: "100%" }}
-        >
-          Criar nova consulta
-        </Button>
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit" className="button" style={{ width: "100%" }}>
+              Criar nova consulta
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
-    </div>
+    </ConfigProvider>
   );
 };
