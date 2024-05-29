@@ -1,5 +1,10 @@
 package glnutricionista.backend.services;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import glnutricionista.backend.models.Address;
 import glnutricionista.backend.models.Patient;
+import glnutricionista.backend.models.PatientRecord;
 import glnutricionista.backend.repositories.AddressRepository;
 import glnutricionista.backend.repositories.AppointmentRepository;
 import glnutricionista.backend.repositories.PatientRepository;
@@ -34,13 +40,20 @@ public class PatientService {
   public Patient getPatient(Long id) {
     Patient patient = patientRepository.findById(id).orElse(null);
     if (patient != null) {
+      calculateAndSetPatientAge(patient);
       patient.getAddress();
-      patient.getRecords();
+      if (patient.getRecords() != null) {
+        Collections.sort(patient.getRecords(),
+            Comparator.comparing((PatientRecord record) -> record.getAppointment().getDate())
+                .thenComparing(record -> record.getAppointment().getHour()));
+      }
 
       long totalAppointments = appointmentRepository.countByPatientId(id);
       patient.setTotalAppointments(totalAppointments);
       double totalPrice = appointmentRepository.sumPriceByPatientId(id);
       patient.setTotalPrice(totalPrice);
+      double amountUnpaid = appointmentRepository.sumPriceNotPaidByPatientId(id);
+      patient.setAmountUnpaid(amountUnpaid);
     }
     return patient;
   }
@@ -71,6 +84,18 @@ public class PatientService {
   public void deletePatient(Long id) {
     patientRepository.deleteById(id);
   }
+
+  public static void calculateAndSetPatientAge(Patient patient) {
+    String birthDateString = patient.getBirthDate(); // Assuming this returns the birthDate as a String
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+    LocalDate birthDate = LocalDate.parse(birthDateString, formatter);
+
+    LocalDate currentDate = LocalDate.now();
+    int age = Period.between(birthDate, currentDate).getYears();
+
+    patient.setAge(age);
+  }
+
 
   
 }

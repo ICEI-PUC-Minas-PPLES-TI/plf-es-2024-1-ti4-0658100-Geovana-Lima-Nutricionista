@@ -1,7 +1,7 @@
 // PatientsList.tsx
 import { useEffect, useState } from "react";
-import { Card, List, Button, notification, Input } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Card, List, Button, notification, Input, Col, Row, Modal } from "antd";
+import { UserOutlined, SearchOutlined, EyeOutlined, DeleteOutlined, DoubleRightOutlined, DoubleLeftOutlined   } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import SiderComponent from "../components/SiderComponent";
 import "../index.css";
@@ -69,16 +69,28 @@ export const PatientsList = () => {
     }
   };
 
+  const onDeleteAppointment = (patientId: number) => {
+    Modal.confirm({
+      title: "Você tem certeza que deseja deletar essa consulta?",
+      okText: "Sim",
+      okType: "danger",
+      onOk: () => {
+        handleDelete(patientId)
+      },
+    });
+  };
+
   return (
     <SiderComponent>
       <div className="patientList">
         <SearchField>
-          Pesquisar por nome
+            <SearchOutlined />
           <Input
             width={"200px"}
             onChange={(e) =>
               setSearchParams({ ...searchParams, patient_name: e.target.value })
             }
+            placeholder="Digite o nome do paciente"
           />
         </SearchField>
 
@@ -91,18 +103,28 @@ export const PatientsList = () => {
                 key={index}
                 actions={[
                   <>
+                   <Row>
+                    <Col span={8}>
                     <Button
                       className="button"
                       onClick={() => showEditModal(patient)}
                     >
-                      Ver Paciente
+                      <EyeOutlined />
                     </Button>
+                    </Col>
+                    <Col span={8}>
                     <Button
                       className="button"
                       onClick={() => handleDelete(Number(patient.id))}
                     >
-                      Excluir paciente
+                     <DeleteOutlined
+                        onClick={() => {
+                          onDeleteAppointment(Number(patient.id));
+                        }}
+                      />
                     </Button>
+                    </Col>
+                    </Row>
                   </>,
                 ]}
               >
@@ -127,8 +149,10 @@ export const PatientsList = () => {
                 page: searchParams.page - 1,
               });
             }}
+            className="button"
+            disabled = {searchParams.page === 1}
           >
-            Anterior
+            <DoubleLeftOutlined />
           </Button>
           <Button
             type="primary"
@@ -138,8 +162,10 @@ export const PatientsList = () => {
                 page: searchParams.page + 1,
               });
             }}
+            className="button"
+            disabled ={patients.length < searchParams.per_page}
           >
-            Próximo
+            <DoubleRightOutlined />
           </Button>
         </PaginationPatient>
       </div>

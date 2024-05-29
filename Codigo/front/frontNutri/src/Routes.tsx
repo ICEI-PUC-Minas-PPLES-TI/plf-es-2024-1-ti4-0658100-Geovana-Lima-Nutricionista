@@ -7,6 +7,7 @@ import { CreateAppointment } from './pages/create-appointment-page';
 import { CalendarPage } from './pages/calendar-page';
 import { HomePage } from './pages/homePage';
 
+import { UserPage } from './pages/user-page';
 export const RoutesComponent = () => (
     <Routes>
         <Route path="" element={<Login />} />
@@ -17,6 +18,7 @@ export const RoutesComponent = () => (
         <Route path="/patients/:id" element={<Patientspage />} />
         <Route path="/appointments" element={<CalendarPage />} />
         <Route path="/appointments/create" element={<CreateAppointment />} />
+        <Route path="/user" element={<UserPage />} />
     </Routes>
   );
 

@@ -24,11 +24,14 @@ public class AppointmentDTO {
 
     private StatusEnum status;
 
+    private Boolean paid;
+
     public Appointment toAppointment() {
         Appointment appointment = new Appointment();
         appointment.setDate(this.date);
         appointment.setHour(this.hour);
         appointment.setPrice(this.price);
+        appointment.setPaid(this.paid);
         if (this.status == null) {
             this.status = StatusEnum.MARCADO;
         }

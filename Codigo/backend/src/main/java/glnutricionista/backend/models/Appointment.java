@@ -1,15 +1,11 @@
 package glnutricionista.backend.models;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import org.springframework.data.repository.cdi.Eager;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.experimental.Accessors;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -24,8 +20,7 @@ public class Appointment {
     @OneToOne(mappedBy = "appointment")
     private PatientRecord record;
 
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Patient patient;
 
     @Column(nullable = false)
@@ -39,4 +34,7 @@ public class Appointment {
 
     @Column(nullable = false)
     private String status;
+
+    @Column(nullable = false)
+    private Boolean paid = false;
 }

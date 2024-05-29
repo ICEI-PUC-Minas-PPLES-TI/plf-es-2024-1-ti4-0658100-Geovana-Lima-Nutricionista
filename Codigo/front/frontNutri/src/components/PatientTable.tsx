@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
-import { Button, Modal, notification, Table } from "antd";
+import {
+  Button,
+  Modal,
+  notification,
+  Table,
+  Select,
+  Switch,
+  ConfigProvider,
+} from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Appointment } from "../interfaces/appointment";
 import {
   deleteAppointment,
   getPatientAppointments,
+  updateAppointment,
 } from "../services/appointment.service";
 import { AppointmentEditModal } from "./AppointmentEditModal";
 import PatientRecordModal from "./PatientRecordModal";
@@ -22,6 +31,7 @@ const mockAppointment: Appointment = {
   price: "",
   status: "",
   paymentLink: "",
+  paid: false,
   record: null,
 };
 
@@ -79,15 +89,40 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
     },
     {
       key: "4",
-      id: 4,
-      title: "Link de Pagamento",
-      dataIndex: "paymentLink",
-    },
-    {
-      key: "5",
       id: 5,
       title: "Status",
       dataIndex: "status",
+      render: (text: string, record: Appointment) => (
+        <Select
+          defaultValue={record.status}
+          onChange={(value: string) => handleChangeStatus(record, value)}
+        >
+          <Select.Option value="MARCADO">Marcado</Select.Option>
+          <Select.Option value="CANCELADO">Cancelado</Select.Option>
+          <Select.Option value="ADIADO">Adiado</Select.Option>
+          <Select.Option value="CONCLUIDO">Concluído</Select.Option>
+        </Select>
+      ),
+    },
+    {
+      key: "5",
+      id: 6,
+      title: "Pago",
+      dataIndex: "paid",
+      render: (text: string, record: Appointment) => (
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#cb6cec",
+            },
+          }}
+        >
+          <Switch
+            checked={record.paid}
+            onChange={(checked: boolean) => handleChangePaid(record, checked)}
+          />
+        </ConfigProvider>
+      ),
     },
     {
       key: "6",
@@ -159,6 +194,52 @@ export const PatientTable = ({ patientId }: { patientId: number }) => {
   const resetEditing = () => {
     setIsEditing(false);
     setAppointmentEditing(null);
+  };
+
+  const handleChangeStatus = async (record: Appointment, value: string) => {
+    const updatedDataSource = dataSource.map((item) =>
+      item.id === record.id ? { ...item, status: value } : item
+    );
+    setDataSource(updatedDataSource);
+    const { data } = await updateAppointment(Number(record.id), {
+      ...record,
+      status: value,
+    });
+
+    if (data) {
+      notification.success({
+        message: "Status da consulta atualizado com sucesso!",
+      });
+
+      return;
+    }
+
+    notification.error({
+      message: "Erro ao atualizar status da consulta",
+    });
+  };
+
+  const handleChangePaid = async (record: Appointment, value: boolean) => {
+    const updatedDataSource = dataSource.map((item) =>
+      item.id === record.id ? { ...item, paid: value } : item
+    );
+    setDataSource(updatedDataSource);
+    const { data } = await updateAppointment(Number(record.id), {
+      ...record,
+      paid: value,
+    });
+
+    if (data) {
+      notification.success({
+        message: "Status de pagamento da consulta atualizado com sucesso!",
+      });
+
+      return;
+    }
+
+    notification.error({
+      message: "Erro ao atualizar status de pagamento da consulta",
+    });
   };
 
   const handleRecord = (appointment: Appointment) => {

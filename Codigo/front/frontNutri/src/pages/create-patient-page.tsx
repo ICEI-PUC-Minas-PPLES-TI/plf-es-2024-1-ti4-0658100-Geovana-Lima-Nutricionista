@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router";
 import Title from "antd/es/typography/Title";
 import { PatientForm } from "../interfaces/patientForms";
-import { Form, notification } from "antd";
+import { Form, Typography, notification } from "antd";
 import { createPatient } from "../services/patient.service";
 import SiderComponent from "../components/SiderComponent";
 import { PatientFormRegister } from "../components/PatientFormRegister";
+import '../index.css';
 
 const formItemLayout = {
   labelCol: {
@@ -22,7 +23,6 @@ export const CreatePatient = () => {
   const navigate = useNavigate();
 
   const onFinish = async (formData: PatientForm) => {
-    console.log(formData)
     const patientData = {
       name: formData.name,
       email: formData.email,
@@ -60,7 +60,9 @@ export const CreatePatient = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            minHeight: "60vh"
+            paddingBottom:'20px',
+            minHeight: "40vh",
+            overflow:"hidden",
           }}
         >
           <Form
@@ -71,10 +73,10 @@ export const CreatePatient = () => {
             onFinish={onFinish}
           >
             <div>
-              <Title style={{ textAlign: "center" }}>
+              <Typography.Title className="title" style={{ textAlign: "center" }}>
                 Cadastro do Paciente
-              </Title>
-              <PatientFormRegister />
+              </Typography.Title>
+              <PatientFormRegister onFinish={onFinish} />
             </div>
           </Form>
         </div>
