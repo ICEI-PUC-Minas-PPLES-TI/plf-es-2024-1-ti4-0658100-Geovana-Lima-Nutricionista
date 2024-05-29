@@ -20,7 +20,7 @@ public class Appointment {
     @OneToOne(mappedBy = "appointment")
     private PatientRecord record;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Patient patient;
 
     @Column(nullable = false)
