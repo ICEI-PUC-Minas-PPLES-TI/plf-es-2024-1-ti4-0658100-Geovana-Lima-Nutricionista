@@ -25,4 +25,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<Appointment> findByDateAndHour(LocalDate date, LocalTime hour);
 
     List<Appointment> findByDateBetween(LocalDate startDate, LocalDate endDate);
+
+    List<Appointment> findByDate(LocalDate date);
 }
