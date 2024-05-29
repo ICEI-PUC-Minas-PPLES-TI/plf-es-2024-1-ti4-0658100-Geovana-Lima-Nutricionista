@@ -9,7 +9,7 @@ import { HomePage } from './pages/homePage';
 
 export const RoutesComponent = () => (
     <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="" element={<Login />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/patients" element={<PatientsList />} />

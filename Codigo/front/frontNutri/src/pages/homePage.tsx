@@ -1,6 +1,6 @@
-import React from "react";
-import { Card, Col, Row, Typography, Button, Statistic, Select, Space, Tooltip } from "antd";
-import { CalendarOutlined, UserOutlined, DollarOutlined, BellOutlined, SearchOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { Card, Col, Row, Typography, Button, Select, Tooltip, notification } from "antd";
+import { BellOutlined, SearchOutlined } from "@ant-design/icons";
 import SiderComponent from "../components/SiderComponent";
 import money from '../assets/money.svg';
 import patients from '../assets/patients.svg';
@@ -10,17 +10,13 @@ import meeting from '../assets/meeting.svg';
 import pin from '../assets/pin.svg';
 import "../styles/HomePage.css";
 import { BarChart, CartesianGrid, XAxis, YAxis, Legend, Bar } from "recharts";
-import { render } from "react-dom";
+import { getPatientvisits, getSumaryData } from "../services/appointment.service";
 
 const { Title } = Typography;
 const { Option } = Select;
 
-const data = [
-  { name: "Produto A", visitas: 80 },
-  { name: "Produto B", visitas: 70 },
-  { name: "Produto C", visitas: 90 },
-  { name: "Produto D", visitas: 20 },
-];
+
+
 const schedule: any[] = [
   {
     date: "Oct 24, 2022",
@@ -45,7 +41,42 @@ const schedule: any[] = [
 ];
 
 
+
 export const HomePage = () => {
+  const [apointmentData, setapointmentData] = useState(Array);
+  const [sumary, setSumary] = useState([{"appointments":0,"totalPatients":0,"totalRevenue":0.0}]);
+
+  useEffect(() => {
+    const getPatientvisit = async () => {
+      const { data, error } = await getPatientvisits();
+  
+      if (data) {
+        setapointmentData(data);
+      }
+  
+      if (error) {
+        notification.error({
+          message: "Erro ao carregar paciente!",
+        });
+      }
+    };
+    const getSumaryDatas = async () => {
+      const { data, error } = await getSumaryData();
+  
+      if (data) {
+        setSumary(data);
+      }
+  
+      if (error) {
+        notification.error({
+          message: "Erro ao carregar paciente!",
+        });
+      }
+    };
+    getSumaryDatas();
+    getPatientvisit();
+  }, []);
+
   return (
 
     <SiderComponent>
@@ -70,7 +101,7 @@ export const HomePage = () => {
                 <img src={doctor}></img>
                 <div>
                   <p>Consultas Totais:</p>
-                  <p>100</p>
+                  <p>{sumary.appointments}</p>
                 </div>
               </div>
             </Card>
@@ -81,7 +112,7 @@ export const HomePage = () => {
                 <img src={patients}></img>
                 <div>
                   <p>Pacientes Totais:</p>
-                  <p>100</p>
+                  <p>{sumary.totalPatients}</p>
                 </div>
               </div>
             </Card>
@@ -92,7 +123,7 @@ export const HomePage = () => {
                 <img src={money}></img>
                 <div>
                   <p>Total Arrencado:</p>
-                  <p>100</p>
+                  <p>{sumary.totalRevenue}</p>
                 </div>
               </div>
             </Card>
@@ -123,7 +154,7 @@ export const HomePage = () => {
               <BarChart
                 width={600}
                 height={300}
-                data={data}
+                data={apointmentData}
                 margin={{
                   top: 20,
                   right: 30,
