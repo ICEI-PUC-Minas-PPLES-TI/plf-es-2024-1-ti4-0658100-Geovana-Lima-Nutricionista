@@ -1,5 +1,6 @@
 package glnutricionista.backend.services;
 
+import glnutricionista.backend.DTO.NutritionistDTO;
 import glnutricionista.backend.models.Nutritionist;
 import glnutricionista.backend.repositories.NutritionistRepository;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,14 @@ public class NutritionistService {
     public Nutritionist getNutritionist(final String email) {
 
         return repository.findByEmail(email);
+    }
+
+    public Nutritionist updateNutritionist(final NutritionistDTO request, final Long id) {
+
+        final var nutritionist = repository.findById(id);
+
+        return nutritionist.map(repository::save)
+                .orElse(null);
+
     }
 }
