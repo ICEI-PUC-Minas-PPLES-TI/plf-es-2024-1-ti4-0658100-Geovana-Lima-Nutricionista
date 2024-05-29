@@ -6,6 +6,7 @@ import { createPatient } from "../services/patient.service";
 import SiderComponent from "../components/SiderComponent";
 import { PatientFormRegister } from "../components/PatientFormRegister";
 import '../index.css';
+import moment from "moment";
 
 const formItemLayout = {
   labelCol: {
@@ -23,10 +24,12 @@ export const CreatePatient = () => {
   const navigate = useNavigate();
 
   const onFinish = async (formData: PatientForm) => {
+    const formattedBirthDate = formData.birthDate ? moment(formData.birthDate).format("YYYY-MM-DD") : "";
+
     const patientData = {
       name: formData.name,
       email: formData.email,
-      birthDate: formData.birthDate,
+      birthDate: formattedBirthDate,
       occupation: formData.occupation,
       goal: formData.goal,
       address: {

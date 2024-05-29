@@ -1,33 +1,31 @@
 import SiderComponent from "../components/SiderComponent";
 import { CalendarComponent } from '../components/CalendarComponent';
 import { Col, Row, Typography, Avatar, List, Statistic } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { getSchedule, getSumaryData } from "../services/appointment.service";
 import { Appointment } from "../interfaces/appointment";
-import { Patient } from "../interfaces/patient";
-import '../index.css';
-import { useState } from "react";
 
 export const CalendarPage = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [patients, setPatients] = useState<Patient[]>([]);
-  const proximasConsultas = [
-    { paciente: "Maria Eduarda", data: "20 de maio", hora: "16:00" },
-    { paciente: "João da Silva", data: "22 de maio", hora: "10:30" },
-    { paciente: "Ana Souza", data: "25 de maio", hora: "14:00" }
-  ]
+  const [proximasConsultas, setProximasConsultas] = useState<Appointment[]>([]);
 
-  const getStatusColor = (status: any) => {
-    switch (status) {
-      case 'concluida':
-        return 'green';
-      case 'cancelada':
-        return 'red';
-      case 'adiada':
-        return 'yellow';
-      default:
-        return 'gray';
-    }
-  };
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        const { data } = await getSchedule();
+        setAppointments(data);
+        setProximasConsultas(data.slice(0, 3));
+      } catch (error) {
+        console.error("Error fetching schedule:", error);
+      }
+    };
+
+    fetchSchedule();
+  }, []);
+
+  const concludedAppointments = appointments.filter(a => a.status === 'CONCLUIDO').length;
+  const canceledAppointments = appointments.filter(a => a.status === 'CANCELADO').length;
+  const postponedAppointments = appointments.filter(a => a.status === 'ADIADO').length;
 
   return (
     <div>
@@ -43,21 +41,21 @@ export const CalendarPage = () => {
               <List
                 itemLayout="horizontal"
                 dataSource={proximasConsultas}
-                renderItem={(proximasConsultas, index) => (
+                renderItem={(consulta, index) => (
                   <List.Item>
                     <List.Item.Meta
                       avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-                      title={<a href="https://ant.design">{proximasConsultas.paciente}</a>}
-                      description={`${proximasConsultas.data} às ${proximasConsultas.hora}`}
+                      title={<a href="https://ant.design">{consulta.patient?.name}</a>}
+                      description={`${new Date(consulta.date).toLocaleDateString("pt-BR")} às ${consulta.hour}`}
                     />
                   </List.Item>
                 )}
               />
               <div style={{ marginTop: '120px' }}>
                 <Typography.Title level={3} className="title">Estatísticas</Typography.Title>
-                <Statistic title="Consultas Concluídas" value={appointments.filter(a => a.status === 'concluida').length} />
-                <Statistic title="Consultas Canceladas" value={appointments.filter(a => a.status === 'cancelada').length} />
-                <Statistic title="Consultas Adiadas" value={appointments.filter(a => a.status === 'adiada').length} />
+                <Statistic title="Consultas Concluídas" value={concludedAppointments} />
+                <Statistic title="Consultas Canceladas" value={canceledAppointments} />
+                <Statistic title="Consultas Adiadas" value={postponedAppointments} />
               </div>
             </div>
           </Col>
