@@ -8,6 +8,7 @@ import { getAppointments } from "../services/appointment.service";
 import { ModalAddAppointment } from "./ModalAddAppointment";
 import { DailyView } from "./DailyView";
 import "../index.css";
+import { useNavigate } from "react-router";
 
 export const CalendarComponent = () => {
   const [events, setEvents] = useState<Record<string, Appointment[]>>({});
@@ -17,6 +18,9 @@ export const CalendarComponent = () => {
   const [calendarTitle, setCalendarTitle] = useState<string>(
     moment().locale("pt-br").format("MMMM [de] YYYY")
   );
+
+  const navigate = useNavigate();
+
 
   const handleViewChange = (value: "month" | "year" | "day") => {
     setView(value);
@@ -53,7 +57,7 @@ export const CalendarComponent = () => {
   }, []);
 
   const handleAddConsultation = () => {
-    setVisible(true);
+    navigate('/appointments/create');
   };
 
   const handleCancel = () => {
