@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import glnutricionista.backend.models.Notification;
 import glnutricionista.backend.repositories.NotificationRepository;
 
+@Service
 public class NotificationService {
   @Autowired
   private NotificationRepository notificationRepository;

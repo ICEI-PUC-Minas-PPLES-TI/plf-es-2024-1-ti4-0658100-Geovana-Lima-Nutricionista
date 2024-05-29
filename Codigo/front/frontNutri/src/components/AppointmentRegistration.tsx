@@ -18,7 +18,7 @@ import { getPatients } from "../services/patient.service";
 import { useEffect, useState } from "react";
 import { Patient } from "../interfaces/patient";
 import { Option } from "antd/es/mentions";
-import locale from 'antd/lib/locale/pt_BR';
+import locale from "antd/lib/locale/pt_BR";
 
 export const AppointmentRegistration = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
@@ -46,7 +46,7 @@ export const AppointmentRegistration = () => {
   };
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
       {/* Nome do paciente */}
       <Row gutter={24}>
         <Col span={24}>
@@ -70,7 +70,10 @@ export const AppointmentRegistration = () => {
               style={{ width: "100%" }}
             >
               {patients.map((patient) => (
-                <Option key={patient.id?.toString()} value={patient.id?.toString()}>
+                <Option
+                  key={patient.id?.toString()}
+                  value={patient.id?.toString()}
+                >
                   {patient.name}
                 </Option>
               ))}
@@ -82,27 +85,27 @@ export const AppointmentRegistration = () => {
       <Row gutter={24}>
         {/* Data da Consulta */}
         <Col span={24}>
-          <Form.Item
-            name="date"
-            label="Data da Consulta"
-            rules={[
-              {
-                required: true,
-                message: "Por favor digite a data da consulta do paciente",
-              },
-              () => ({
-                validator(_, value) {
-                  if (!value || value.isAfter(moment(), "day")) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(
-                    new Error("A data da consulta deve ser no futuro")
-                  );
+          <ConfigProvider locale={locale}>
+            <Form.Item
+              name="date"
+              label="Data da Consulta"
+              rules={[
+                {
+                  required: true,
+                  message: "Por favor digite a data da consulta do paciente",
                 },
-              }),
-            ]}
-          >
-            <ConfigProvider locale={locale}>
+                () => ({
+                  validator(_, value) {
+                    if (!value || value.isAfter(moment(), "day")) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error("A data da consulta deve ser no futuro")
+                    );
+                  },
+                }),
+              ]}
+            >
               <DatePicker
                 style={{ width: "100%" }}
                 picker="date"
@@ -110,8 +113,8 @@ export const AppointmentRegistration = () => {
                 placeholder="Escreva a data da consulta do paciente"
                 format="DD-MM-YYYY"
               />
-            </ConfigProvider>
-          </Form.Item>
+            </Form.Item>
+          </ConfigProvider>
         </Col>
       </Row>
 
@@ -166,8 +169,16 @@ export const AppointmentRegistration = () => {
         </Col>
       </Row>
       {/* Botão Criar nova consulta */}
-      <div className="create-appointment-button" style={{ textAlign: "center", marginTop: "20px" }}>
-        <Button type="primary" htmlType="submit" className="button" style={{ width: "100%" }}>
+      <div
+        className="create-appointment-button"
+        style={{ textAlign: "center", marginTop: "20px" }}
+      >
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="button"
+          style={{ width: "100%" }}
+        >
           Criar nova consulta
         </Button>
       </div>

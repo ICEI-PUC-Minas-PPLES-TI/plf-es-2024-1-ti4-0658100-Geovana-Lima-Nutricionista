@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -25,7 +26,7 @@ public class Notification implements Serializable {
   @Column(length = 250, nullable = false)
   private String description;
 
-  @OneToOne
+  @ManyToOne
   private Patient patient;
 
   private LocalDate createdAt = LocalDate.now();

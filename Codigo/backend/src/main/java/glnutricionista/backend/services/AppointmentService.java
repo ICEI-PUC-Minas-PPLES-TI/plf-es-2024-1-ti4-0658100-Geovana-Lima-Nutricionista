@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentService {
@@ -21,7 +22,20 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public Appointment createAppointment(Appointment appointment) {
+    @Autowired
+    private PatientRepository patientRepository;
+
+    public Appointment createAppointment(Appointment appointment, Long patientId) {
+        Optional<Appointment> existingAppointment = appointmentRepository.findByDateAndHour(appointment.getDate(),
+                appointment.getHour());
+
+        if (existingAppointment.isPresent()) {
+            throw new RuntimeException("Horário já ocupado por outra consulta.");
+        }
+
+        Patient patient = patientRepository.findById(patientId).orElse(null);
+        appointment.setPatient(patient);
+
         return appointmentRepository.save(appointment);
     }
 
@@ -43,12 +57,26 @@ public class AppointmentService {
         return appointments;
     }
 
-    public List<Appointment> getAllPatientAppointments(Long patientId) {
-        return appointmentRepository.findByPatientId(patientId);
+    public List<Appointment> getAllPatientAppointments(Long id) {
+        List<Appointment> appointments = appointmentRepository.findByPatient(id);
+
+        Collections.sort(appointments, Comparator.comparing(Appointment::getDate)
+                .thenComparing(Appointment::getHour).reversed());
+
+        appointments.forEach(appointment -> {
+            appointment.getRecord();
+        });
+
+        return appointments;
     }
 
     public Appointment getAppointment(Long id) {
-        return appointmentRepository.findById(id).orElse(null);
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
+        if (appointment.isPresent()) {
+            return appointment.get();
+        } else {
+            throw new IllegalArgumentException("Appointment not found");
+        }
     }
 
     public Appointment updateAppointment(Long id, Appointment appointment) {

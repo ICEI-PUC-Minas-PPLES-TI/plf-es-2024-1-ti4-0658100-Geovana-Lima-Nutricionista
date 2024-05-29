@@ -3,7 +3,6 @@ package glnutricionista.backend.services;
 import glnutricionista.backend.models.Appointment;
 import glnutricionista.backend.models.EmailTypeEnum;
 import glnutricionista.backend.models.Notification;
-import glnutricionista.backend.models.Nutritionist;
 import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.models.StatusEnum;
 import glnutricionista.backend.repositories.AppointmentRepository;
@@ -70,7 +69,8 @@ public class ScheduleService {
 
         String formattedDate = consulta.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String formattedTime = consulta.getHour().format(DateTimeFormatter.ofPattern("HH:mm"));
-        criarNotificacao(paciente, "Consulta Próxima", "A consulta com o paciente está próxima, data: " + formattedDate + " " + formattedTime);
+        criarNotificacao(paciente, "Consulta Próxima",
+                "A consulta com o paciente está próxima, data: " + formattedDate + " " + formattedTime);
 
         try {
             enviarEmailParaPaciente48HorasAntes(paciente);
@@ -93,8 +93,9 @@ public class ScheduleService {
     private void enviarEmailsAvisoRemarcacao(Appointment consulta) {
 
         final var paciente = consulta.getPatient();
-        
-        criarNotificacao(paciente, "Lembrete para remarcar consulta", "Já se passaram 20 dias desde a última consulta.");
+
+        criarNotificacao(paciente, "Lembrete para remarcar consulta",
+                "Já se passaram 20 dias desde a última consulta.");
 
         try {
             enviarEmailParaNutricionistaVinteDiasAposConsulta(paciente);
