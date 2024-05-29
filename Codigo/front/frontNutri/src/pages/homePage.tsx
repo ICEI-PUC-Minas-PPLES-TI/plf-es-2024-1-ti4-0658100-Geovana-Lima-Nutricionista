@@ -139,7 +139,6 @@ export const HomePage = () => {
             <div className="header-actions">
               <Select defaultValue="Visitas X Mês" className="select-filter">
                 <Option value="visitas">Visitas X Mês</Option>
-                <Option value="consultas">Consultas X Mês</Option>
               </Select>
 
             </div>
