@@ -12,9 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.YearMonth;
+import java.time.format.TextStyle;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -27,8 +31,7 @@ public class AppointmentController {
     @PostMapping()
     public ResponseEntity<?> createAppointment(@RequestBody @Valid AppointmentDTO appointmentDTO) {
         try {
-            Appointment createdAppointment = appointmentService.createAppointment(appointmentDTO.toAppointment(),
-                    appointmentDTO.getPatientId());
+            Appointment createdAppointment = appointmentService.createAppointment(appointmentDTO.toAppointment());
             return ResponseEntity.status(HttpStatus.CREATED).body(createdAppointment);
         } catch (RuntimeException e) {
             return ResponseEntity
@@ -37,6 +40,12 @@ public class AppointmentController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error", e);
         }
+    }
+
+    @GetMapping("/next-marked")
+    public ResponseEntity<List<Appointment>> getNextThreeMarkedAppointments() {
+        List<Appointment> appointments = appointmentService.getNextThreeMarkedAppointments();
+        return ResponseEntity.ok(appointments);
     }
 
     @GetMapping()
@@ -60,7 +69,22 @@ public class AppointmentController {
         return ResponseEntity.ok(appointment);
     }
 
-   
+    @GetMapping("/count/{year}")
+    public ResponseEntity<Map<String, Long>> countAppointmentsByYear(@PathVariable int year) {
+        List<Map.Entry<String, Long>> count = appointmentService.countAppointmentsByMonth(year);
+
+        // Converter os meses para nomes em português
+        Map<String, Long> formattedCount = new LinkedHashMap<>();
+        for (Map.Entry<String, Long> entry : count) {
+            String monthNumber = entry.getKey().split("-")[1];
+            String monthName = YearMonth.of(year, Integer.parseInt(monthNumber))
+                    .getMonth()
+                    .getDisplayName(TextStyle.FULL, new Locale("pt", "BR"));
+            formattedCount.put(monthName.toLowerCase(), entry.getValue());
+        }
+
+        return ResponseEntity.ok(formattedCount);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id,
@@ -92,13 +116,12 @@ public class AppointmentController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid data provided", e);
         }
     }
-    
+
     @GetMapping("/summary")
     public ResponseEntity<SummaryDTO> getSummary() {
         SummaryDTO summary = appointmentService.getSummary();
         return ResponseEntity.ok(summary);
     }
-
 
     @GetMapping("/patient-visits")
     public ResponseEntity<List<PatientVisitsDTO>> getAllPatientsWithVisits() {
