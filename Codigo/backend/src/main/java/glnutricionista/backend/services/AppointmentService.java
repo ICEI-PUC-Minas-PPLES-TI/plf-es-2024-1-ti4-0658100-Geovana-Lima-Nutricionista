@@ -1,5 +1,8 @@
 package glnutricionista.backend.services;
 
+import glnutricionista.backend.DTO.AppointmentDTO;
+import glnutricionista.backend.DTO.PatientVisitsDTO;
+import glnutricionista.backend.DTO.SummaryDTO;
 import glnutricionista.backend.models.Appointment;
 import glnutricionista.backend.models.Patient;
 import glnutricionista.backend.repositories.AppointmentRepository;
@@ -11,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AppointmentService {
@@ -19,21 +21,12 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    @Autowired
-    private PatientRepository patientRepository;
-
-    public Appointment createAppointment(Appointment appointment, Long patientId) {
-        Optional<Appointment> existingAppointment = appointmentRepository.findByDateAndHour(appointment.getDate(),
-                appointment.getHour());
-
-        if (existingAppointment.isPresent()) {
-            throw new RuntimeException("Horário já ocupado por outra consulta.");
-        }
-
-        Patient patient = patientRepository.findById(patientId).orElse(null);
-        appointment.setPatient(patient);
-
+    public Appointment createAppointment(Appointment appointment) {
         return appointmentRepository.save(appointment);
+    }
+
+    public List<PatientVisitsDTO> getAllPatientsWithVisits() {
+        return appointmentRepository.findAllPatientVisits();
     }
 
     public List<Appointment> getAllAppointments() {
@@ -50,26 +43,12 @@ public class AppointmentService {
         return appointments;
     }
 
-    public List<Appointment> getAllPatientAppointments(Long id) {
-        List<Appointment> appointments = appointmentRepository.findByPatient(id);
-
-        Collections.sort(appointments, Comparator.comparing(Appointment::getDate)
-                .thenComparing(Appointment::getHour).reversed());
-
-        appointments.forEach(appointment -> {
-            appointment.getRecord();
-        });
-
-        return appointments;
+    public List<Appointment> getAllPatientAppointments(Long patientId) {
+        return appointmentRepository.findByPatientId(patientId);
     }
 
     public Appointment getAppointment(Long id) {
-        Optional<Appointment> appointment = appointmentRepository.findById(id);
-        if (appointment.isPresent()) {
-            return appointment.get();
-        } else {
-            throw new IllegalArgumentException("Appointment not found");
-        }
+        return appointmentRepository.findById(id).orElse(null);
     }
 
     public Appointment updateAppointment(Long id, Appointment appointment) {
@@ -81,5 +60,20 @@ public class AppointmentService {
 
     public void deleteAppointment(Long id) {
         appointmentRepository.deleteById(id);
+    }
+
+    public Long countAppointmentsByPatientId(Long patientId) {
+        return appointmentRepository.countByPatientId(patientId);
+    }
+
+    public String getPatientNameById(Long patientId) {
+        return appointmentRepository.findPatientNameById(patientId);
+    }
+
+    public SummaryDTO getSummary() {
+        int appointments = appointmentRepository.findAll().size();
+        Long totalPatients = appointmentRepository.countDistinctPatients();
+        Double totalRevenue = appointmentRepository.sumTotalRevenue();
+        return new SummaryDTO(appointments, totalPatients, totalRevenue);
     }
 }
