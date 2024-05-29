@@ -31,7 +31,7 @@ public class AppointmentDTO {
         appointment.setDate(this.date);
         appointment.setHour(this.hour);
         appointment.setPrice(this.price);
-        appointment.setPaid(this.paid);
+        appointment.setPaid(false);
         if (this.status == null) {
             this.status = StatusEnum.MARCADO;
         }

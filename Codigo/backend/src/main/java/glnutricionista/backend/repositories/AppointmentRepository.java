@@ -50,4 +50,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
   Long countByDateBetween(LocalDate startDate, LocalDate endDate);
 
+
+    List<Appointment> findByDate(LocalDate date);
 }
