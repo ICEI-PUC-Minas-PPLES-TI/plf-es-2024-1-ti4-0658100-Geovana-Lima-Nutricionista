@@ -52,6 +52,40 @@ export const getPatientvisits = async () => {
     error,
   };
 }
+interface MonthData {
+  [key: string]: number;
+}
+export const getPatientvisitsMensais = async (year: number) => {
+  const config: AxiosRequestConfig = {
+    url: `${apiServerUrl}/api/appointments/count/${year}`,
+    method: "GET",
+  };
+
+  const { data, error } = (await callExternalApi({
+    config,
+  })) as { data: MonthData | null; error: string | null };
+
+  return {
+    data,
+    error,
+  };
+}
+export const getSchedule = async () => {
+  const config: AxiosRequestConfig = {
+    url: `${apiServerUrl}/api/appointments/next-marked`,
+    method: "GET",
+  };
+
+  const { data, error } = (await callExternalApi({
+    config,
+  })) as { data: MonthData | null; error: string | null };
+
+  return {
+    data,
+    error,
+  };
+}
+
 export const getSumaryData = async () => {
   const config: AxiosRequestConfig = {
     url: `${apiServerUrl}/api/appointments/summary`,
@@ -68,7 +102,7 @@ export const getSumaryData = async () => {
   };
 }
 
-export const updateAppointment = async (id: number, appointment: Appointment|null) => {
+export const updateAppointment = async (id: number, appointment: Appointment | null) => {
   const config: AxiosRequestConfig = {
     url: `${apiServerUrl}/api/appointments/${id}`,
     method: "PUT",
