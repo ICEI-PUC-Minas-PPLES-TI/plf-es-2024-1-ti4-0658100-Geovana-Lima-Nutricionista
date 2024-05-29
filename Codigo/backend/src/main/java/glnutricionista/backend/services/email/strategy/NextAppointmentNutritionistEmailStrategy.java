@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 
 @Component
@@ -60,7 +62,7 @@ public class NextAppointmentNutritionistEmailStrategy implements EmailStrategy {
         final var context = new Context();
 
         context.setVariable("nome", name);
-        context.setVariable("dataConsulta", appointment.getDate().toString());
+        context.setVariable("dataConsulta", dateFormatter(appointment.getDate()));
         context.setVariable("horaConsulta", appointment.getHour().toString());
 
         final var emailContent = templateEngine.process("appointment_notification_nutritionist_template", context);
@@ -97,5 +99,14 @@ public class NextAppointmentNutritionistEmailStrategy implements EmailStrategy {
 
     private String getEmailNutritionist() {
         return nutritionistRepository.findAll().get(0).getEmail();
+    }
+
+    private String dateFormatter(LocalDate appointmentDate) {
+
+        final var inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        final var outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        final var date = LocalDate.parse(appointmentDate.toString(), inputFormatter);
+
+        return date.format(outputFormatter);
     }
 }

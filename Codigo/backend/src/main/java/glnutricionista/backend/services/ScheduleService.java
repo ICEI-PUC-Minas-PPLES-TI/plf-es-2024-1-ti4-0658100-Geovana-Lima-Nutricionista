@@ -1,16 +1,13 @@
 package glnutricionista.backend.services;
 
-import glnutricionista.backend.models.Appointment;
-import glnutricionista.backend.models.EmailTypeEnum;
-import glnutricionista.backend.models.Notification;
-import glnutricionista.backend.models.Patient;
-import glnutricionista.backend.models.StatusEnum;
+import glnutricionista.backend.models.*;
 import glnutricionista.backend.repositories.AppointmentRepository;
 import glnutricionista.backend.repositories.NutritionistRepository;
 import glnutricionista.backend.services.email.EmailService;
 import jakarta.mail.MessagingException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -28,7 +25,7 @@ public class ScheduleService {
     private final NotificationService notificationService;
 
     public ScheduleService(AppointmentRepository appointmentRepository, EmailService emailService,
-            NutritionistRepository nutritionistRepository, NotificationService notificationService) {
+                           NutritionistRepository nutritionistRepository, NotificationService notificationService) {
         this.appointmentRepository = appointmentRepository;
         this.emailService = emailService;
         this.nutritionistRepository = nutritionistRepository;
@@ -63,6 +60,7 @@ public class ScheduleService {
                 .forEach(this::enviarEmailsAviso48HorasAntes);
     }
 
+    @Transactional
     private void enviarEmailsAviso48HorasAntes(Appointment consulta) {
 
         final var paciente = consulta.getPatient();
