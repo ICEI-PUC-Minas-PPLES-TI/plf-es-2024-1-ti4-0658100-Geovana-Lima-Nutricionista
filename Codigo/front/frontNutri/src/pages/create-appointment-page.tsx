@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import Title from "antd/es/typography/Title";
 import { Form, Typography, notification } from "antd";
 import { createAppointment } from "../services/appointment.service";
 import { AppointmentForm } from "../interfaces/appointmentForms";
@@ -8,29 +7,18 @@ import { AppointmentRegistration } from "../components/AppointmentRegistration";
 import moment from "moment";
 import '../index.css';
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-
 export const CreateAppointment = () => {
-   document.title = "Cadastro de Consultas";
+  document.title = "Cadastro de Consultas";
   const navigate = useNavigate();
 
   const onFinish = async (formData: AppointmentForm) => {
     console.log(formData);
     const formattedDate = formData.date.format("YYYY-MM-DD");
-    const formattedHour = (formData.hour).format("HH:mm");
+    const formattedHour = formData.hour.format("HH:mm");
 
     formData.date = formattedDate;
 
-    const objData = {...formData, hour: formattedHour}
+    const objData = { ...formData, hour: formattedHour };
 
     const { data, error } = await createAppointment(objData);
     if (data) {
@@ -38,8 +26,7 @@ export const CreateAppointment = () => {
         message: "Consulta cadastrada com sucesso!",
       });
       navigate("/patients");
-    }
-    if (error) {
+    } else if (error) {
       console.log(error);
       notification.error({
         message: error ?? "Erro ao cadastrar nova consulta!",
@@ -48,30 +35,22 @@ export const CreateAppointment = () => {
   };
 
   return (
-    <>
-      <SiderComponent>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "60vh",
-          }}
-        >
-          <Form
-            autoComplete="off"
-            labelWrap
-            {...formItemLayout}
-            style={{ maxWidth: 600 }}
-            onFinish={onFinish}
-          >
-            <div>
-            <Typography.Title className="title" style={{ textAlign: "center" }}>Cadastro da Consulta</Typography.Title>
-              <AppointmentRegistration />
-            </div>
-          </Form>
+    <SiderComponent>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <div style={{ maxWidth: '600px', width: '100%' }}>
+          <Typography.Title className="title" style={{ textAlign: "center" }}>
+            Cadastro da Consulta
+          </Typography.Title>
+          <AppointmentRegistration onFinish={onFinish} />
         </div>
-      </SiderComponent>
-    </>
+      </div>
+    </SiderComponent>
   );
 };
