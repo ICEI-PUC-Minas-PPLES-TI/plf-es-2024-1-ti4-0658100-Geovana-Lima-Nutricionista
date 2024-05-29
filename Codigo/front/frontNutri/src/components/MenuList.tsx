@@ -11,7 +11,10 @@ export const MenuList = () => {
   const navigate = useNavigate();
   return (
     <Menu className="menu-bar">
-      <Menu.Item key="home" icon={<HomeOutlined />}>
+      <Menu.Item  key={"/home"}
+          onClick={({ key }) => {
+            navigate(key);
+          }}icon={<HomeOutlined />}>
         Home
       </Menu.Item>
       <Menu.SubMenu

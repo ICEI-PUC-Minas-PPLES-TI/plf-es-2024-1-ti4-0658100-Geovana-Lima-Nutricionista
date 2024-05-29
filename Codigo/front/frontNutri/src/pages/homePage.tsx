@@ -11,6 +11,7 @@ import pin from '../assets/pin.svg';
 import "../styles/HomePage.css";
 import { BarChart, CartesianGrid, XAxis, YAxis, Legend, Bar } from "recharts";
 import { getPatientvisits, getSumaryData } from "../services/appointment.service";
+import { useNavigate } from "react-router";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -76,22 +77,13 @@ export const HomePage = () => {
     getSumaryDatas();
     getPatientvisit();
   }, []);
-
+  const navigate = useNavigate();
   return (
 
     <SiderComponent>
       <div className="home-page">
         <div className="page-title">
           <Title className="title">Página Inicial</Title>
-          <div className="buttons">
-            <Button className="icon-button">
-              <SearchOutlined />
-            </Button>
-            <Button className="icon-button">
-              <BellOutlined />
-            </Button>
-          </div>
-
         </div>
 
         <Row className="row principal-cards" gutter={16}>
@@ -129,7 +121,10 @@ export const HomePage = () => {
             </Card>
           </Col>
           <Col span={6}>
-            <Button type="primary" className="schedule-button">
+            <Button 
+          onClick={() => {
+            navigate('/appointments/create');
+          }}  type="primary" className="schedule-button">
               Agendar Consulta
             </Button>
           </Col>
