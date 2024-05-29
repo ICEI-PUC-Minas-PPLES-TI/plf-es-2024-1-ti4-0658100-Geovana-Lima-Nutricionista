@@ -169,7 +169,7 @@
 .itemCard{
     margin: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+    padding: 20px;
 }
 
 .button{
@@ -271,6 +271,10 @@ body {
 /* index.css */
 .title {
   margin-bottom: 16px;
+}
+
+.meta {
+  padding: 10px;
 }
 
 .rounded-calendar .ant-picker-panel {
