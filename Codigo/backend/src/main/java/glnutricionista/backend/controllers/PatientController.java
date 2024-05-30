@@ -51,6 +51,7 @@ public class PatientController {
   @GetMapping("/{id}")
   public ResponseEntity<Patient> getPatient(@PathVariable Long id) {
     Patient patient = patientService.getPatient(id);
+    
     if (patient == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient not found");
     }

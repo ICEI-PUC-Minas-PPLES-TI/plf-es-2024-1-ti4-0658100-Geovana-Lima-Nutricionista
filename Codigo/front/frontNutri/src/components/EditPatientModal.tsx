@@ -38,7 +38,7 @@ const EditPatientModal: React.FC<EditPatientModalProps> = ({ visible, patient, o
         onFinish={(values) => {
           const formattedValues = {
             ...values,
-            birthDate: values.birthDate ? values.birthDate.format('YYYY-MM-DD') : null,
+            birthDate: values.birthDate ? values.birthDate.toISOString() : null,
           };
           onSave(formattedValues);
         }}

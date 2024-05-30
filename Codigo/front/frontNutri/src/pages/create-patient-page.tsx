@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router";
-import Title from "antd/es/typography/Title";
-import { PatientForm } from "../interfaces/patientForms";
-import { Form, Typography, notification } from "antd";
+import { Typography, notification, Form } from "antd";
 import { createPatient } from "../services/patient.service";
 import SiderComponent from "../components/SiderComponent";
 import { PatientFormRegister } from "../components/PatientFormRegister";
-import '../index.css';
+import "../index.css";
 
 const formItemLayout = {
   labelCol: {
@@ -21,8 +19,10 @@ const formItemLayout = {
 export const CreatePatient = () => {
   document.title = "Cadastro de Pacientes";
   const navigate = useNavigate();
+  const [form] = Form.useForm();
 
-  const onFinish = async (formData: PatientForm) => {
+  const onFinish = async (formInstance: any) => {
+    const formData = formInstance.getFieldsValue();
     const patientData = {
       name: formData.name,
       email: formData.email,
@@ -38,6 +38,8 @@ export const CreatePatient = () => {
         country: formData.country,
       },
     };
+    console.log("Patient Data: ", patientData);
+
     const { data, error } = await createPatient(patientData);
     if (data) {
       notification.success({
@@ -60,23 +62,24 @@ export const CreatePatient = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            paddingBottom:'20px',
+            paddingBottom: "20px",
             minHeight: "40vh",
-            overflow:"hidden",
+            overflow: "hidden",
           }}
         >
           <Form
+            form={form}
             autoComplete="off"
             labelWrap
             {...formItemLayout}
             style={{ maxWidth: 600 }}
-            onFinish={onFinish}
+            onFinish={() => onFinish(form)}
           >
             <div>
               <Typography.Title className="title" style={{ textAlign: "center" }}>
                 Cadastro do Paciente
               </Typography.Title>
-              <PatientFormRegister onFinish={onFinish} />
+              <PatientFormRegister form={form} />
             </div>
           </Form>
         </div>
