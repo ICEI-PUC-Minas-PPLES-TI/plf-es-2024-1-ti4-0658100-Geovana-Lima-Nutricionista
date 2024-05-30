@@ -66,13 +66,9 @@ export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack
       title: "Valor Pago",
       dataIndex: "price",
     },
+
     {
       key: "4",
-      title: "Link de Pagamento",
-      dataIndex: "paymentLink",
-    },
-    {
-      key: "5",
       title: "Status",
       dataIndex: "status",
       render: (text: string, record: Appointment) => (
@@ -88,7 +84,7 @@ export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack
       ),
     },
     {
-      key: "6",
+      key: "5",
       title: "Pago",
       dataIndex: "paid",
       render: (text: string, record: Appointment) => (
@@ -107,7 +103,7 @@ export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack
       ),
     },
     {
-      key: "7",
+      key: "6",
       title: "Ficha",
       render: (record: Appointment) => {
         return (
@@ -118,7 +114,7 @@ export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack
       },
     },
     {
-      key: "8",
+      key: "7",
       title: "Ações",
       render: (record: Appointment) => (
         <>
