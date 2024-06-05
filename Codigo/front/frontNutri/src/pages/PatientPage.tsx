@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Button,
   Card,
   Col,
   Divider,
@@ -18,6 +19,7 @@ import { getPatient, updatePatient } from '../services/patient.service';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import '../index.css';
 import EditPatientModal from '../components/EditPatientModal';
+import { Link } from 'react-router-dom';
 
 const { Text } = Typography;
 
@@ -134,7 +136,6 @@ export const Patientspage = () => {
                   <Text strong>Ocupação:</Text>
                   <Text>{patient?.occupation}</Text>
                   <Text strong>Data de Nascimento:</Text>
-                  <Text>{new Date(patient?.birthDate ?? '').toLocaleDateString('pt-BR')}</Text>
                   <Text>
                     {new Date(patient?.birthDate ?? "").toLocaleDateString(
                       "pt-BR"
@@ -181,6 +182,7 @@ export const Patientspage = () => {
           <Divider orientation="left">
             <Typography.Title level={2}>Consultas</Typography.Title>
           </Divider>
+          <Button><Link to={`/appointments/create/${Number(id)}`}>Agendar consulta</Link></Button>
           <PatientTable patientId={Number(id)} />
         </Col>
       </Row>

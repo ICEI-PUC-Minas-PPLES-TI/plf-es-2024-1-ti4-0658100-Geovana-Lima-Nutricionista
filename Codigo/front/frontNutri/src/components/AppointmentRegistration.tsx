@@ -1,25 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Form, Input, DatePicker, Button, TimePicker, notification, Select, ConfigProvider } from "antd";
+import {
+  Form,
+  Input,
+  DatePicker,
+  Button,
+  TimePicker,
+  notification,
+  Select,
+  ConfigProvider,
+} from "antd";
 import "moment/locale/pt-br";
 import moment from "moment";
 import "../index.css";
 import { getPatients } from "../services/patient.service";
 import { Patient } from "../interfaces/patient";
-import locale from 'antd/lib/locale/pt_BR';
+import locale from "antd/lib/locale/pt_BR";
+import { createAppointment } from "../services/appointment.service";
+import { useNavigate } from "react-router";
+import { AppointmentForm } from "../interfaces/appointmentForms";
 
 const { Option } = Select;
 
 interface AppointmentRegistrationProps {
-  onFinish: (values: any) => void;
+  patientId?: number;
 }
 
-export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = ({ onFinish }) => {
+export const AppointmentRegistration: React.FC<
+  AppointmentRegistrationProps
+> = ({ patientId }) => {
   const [patients, setPatients] = useState<Patient[]>([]);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  const onFinish = async (formData: AppointmentForm) => {
+    console.log(formData);
+    const formattedDate = formData.date.format("YYYY-MM-DD");
+    const formattedHour = formData.hour.format("HH:mm");
+
+    formData.date = formattedDate;
+
+    const objData = { ...formData, hour: formattedHour };
+
+    const { data, error } = await createAppointment(objData);
+    if (data) {
+      notification.success({
+        message: "Consulta cadastrada com sucesso!",
+      });
+      navigate("/patients");
+    } else if (error) {
+      console.log(error);
+      notification.error({
+        message: error ?? "Erro ao cadastrar nova consulta!",
+      });
+    }
+  };
 
   useEffect(() => {
     fetchPatients("");
   }, []);
+
+  useEffect(() => {
+    if (patientId && patients.length > 0) {
+      form.setFieldsValue({ patientId: patientId.toString() });
+    }
+  }, [patientId, patients, form]);
 
   const fetchPatients = async (value: string) => {
     const { data, error } = await getPatients({
@@ -41,7 +85,7 @@ export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = (
 
   return (
     <ConfigProvider locale={locale}>
-      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+      <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
         <Form
           form={form}
           layout="horizontal"
@@ -69,7 +113,10 @@ export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = (
               style={{ width: "100%" }}
             >
               {patients.map((patient) => (
-                <Option key={patient.id?.toString()} value={patient.id?.toString()}>
+                <Option
+                  key={patient.id?.toString()}
+                  value={patient.id?.toString()}
+                >
                   {patient.name}
                 </Option>
               ))}
@@ -86,10 +133,12 @@ export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = (
               },
               () => ({
                 validator(_, value) {
-                  if (!value || value.isAfter(moment().endOf('day'))) {
+                  if (!value || value.isAfter(moment().endOf("day"))) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error("A data da consulta deve ser no futuro"));
+                  return Promise.reject(
+                    new Error("A data da consulta deve ser no futuro")
+                  );
                 },
               }),
             ]}
@@ -145,7 +194,12 @@ export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = (
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit" className="button" style={{ width: "100%" }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="button"
+              style={{ width: "100%" }}
+            >
               Criar nova consulta
             </Button>
           </Form.Item>

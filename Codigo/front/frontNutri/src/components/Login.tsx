@@ -1,11 +1,10 @@
 import '../index.css'
 import { LockOutlined, UserOutlined, QuestionCircleOutlined  } from '@ant-design/icons';
-import { Button, Form, Input, notification, Tooltip, Typography } from 'antd';
+import { Button, Form, Input, notification, Tooltip } from 'antd';
 import iconeNutri from '../assets/nutricionista-maria-fernanda_heroshot-receitas_01.png';
 import { login } from '../services/auth.service';
 import { useNavigate } from 'react-router';
 import { Header } from 'antd/es/layout/layout';
-import Title from 'antd/es/skeleton/Title';
 
 
 const Login = () => {
@@ -24,7 +23,7 @@ const Login = () => {
             notification.success({
                 message: "Login efetuado com sucesso!",
             })
-            navigate("/patients");
+            navigate("/home");
         }
 
         if (error) {

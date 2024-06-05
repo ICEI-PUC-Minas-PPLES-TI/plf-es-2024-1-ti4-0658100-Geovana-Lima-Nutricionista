@@ -11,10 +11,13 @@ export const MenuList = () => {
   const navigate = useNavigate();
   return (
     <Menu className="menu-bar">
-      <Menu.Item  key={"/home"}
-          onClick={({ key }) => {
-            navigate(key);
-          }}icon={<HomeOutlined />}>
+      <Menu.Item
+        key={"/home"}
+        onClick={({ key }) => {
+          navigate(key);
+        }}
+        icon={<HomeOutlined />}
+      >
         Home
       </Menu.Item>
       <Menu.SubMenu
@@ -28,7 +31,7 @@ export const MenuList = () => {
             navigate(key);
           }}
         >
-          Ver Agenda
+          Ver agenda
         </Menu.Item>
         <Menu.Item
           key={"/appointments/create"}
@@ -36,7 +39,7 @@ export const MenuList = () => {
             navigate(key);
           }}
         >
-          Adicionar Novo Evento
+          Agendar consulta
         </Menu.Item>
       </Menu.SubMenu>
       <Menu.SubMenu key="patients" icon={<TeamOutlined />} title="Pacientes">
@@ -46,7 +49,7 @@ export const MenuList = () => {
             navigate(key);
           }}
         >
-          Ver Pacientes
+          Ver pacientes
         </Menu.Item>
         <Menu.Item
           key={"/patients/create"}
@@ -54,15 +57,15 @@ export const MenuList = () => {
             navigate(key);
           }}
         >
-          Adicionar Novo Paciente
+          Adicionar novo paciente
         </Menu.Item>
       </Menu.SubMenu>
-      <Menu.Item 
-      key={"/user"} 
-      onClick={({ key }) => {
-        navigate(key);
-      }}
-      icon={<UserOutlined />}
+      <Menu.Item
+        key={"/user"}
+        onClick={({ key }) => {
+          navigate(key);
+        }}
+        icon={<UserOutlined />}
       >
         Perfil
       </Menu.Item>

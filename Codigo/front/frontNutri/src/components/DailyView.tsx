@@ -18,11 +18,13 @@ import {
   updateAppointment,
 } from '../services/appointment.service';
 import { RecordProps } from '../interfaces/record';
+import { Link } from 'react-router-dom';
 
 interface DailyViewProps {
   date: string;
   appointments: Appointment[];
   onBack: () => void;
+  onUpdateAppointments: (updatedAppointments: Appointment[], date: string) => void;
 }
 
 const mockAppointment: Appointment = {
@@ -41,7 +43,7 @@ interface RecordModal {
   appointmentRecordModal: Appointment;
 }
 
-export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack }) => {
+export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack, onUpdateAppointments }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [appointmentEditing, setAppointmentEditing] = useState<Appointment | null>(null);
   const [recordModal, setRecordModal] = useState<RecordModal>({
@@ -60,16 +62,16 @@ export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack
       key: "2",
       title: "Paciente",
       dataIndex: ["patient", "name"],
+      render: (text: string, record: Appointment) => (
+        <Link to={`/patients/${record?.patient?.id}`}>
+          {record?.patient?.name}
+        </Link>
+      ),
     },
     {
       key: "3",
       title: "Valor Pago",
       dataIndex: "price",
-    },
-    {
-      key: "4",
-      title: "Link de Pagamento",
-      dataIndex: "paymentLink",
     },
     {
       key: "5",
@@ -139,9 +141,10 @@ export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack
       title: "Você tem certeza que deseja deletar essa consulta?",
       okText: "Sim",
       okType: "danger",
-      onOk: () => {
-        handleDelete(Number(record.id));
-        // Atualizar a lista de consultas removendo a consulta deletada
+      onOk: async () => {
+        await handleDelete(Number(record.id));
+        const updatedAppointments = appointments.filter(appointment => appointment.id !== record.id);
+        onUpdateAppointments(updatedAppointments, record.date);
       },
     });
   };
@@ -160,12 +163,20 @@ export const DailyView: React.FC<DailyViewProps> = ({ date, appointments, onBack
     const updatedRecord = { ...record, status: value };
     await updateAppointment(Number(record.id), updatedRecord);
     notification.success({ message: "Status da consulta atualizado com sucesso!" });
+    const updatedAppointments = appointments.map(appointment =>
+      appointment.id === record.id ? updatedRecord : appointment
+    );
+    onUpdateAppointments(updatedAppointments, record.date);
   };
 
   const handleChangePaid = async (record: Appointment, value: boolean) => {
     const updatedRecord = { ...record, paid: value };
     await updateAppointment(Number(record.id), updatedRecord);
     notification.success({ message: "Status de pagamento da consulta atualizado com sucesso!" });
+    const updatedAppointments = appointments.map(appointment =>
+      appointment.id === record.id ? updatedRecord : appointment
+    );
+    onUpdateAppointments(updatedAppointments, record.date);
   };
 
   const handleRecord = (appointment: Appointment) => {
