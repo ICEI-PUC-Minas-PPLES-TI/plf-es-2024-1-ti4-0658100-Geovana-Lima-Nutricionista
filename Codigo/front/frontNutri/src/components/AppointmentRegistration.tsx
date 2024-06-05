@@ -41,12 +41,10 @@ export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = (
 
   return (
     <ConfigProvider locale={locale}>
-      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '20px' }}>
         <Form
           form={form}
-          layout="horizontal"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
+          layout="vertical"
           onFinish={onFinish}
         >
           <Form.Item
@@ -67,6 +65,7 @@ export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = (
               size="large"
               placeholder="Digite o nome do paciente"
               style={{ width: "100%" }}
+              className="select"
             >
               {patients.map((patient) => (
                 <Option key={patient.id?.toString()} value={patient.id?.toString()}>
@@ -130,7 +129,7 @@ export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = (
                 message: "Por favor digite o valor da consulta do paciente",
               },
               {
-                pattern: /^\d+(\.\d{1,2})?$/, // padrão para aceitar até 2 casas decimais
+                pattern: /^\d+(\.\d{1,2})?$/, // Padrão para aceitar até 2 casas decimais
                 message: "Por favor, insira um valor válido",
               },
             ]}
@@ -138,14 +137,14 @@ export const AppointmentRegistration: React.FC<AppointmentRegistrationProps> = (
             <Input
               placeholder="Escreva o valor da consulta do paciente"
               addonBefore="R$"
-              maxLength={15} // máximo de 15 caracteres, incluindo o "R$"
+              maxLength={15} // Máximo de 15 caracteres, incluindo o "R$"
               size="large"
               style={{ width: "100%" }}
             />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit" className="button" style={{ width: "100%" }}>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="button" style={{ width: "100%", height: '50px', fontSize: '16px' }}>
               Criar nova consulta
             </Button>
           </Form.Item>

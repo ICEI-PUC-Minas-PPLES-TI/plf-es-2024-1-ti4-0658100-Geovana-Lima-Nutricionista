@@ -44,7 +44,7 @@ export const CreateAppointment = () => {
           minHeight: "60vh",
         }}
       >
-        <div style={{ maxWidth: '600px', width: '100%' }}>
+        <div style={{ maxWidth: '1000px', width: '100%' }}>
           <Typography.Title className="title" style={{ textAlign: "center" }}>
             Cadastro da Consulta
           </Typography.Title>

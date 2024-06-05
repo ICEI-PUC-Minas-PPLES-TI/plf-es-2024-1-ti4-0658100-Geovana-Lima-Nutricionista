@@ -23,9 +23,6 @@ export const CalendarPage = () => {
     fetchSchedule();
   }, []);
 
-  const concludedAppointments = appointments.filter(a => a.status === 'CONCLUIDO').length;
-  const canceledAppointments = appointments.filter(a => a.status === 'CANCELADO').length;
-  const postponedAppointments = appointments.filter(a => a.status === 'ADIADO').length;
 
   return (
     <div>
@@ -51,12 +48,7 @@ export const CalendarPage = () => {
                   </List.Item>
                 )}
               />
-              <div style={{ marginTop: '120px' }}>
-                <Typography.Title level={3} className="title">Estatísticas</Typography.Title>
-                <Statistic title="Consultas Concluídas" value={concludedAppointments} />
-                <Statistic title="Consultas Canceladas" value={canceledAppointments} />
-                <Statistic title="Consultas Adiadas" value={postponedAppointments} />
-              </div>
+
             </div>
           </Col>
         </Row>
