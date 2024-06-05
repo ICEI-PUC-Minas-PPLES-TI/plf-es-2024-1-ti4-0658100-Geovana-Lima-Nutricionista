@@ -23,8 +23,13 @@ public class NutritionistService {
 
         final var nutritionist = repository.findById(id);
 
-        return nutritionist.map(repository::save)
-                .orElse(null);
+        if (nutritionist.isEmpty()) {
+            return null;
+        }
 
+        nutritionist.get().setEmail(request.getEmail());
+        nutritionist.get().setPassword(request.getPassword());
+
+        return repository.save(nutritionist.get());
     }
 }

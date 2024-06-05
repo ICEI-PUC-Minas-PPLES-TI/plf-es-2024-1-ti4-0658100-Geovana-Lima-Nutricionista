@@ -24,6 +24,10 @@ public class NutritionistController {
         try {
             final var result = nutritionistService.updateNutritionist(request, id);
 
+            if (request == null) {
+                return ResponseEntity.badRequest().body("Nutricionista não encontrada. ");
+            }
+
             return ResponseEntity.ok(result);
 
         } catch (RuntimeException exception) {
