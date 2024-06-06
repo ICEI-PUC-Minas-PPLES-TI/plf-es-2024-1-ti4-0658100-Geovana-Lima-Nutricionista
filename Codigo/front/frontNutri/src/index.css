@@ -268,10 +268,7 @@ body {
   border-radius: 15px; 
 } */
 
-/* index.css */
-.title {
-  margin-bottom: 16px;
-}
+
 
 .meta {
   padding: 10px;
@@ -289,3 +286,57 @@ body {
   margin-right: 10px;
 }
 
+
+.select {
+  .ant-select-selector {
+    background-color: #ffffff !important; 
+    border-color: #d9d9d9 !important; 
+  }
+
+  .ant-select-selection-item {
+    color: #000000 !important; 
+  }
+
+  .ant-select-arrow {
+    color: #000000 !important; 
+  }
+}
+
+
+/* index.css */
+/* Outras regras de estilo */
+
+.form-container {
+  max-width: 800px; /* Ajustar a largura máxima do formulário */
+  margin: 0 auto;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.title {
+  text-align: center;
+}
+
+.input {
+  width: 100% !important; 
+}
+
+
+
+.create-patient-button {
+  text-align: center;
+}
+
+.ant-col-24, .ant-col-12 {
+  flex: 1; 
+}
+
+
+.ant-form-item-label {
+  text-align: left; 
+}
+
+.ant-input, .ant-picker, .ant-select {
+  height: 50px; 
+  font-size: 16px; 
+}

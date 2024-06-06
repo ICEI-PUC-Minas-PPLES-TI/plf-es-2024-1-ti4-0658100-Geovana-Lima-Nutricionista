@@ -1,20 +1,10 @@
+import React from "react";
+import { Typography, notification, Form, FormInstance } from "antd";
 import { useNavigate } from "react-router";
-import { Typography, notification, Form } from "antd";
 import { createPatient } from "../services/patient.service";
 import SiderComponent from "../components/SiderComponent";
 import { PatientFormRegister } from "../components/PatientFormRegister";
 import "../index.css";
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
 
 export const CreatePatient = () => {
   document.title = "Cadastro de Pacientes";
@@ -57,30 +47,18 @@ export const CreatePatient = () => {
   return (
     <>
       <SiderComponent>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingBottom: "20px",
-            minHeight: "40vh",
-            overflow: "hidden",
-          }}
-        >
+        <div className="form-container">
           <Form
             form={form}
             autoComplete="off"
             labelWrap
-            {...formItemLayout}
-            style={{ maxWidth: 600 }}
+            layout="vertical"  
             onFinish={() => onFinish(form)}
           >
-            <div>
-              <Typography.Title className="title" style={{ textAlign: "center" }}>
+              <Typography.Title className="title">
                 Cadastro do Paciente
               </Typography.Title>
               <PatientFormRegister form={form} />
-            </div>
           </Form>
         </div>
       </SiderComponent>

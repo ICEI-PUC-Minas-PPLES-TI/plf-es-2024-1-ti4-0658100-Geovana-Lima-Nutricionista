@@ -60,29 +60,6 @@ export const CalendarPage = () => {
                   </List.Item>
                 )}
               />
-              <div style={{ marginTop: "120px" }}>
-                <Typography.Title level={3} className="title">
-                  Estatísticas
-                </Typography.Title>
-                <Statistic
-                  title="Consultas Concluídas"
-                  value={
-                    appointments.filter((a) => a.status === "CONCLUIDO").length
-                  }
-                />
-                <Statistic
-                  title="Consultas Canceladas"
-                  value={
-                    appointments.filter((a) => a.status === "CANCELADO").length
-                  }
-                />
-                <Statistic
-                  title="Consultas Adiadas"
-                  value={
-                    appointments.filter((a) => a.status === "ADIADO").length
-                  }
-                />
-              </div>
             </div>
           </Col>
         </Row>

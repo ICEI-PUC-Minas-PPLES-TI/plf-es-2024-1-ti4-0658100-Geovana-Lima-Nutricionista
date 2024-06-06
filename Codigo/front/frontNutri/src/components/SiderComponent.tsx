@@ -106,17 +106,7 @@ function SiderComponent({ children }: SiderComponentProps) {
               style={{ marginLeft: "16px" }}
             />
             <div>
-              <Button
-                type="text"
-                icon={<SearchOutlined />}
-                style={{
-                  fontSize: "16px",
-                  marginRight: "16px",
-                  backgroundColor: "#cb6cec",
-                  borderRadius: "30px",
-                  boxShadow: "0 2px 4px",
-                }}
-              />
+            
               <Button
                 type="text"
                 icon={
