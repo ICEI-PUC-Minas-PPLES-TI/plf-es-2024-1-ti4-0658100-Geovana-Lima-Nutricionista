@@ -18,6 +18,7 @@ export const RoutesComponent = () => (
         <Route path="/patients/:id" element={<Patientspage />} />
         <Route path="/appointments" element={<CalendarPage />} />
         <Route path="/appointments/create" element={<CreateAppointment />} />
+        <Route path="/appointments/create/:id" element={<CreateAppointment />} />
         <Route path="/user" element={<UserPage />} />
     </Routes>
   );

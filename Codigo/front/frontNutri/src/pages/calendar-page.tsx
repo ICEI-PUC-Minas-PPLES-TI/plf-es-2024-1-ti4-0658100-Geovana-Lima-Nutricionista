@@ -1,5 +1,5 @@
 import SiderComponent from "../components/SiderComponent";
-import { CalendarComponent } from '../components/CalendarComponent';
+import { CalendarComponent } from "../components/CalendarComponent";
 import { Col, Row, Typography, Avatar, List, Statistic } from "antd";
 import { useEffect, useState } from "react";
 import { getSchedule, getSumaryData } from "../services/appointment.service";
@@ -23,7 +23,6 @@ export const CalendarPage = () => {
     fetchSchedule();
   }, []);
 
-
   return (
     <div>
       <SiderComponent>
@@ -32,23 +31,35 @@ export const CalendarPage = () => {
           <Col flex="1 1 200px">
             <CalendarComponent />
           </Col>
+          {/* Lateral */}
           <Col flex="0 1 300px">
             <div style={{ padding: "15px" }}>
-              <Typography.Title level={3} className="title">Próximas Consultas</Typography.Title>
+              <Typography.Title level={3} className="title">
+                Próximas Consultas
+              </Typography.Title>
               <List
                 itemLayout="horizontal"
                 dataSource={proximasConsultas}
                 renderItem={(consulta, index) => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`} />}
-                      title={<a href="https://ant.design">{consulta.patient?.name}</a>}
-                      description={`${new Date(consulta.date).toLocaleDateString("pt-BR")} às ${consulta.hour}`}
+                      avatar={
+                        <Avatar
+                          src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
+                        />
+                      }
+                      title={
+                        <a href="https://ant.design">
+                          {consulta.patient?.name}
+                        </a>
+                      }
+                      description={`${new Date(
+                        consulta.date
+                      ).toLocaleDateString("pt-BR")} às ${consulta.hour}`}
                     />
                   </List.Item>
                 )}
               />
-
             </div>
           </Col>
         </Row>
