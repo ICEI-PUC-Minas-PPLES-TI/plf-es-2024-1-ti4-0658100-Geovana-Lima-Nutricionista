@@ -39,7 +39,7 @@ export const UserPage = () => {
         <Form.Item
           label="Novo E-mail"
           name="email"
-          rules={[{ required: true, type: 'email', message: 'Por favor, insira um e-mail válido!' }]}
+          rules={[{type: 'email', message: 'Por favor, insira um e-mail válido!' }]}
         >
           <Input />
         </Form.Item>
@@ -47,7 +47,7 @@ export const UserPage = () => {
         <Form.Item
           label="Nova Senha"
           name="password"
-          rules={[{ required: true, message: 'Por favor, insira sua senha!' }]}
+          rules={[{  message: 'Por favor, insira sua senha!' }]}
         >
           <Input.Password />
         </Form.Item>
@@ -55,7 +55,7 @@ export const UserPage = () => {
         <Form.Item
           label="Confirme a Nova Senha"
           name="confirmPassword"
-          rules={[{ required: true, message: 'Por favor, confirme sua senha!' }]}
+          rules={[{ message: 'Por favor, confirme sua senha!' }]}
         >
           <Input.Password />
         </Form.Item>

@@ -182,7 +182,9 @@ export const Patientspage = () => {
           <Divider orientation="left">
             <Typography.Title level={2}>Consultas</Typography.Title>
           </Divider>
-          <Button><Link to={`/appointments/create/${Number(id)}`}>Agendar consulta</Link></Button>
+          <div style={{padding:10}}>
+          <Button className='button'><Link to={`/appointments/create/${Number(id)}`}>Agendar consulta</Link></Button>
+          </div>
           <PatientTable patientId={Number(id)} />
         </Col>
       </Row>

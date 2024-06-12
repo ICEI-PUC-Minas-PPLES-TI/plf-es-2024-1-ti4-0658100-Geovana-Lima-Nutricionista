@@ -1,8 +1,10 @@
-import { useParams } from "react-router";
-import { Typography } from "antd";
+import { useNavigate, useParams } from "react-router";
+import { Typography, notification } from "antd";
 import SiderComponent from "../components/SiderComponent";
 import { AppointmentRegistration } from "../components/AppointmentRegistration";
 import '../index.css';
+import { createAppointment } from "../services/appointment.service";
+import { AppointmentForm } from "../interfaces/appointmentForms";
 
 export const CreateAppointment = () => {
   document.title = "Cadastro de Consultas";
@@ -45,7 +47,7 @@ export const CreateAppointment = () => {
           <Typography.Title className="title" style={{ textAlign: "center" }}>
             Cadastro da Consulta
           </Typography.Title>
-          <AppointmentRegistration patientId={id ? Number(id) : undefined}/>
+          <AppointmentRegistration/>
         </div>
       </div>
     </SiderComponent>
