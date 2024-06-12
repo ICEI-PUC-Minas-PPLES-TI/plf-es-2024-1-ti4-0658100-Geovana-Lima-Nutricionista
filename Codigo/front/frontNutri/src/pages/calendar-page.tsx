@@ -1,5 +1,5 @@
 import SiderComponent from "../components/SiderComponent";
-import { CalendarComponent } from '../components/CalendarComponent';
+import { CalendarComponent } from "../components/CalendarComponent";
 import { Col, Row, Typography, Avatar, List, Statistic } from "antd";
 import { useEffect, useState } from "react";
 import { getSchedule, getSumaryData } from "../services/appointment.service";
@@ -20,7 +20,6 @@ export const CalendarPage = () => {
 
     fetchSchedule();
   }, []);
-
 
   return (
     <div>

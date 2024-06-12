@@ -1,7 +1,14 @@
 // PatientsList.tsx
 import { useEffect, useState } from "react";
-import { Card, List, Button, notification, Input, Col, Row, Modal } from "antd";
-import { UserOutlined, SearchOutlined, EyeOutlined, DeleteOutlined, DoubleRightOutlined, DoubleLeftOutlined   } from "@ant-design/icons";
+import { Card, List, Button, notification, Input, Col, Row, Modal, Typography } from "antd";
+import {
+  UserOutlined,
+  SearchOutlined,
+  EyeOutlined,
+  DeleteOutlined,
+  DoubleRightOutlined,
+  DoubleLeftOutlined,
+} from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import SiderComponent from "../components/SiderComponent";
 import "../index.css";
@@ -75,16 +82,17 @@ export const PatientsList = () => {
       okText: "Sim",
       okType: "danger",
       onOk: () => {
-        handleDelete(patientId)
+        handleDelete(patientId);
       },
     });
   };
 
   return (
     <SiderComponent>
+        <Typography.Title className="title">Pacientes</Typography.Title>
       <div className="patientList">
         <SearchField>
-            <SearchOutlined />
+          <SearchOutlined />
           <Input
             width={"200px"}
             onChange={(e) =>
@@ -103,27 +111,27 @@ export const PatientsList = () => {
                 key={index}
                 actions={[
                   <>
-                   <Row>
-                    <Col span={8}>
-                    <Button
-                      className="button"
-                      onClick={() => showEditModal(patient)}
-                    >
-                      <EyeOutlined />
-                    </Button>
-                    </Col>
-                    <Col span={8}>
-                    <Button
-                      className="button"
-                      onClick={() => handleDelete(Number(patient.id))}
-                    >
-                     <DeleteOutlined
-                        onClick={() => {
-                          onDeleteAppointment(Number(patient.id));
-                        }}
-                      />
-                    </Button>
-                    </Col>
+                    <Row>
+                      <Col span={8}>
+                        <Button
+                          className="button"
+                          onClick={() => showEditModal(patient)}
+                        >
+                          <EyeOutlined />
+                        </Button>
+                      </Col>
+                      <Col span={8}>
+                        <Button
+                          className="button"
+                          onClick={() => handleDelete(Number(patient.id))}
+                        >
+                          <DeleteOutlined
+                            onClick={() => {
+                              onDeleteAppointment(Number(patient.id));
+                            }}
+                          />
+                        </Button>
+                      </Col>
                     </Row>
                   </>,
                 ]}
@@ -150,7 +158,7 @@ export const PatientsList = () => {
               });
             }}
             className="button"
-            disabled = {searchParams.page === 1}
+            disabled={searchParams.page === 1}
           >
             <DoubleLeftOutlined />
           </Button>
@@ -163,7 +171,7 @@ export const PatientsList = () => {
               });
             }}
             className="button"
-            disabled ={patients.length < searchParams.per_page}
+            disabled={patients.length < searchParams.per_page}
           >
             <DoubleRightOutlined />
           </Button>

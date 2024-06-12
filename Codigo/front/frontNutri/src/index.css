@@ -264,9 +264,9 @@ body {
   right: 90px;
 }
 
-.rounded-calendar .ant-picker-panel {
+/* .rounded-calendar .ant-picker-panel {
   border-radius: 15px; 
-}
+} */
 
 
 
@@ -274,9 +274,9 @@ body {
   padding: 10px;
 }
 
-.rounded-calendar .ant-picker-panel {
+/* .rounded-calendar .ant-picker-panel {
   border-radius: 15px;
-}
+} */
 
 /* Custom styles for status indicators */
 .status-indicator {

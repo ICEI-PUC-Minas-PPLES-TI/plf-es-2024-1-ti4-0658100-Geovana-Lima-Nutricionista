@@ -21,12 +21,10 @@ export const CalendarComponent = () => {
 
   const navigate = useNavigate();
 
-
   const handleViewChange = (value: "month" | "year" | "day") => {
     setView(value);
     if (value === "month") {
       setCalendarTitle(selectedDate.locale("pt-br").format("MMMM [de] YYYY"));
-
       return;
     }
     setCalendarTitle(
@@ -81,6 +79,13 @@ export const CalendarComponent = () => {
     handleViewChange("day");
   };
 
+  const handleUpdateAppointments = (updatedAppointments: Appointment[], date: string) => {
+    setEvents((prevEvents) => ({
+      ...prevEvents,
+      [date]: updatedAppointments
+    }));
+  };
+
   return (
     <div style={{ padding: 20 }}>
       <Button
@@ -133,6 +138,7 @@ export const CalendarComponent = () => {
             date={selectedDate.locale("pt-br").format("DD [de] MMMM [de] YYYY")}
             appointments={events[selectedDate.format("DD-MM-YYYY")] || []}
             onBack={() => handleViewChange("month")}
+            onUpdateAppointments={handleUpdateAppointments}
           />
         ) : (
           <Calendar
