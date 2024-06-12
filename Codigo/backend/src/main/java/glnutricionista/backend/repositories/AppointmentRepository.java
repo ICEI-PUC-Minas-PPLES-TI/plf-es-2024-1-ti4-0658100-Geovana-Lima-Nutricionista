@@ -48,6 +48,18 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
   @Query("SELECT a FROM Appointment a WHERE a.date >= :today AND a.status = 'MARCADO' ORDER BY a.date, a.hour ASC")
   List<Appointment> findNextThreeMarkedAppointments(@Param("today") LocalDate today, Pageable pageable);
 
+  @Query("SELECT a FROM Appointment a WHERE a.date = :today AND a.status = 'MARCADO' ORDER BY a.hour ASC")
+  List<Appointment> findTodayMarkedAppointments(@Param("today") LocalDate today);
+  
+  @Query("SELECT COUNT(a) FROM Appointment a WHERE MONTH(a.date) = :month AND YEAR(a.date) = :year")
+    int countAppointmentsInMonth(@Param("month") int month, @Param("year") int year);
+
+    @Query("SELECT COUNT(DISTINCT a.patient) FROM Appointment a WHERE MONTH(a.date) = :month AND YEAR(a.date) = :year")
+    Long countDistinctPatientsInMonth(@Param("month") int month, @Param("year") int year);
+
+    @Query("SELECT SUM(a.price) FROM Appointment a WHERE MONTH(a.date) = :month AND YEAR(a.date) = :year")
+    Double sumTotalRevenueInMonth(@Param("month") int month, @Param("year") int year);
+
   Long countByDateBetween(LocalDate startDate, LocalDate endDate);
 
 

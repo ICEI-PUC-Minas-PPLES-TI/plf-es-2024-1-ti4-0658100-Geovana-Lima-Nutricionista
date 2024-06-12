@@ -42,6 +42,12 @@ public class AppointmentController {
         List<Appointment> appointments = appointmentService.getNextThreeMarkedAppointments();
         return ResponseEntity.ok(appointments);
     }
+    @GetMapping("/today-marked")
+public ResponseEntity<List<Appointment>> getTodayMarkedAppointments() {
+    List<Appointment> appointments = appointmentService.getTodayMarkedAppointments();
+    return ResponseEntity.ok(appointments);
+}
+
 
     @GetMapping()
     public ResponseEntity<List<Appointment>> getAllAppointments() {

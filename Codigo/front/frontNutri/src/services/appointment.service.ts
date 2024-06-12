@@ -72,7 +72,7 @@ export const getPatientvisitsMensais = async (year: number) => {
 }
 export const getSchedule = async () => {
   const config: AxiosRequestConfig = {
-    url: `${apiServerUrl}/api/appointments/next-marked`,
+    url: `${apiServerUrl}/api/appointments/today-marked`,
     method: "GET",
   };
 
