@@ -46,7 +46,7 @@ export const AppointmentRegistration: React.FC<
       notification.success({
         message: "Consulta cadastrada com sucesso!",
       });
-      navigate("/patients");
+      navigate("/appointments");
     } else if (error) {
       console.log(error);
       notification.error({

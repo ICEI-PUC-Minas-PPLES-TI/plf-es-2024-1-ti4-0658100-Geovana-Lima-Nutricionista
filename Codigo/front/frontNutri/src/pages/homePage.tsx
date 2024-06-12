@@ -100,7 +100,7 @@ export const HomePage = () => {
   }, []);
 
   const schedule = appointments.map((appointment) => ({
-    date: new Date(appointment.date).toLocaleDateString("en-US", {
+    date: new Date().toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -217,7 +217,7 @@ export const HomePage = () => {
             </Card>
           </Col>
           <Col span={6}>
-            <Button
+            {/* <Button
               onClick={() => {
                 navigate("/appointments/create");
               }}
@@ -225,7 +225,7 @@ export const HomePage = () => {
               className="schedule-button"
             >
               Agendar Consulta
-            </Button>
+            </Button> */}
           </Col>
         </Row>
         <Row gutter={16} style={{ marginTop: 16 }}>
@@ -276,7 +276,7 @@ export const HomePage = () => {
 
           <Col span={8}>
             <Card bordered={false} className="events-card">
-              <Title level={3}>Eventos do Mês</Title>
+              <Title level={3}>Consultas para hoje</Title>
               <GenerateSchedule schedule={schedule} />
             </Card>
           </Col>

@@ -131,6 +131,12 @@ public class AppointmentService {
         return appointmentRepository.findNextThreeMarkedAppointments(today, topThree);
     }
 
+    public List<Appointment> getTodayMarkedAppointments() {
+        LocalDate today = LocalDate.now();
+        return appointmentRepository.findTodayMarkedAppointments(today);
+    }
+
+    
     public void deleteAppointment(Long id) {
         appointmentRepository.deleteById(id);
     }
@@ -144,9 +150,15 @@ public class AppointmentService {
     }
 
     public SummaryDTO getSummary() {
-        int appointments = appointmentRepository.findAll().size();
-        Long totalPatients = appointmentRepository.countDistinctPatients();
-        Double totalRevenue = appointmentRepository.sumTotalRevenue();
+        LocalDate now = LocalDate.now();
+        int month = now.getMonthValue();
+        int year = now.getYear();
+        
+        int appointments = appointmentRepository.countAppointmentsInMonth(month, year);
+        Long totalPatients = appointmentRepository.countDistinctPatientsInMonth(month, year);
+        Double totalRevenue = appointmentRepository.sumTotalRevenueInMonth(month, year);
+        
         return new SummaryDTO(appointments, totalPatients, totalRevenue);
     }
+
 }

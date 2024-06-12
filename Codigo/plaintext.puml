@@ -1,0 +1,20 @@
+@startuml
+actor Cliente
+actor Banco
+
+Cliente -> PessoaFisica : Solicitar Abertura()
+PessoaFisica -> PessoaFisica : ConsultaCPF()
+PessoaFisica -> PessoaFisica : ValidaCPF()
+PessoaFisica -> Cliente : Retornar Resultado
+
+alt Pedido Aprovado
+    Cliente -> PessoaFisica : Fornecer Valor para Depósito e Senha
+    PessoaFisica -> ContaComum : Abertura()
+    PessoaFisica -> PessoaFisica : Gravar()
+    Historico -> ContaComum : Confirmação
+    ContaComum -> Banco : Retornar Número da Conta
+    Banco -> Cliente : Informar Abertura Concluída
+else Pedido Rejeitado
+    PessoaFisica -> Cliente : Informar Rejeição
+end
+@enduml
