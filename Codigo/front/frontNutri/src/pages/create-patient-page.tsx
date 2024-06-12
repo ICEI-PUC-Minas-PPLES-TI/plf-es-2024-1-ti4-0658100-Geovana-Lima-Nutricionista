@@ -35,7 +35,7 @@ export const CreatePatient = () => {
       notification.success({
         message: "Paciente cadastrado com sucesso!",
       });
-      navigate("/patients");
+      navigate(`/patients/${data.id}`);
     }
     if (error) {
       notification.error({
