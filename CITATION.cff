@@ -1,30 +1,37 @@
 cff-version: 1.0.1
 message: Please cite this software using these metadata.
-title: 
+title: Geovana Lima Nutricionista
 authors:
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names: 
-  - family-names: 
-    given-names:
+  - family-names: Gomes
+    given-names: Ana Luiza Santos
+  - family-names: Biondini
+    given-names: Bernardo Cavanellas
+  - family-names: Bernardes
+    given-names: Bruna Barbosa Portilho
+  - family-names: Benevenuto
+    given-names: Pablo Guilherme Amancio Pereira Magela
+  - family-names: Saraiva 
+    given-names: Tiago Vitor Pereira
+  - family-names: Louback
+    given-names: Walter Roberto Rodrigues
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: de Souza
+    given-names: Joana Gabriela Ribeiro 
   - name-suffix: Professor
     affiliation: PUC Minas
-    family-names: 
-    given-names: 
+    family-names: Carvalho
+    given-names: Joyce Christina de Paiva
+ - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: da Silva
+    given-names: Soraia Lúcia 
 keywords:
-  - 
-  - 
+  - Nutrição
+  - Gerenciamento
+  - Consultas
+  - Pacientes
+  - Saúde
 repository-code: 
 license: CC-BY-4.0
 version: 1.0.0
