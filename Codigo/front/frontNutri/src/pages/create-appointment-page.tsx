@@ -5,6 +5,7 @@ import { AppointmentRegistration } from "../components/AppointmentRegistration";
 import '../index.css';
 import { createAppointment } from "../services/appointment.service";
 import { AppointmentForm } from "../interfaces/appointmentForms";
+import { FormattedAppointment } from "../interfaces/formattedAppointment";
 
 export const CreateAppointment = () => {
   document.title = "Cadastro de Consultas";
@@ -15,9 +16,13 @@ export const CreateAppointment = () => {
     const formattedDate = formData.date.format("YYYY-MM-DD");
     const formattedHour = formData.hour.format("HH:mm");
 
-    formData.date = formattedDate;
-
-    const objData = { ...formData, hour: formattedHour };
+    const objData: FormattedAppointment = { 
+      date: formattedDate, 
+      hour: formattedHour, 
+      patientId: formData.patientId,
+      price: formData.price,
+      paid: formData.paid,
+    };
 
     const { data, error } = await createAppointment(objData);
     if (data) {

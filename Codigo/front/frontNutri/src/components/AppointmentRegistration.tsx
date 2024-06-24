@@ -109,7 +109,7 @@ export const AppointmentRegistration: React.FC<
               size="large"
               placeholder="Digite o nome do paciente"
               style={{ width: "100%" }}
-              className="select"
+              className="select-appointment"
             >
               {patients.map((patient) => (
                 <Option

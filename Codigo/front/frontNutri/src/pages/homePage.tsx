@@ -35,7 +35,6 @@ const PurpleSelect = styled(Select)`
   padding: 20px;
   border: none;
   background: #cb6ce6;
-  color: white;
   border-radius: 20px;
   box-shadow: 0px 6px 10px 0px #00000024;
 `;
@@ -188,7 +187,7 @@ export const HomePage = () => {
               <div className="start-card">
                 <img src={doctor}></img>
                 <div>
-                  <p>Consultas Totais:</p>
+                  <p>Consultas Mensais:</p>
                   <p>{sumary.appointments}</p>
                 </div>
               </div>
@@ -199,7 +198,7 @@ export const HomePage = () => {
               <div className="start-card">
                 <img src={patients}></img>
                 <div>
-                  <p>Pacientes Totais:</p>
+                  <p>Pacientes Mensais:</p>
                   <p>{sumary.totalPatients}</p>
                 </div>
               </div>
@@ -234,7 +233,7 @@ export const HomePage = () => {
               <PurpleSelect
                 defaultValue="2024"
                 onChange={(value) => getPatientvisit(value)}
-                className="select-filter"
+                className="select"
               >
                 <Option value="2023">2023</Option>
                 <Option value="2024">2024</Option>
@@ -247,7 +246,7 @@ export const HomePage = () => {
                 <PurpleSelect
                   defaultValue="1"
                   onChange={(value) => changeSem(value)}
-                  className="select-filter"
+                  className="select"
                 >
                   <Option value="1">1 semestre</Option>
                   <Option value="2">2 semestre</Option>
