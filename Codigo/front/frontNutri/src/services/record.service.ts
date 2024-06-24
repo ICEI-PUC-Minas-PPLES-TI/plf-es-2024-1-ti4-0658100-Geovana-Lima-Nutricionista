@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { RecordProps } from '../interfaces/record';
 
-const apiServerUrl = 'http://localhost:8080/api';
+const apiServerUrl = 'http://52.14.12.151:8080/api';
 
 export const createPatientRecord = async (patientRecordDTO:RecordProps, appointmentId: number) => {
   try {
