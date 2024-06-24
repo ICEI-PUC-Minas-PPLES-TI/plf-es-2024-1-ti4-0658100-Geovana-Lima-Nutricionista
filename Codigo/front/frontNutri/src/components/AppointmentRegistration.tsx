@@ -132,7 +132,7 @@ export const AppointmentRegistration: React.FC<
               },
               () => ({
                 validator(_, value) {
-                  if (!value || value.isAfter(moment().endOf("day"))) {
+                  if (!value || value.isAfter(moment().endOf("day")) || value.isSame(moment().startOf("day"))) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
