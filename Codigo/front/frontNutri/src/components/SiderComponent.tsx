@@ -5,7 +5,6 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   BellOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
 import "../index.css";
 import { MenuList } from "./MenuList";
@@ -72,9 +71,9 @@ function SiderComponent({ children }: SiderComponentProps) {
   const deleteNotificationButton = async (id: number) => {
     await deleteNotification(id);
     setNotifications(
-      notifications.filter(notification => notification.id !== id)
+      notifications.filter((notification) => notification.id !== id)
     );
-};
+  };
 
   const toggleNotifications = () => {
     setNotificationsVisible(!notificationsVisible);
@@ -89,24 +88,25 @@ function SiderComponent({ children }: SiderComponentProps) {
         collapsed={collapsed}
         breakpoint="lg"
         onCollapse={(collapsed) => setCollapsed(collapsed)}
+        style={{ backgroundColor: '#cb6cec' }} // Define a cor de fundo do Sider como roxo
       >
         <div className="logo">
           <Logo />
         </div>
+        <Button
+          type="text"
+          className="toggle"
+          onClick={() => setCollapsed(!collapsed)}
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          style={{ margin: "16px", color: 'white' }} // Define a cor do ícone como branco
+        />
         <MenuList />
       </Sider>
       <Layout>
         <Header className="header">
           <HeaderContent>
-            <Button
-              type="text"
-              className="toggle"
-              onClick={() => setCollapsed(!collapsed)}
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              style={{ marginLeft: "16px" }}
-            />
+            <div />
             <div>
-            
               <Button
                 type="text"
                 icon={
@@ -119,6 +119,7 @@ function SiderComponent({ children }: SiderComponentProps) {
                   backgroundColor: "#cb6cec",
                   borderRadius: "30px",
                   boxShadow: "0 2px 4px",
+                  color: 'white' // Define a cor do ícone como branco
                 }}
                 onClick={toggleNotifications}
               />
@@ -148,7 +149,10 @@ function SiderComponent({ children }: SiderComponentProps) {
               </strong>
             </p>
             <p>
-              <Button icon={<MdDeleteOutline />} onClick={() => deleteNotificationButton(consultation.id)}></Button>
+              <Button
+                icon={<MdDeleteOutline />}
+                onClick={() => deleteNotificationButton(consultation.id)}
+              ></Button>
             </p>
           </div>
         ))}
