@@ -187,7 +187,7 @@ export const HomePage = () => {
               <div className="start-card">
                 <img src={doctor}></img>
                 <div>
-                  <p>Consultas Totais:</p>
+                  <p>Consultas Mensais:</p>
                   <p>{sumary.appointments}</p>
                 </div>
               </div>
@@ -198,7 +198,7 @@ export const HomePage = () => {
               <div className="start-card">
                 <img src={patients}></img>
                 <div>
-                  <p>Pacientes Totais:</p>
+                  <p>Pacientes Mensais:</p>
                   <p>{sumary.totalPatients}</p>
                 </div>
               </div>
