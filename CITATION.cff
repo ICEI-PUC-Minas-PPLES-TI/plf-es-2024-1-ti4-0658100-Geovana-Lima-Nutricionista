@@ -1,38 +1,36 @@
 cff-version: 1.0.1
-message: "Please cite this software using these metadata."
-title: "Geovana Lima Nutricionista"
+message: Please cite this software using these metadata.
+title: Geovana Lima Nutricionista
 authors:
-  - family-names: "Santos Gomes"
-    given-names: "Ana Luiza"
-  - family-names: "Cavanellas Biondini"
-    given-names: "Bernardo"
-  - family-names: "Barbosa Portilho Bernardes"
-    given-names: "Bruna"
-  - family-names: "Amancio Pereira Magela Benevenuto"
-    given-names: "Pablo Guilherme"
-  - family-names: "Vitor Pereira Saraiva"
-    given-names: "Tiago"
-  - family-names: "Rodrigues Louback"
-    given-names: "Walter Roberto"
-  - family-names: "Ribeiro de Souza"
-    given-names: "Joana Gabriela"
-    name-suffix: "Professor"
-    affiliation: "PUC Minas"
-  - family-names: "de Paiva Carvalho"
-    given-names: "Joyce Christina"
-    name-suffix: "Professor"
-    affiliation: "PUC Minas"
-  - family-names: "Lúcia da Silva"
-    given-names: "Soraia"
-    name-suffix: "Professor"
-    affiliation: "PUC Minas"
+  - family-names: Santos Gomes
+    given-names: Ana Luiza
+  - family-names: Cavanellas Biondini
+    given-names: Bernardo
+  - family-names: Barbosa Portilho Bernardes
+    given-names: Bruna
+  - family-names: Amancio Pereira Magela Benevenuto
+    given-names: Pablo Guilherme
+  - family-names: Pereira Saraiva
+    given-names: Tiago Vitor
+  - family-names: Rodrigues Louback
+    given-names: Walter Roberto
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Ribeiro de Souza
+    given-names: Joana Gabriela
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: de Paiva Carvalho
+    given-names: Joyce Christina
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: da Silva
+    given-names: Soraia Lúcia
 keywords:
-  - "Nutrição"
-  - "Gerenciamento"
-  - "Consultas"
-  - "Pacientes"
-  - "Saúde"
-repository-code: "https://github.com/ICEI-PUC-Minas-PPLES-TI/plf-es-2024-1-ti4-0658100-Geovana-Lima-Nutricionista"
-license: "CC-BY-4.0"
-version: "1.0.0"
-date-released: "2022-07-14"
+  - nutricao
+  - gerenciamento
+  - consultas
+repository-code: 
+license: CC-BY-4.0
+version: 1.0.0
+date-released: 2024-06-26
